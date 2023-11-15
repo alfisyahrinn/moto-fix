@@ -1,0 +1,19 @@
+:root {
+    --primary: #00a862;
+    --secondary: rgba(45, 170, 118, 0.63);
+    --thir: #e7eaf5;
+}
+
+.btn-signin-outline {
+    background-color: var(--thir);
+    border: none;
+    border-radius: 160px;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--primary);
+    line-height: normal;
+}
+
+.nav-link {
+    color: var(--secondary);
+}
