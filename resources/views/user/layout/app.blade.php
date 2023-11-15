@@ -10,9 +10,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
+    {{-- <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet"> --}}
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <div id="app" class="container">
+    <div>
         @include('user.components.navbar')
 
         <main class="py-4">

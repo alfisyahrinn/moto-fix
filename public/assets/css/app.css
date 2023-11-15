@@ -17,3 +17,26 @@
 .nav-link {
     color: var(--secondary);
 }
+
+.h1-hero {
+    color: var(--primary);
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.p-hero {
+    color: var(--primary);
+    width: 512px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.btn-hero {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: var(--primary);
+    border-radius: 160px;
+    border: none;
+}

@@ -1,7 +1,20 @@
 @extends('user.layout.app')
 @section('content')
-    <div style="">
-        <h1>Hello Halaman home untuk user</h1>
-        <button class="btn btn-danger">Klik Me!</button>
-    </div>
+    <section class="hero">
+        <div class="mt-4 container">
+            <div class="row align-items-center">
+                <div class="col-7">
+                    <h1 class="h1-hero">Atur waktu sesukanya tanpa Menunggu</h1>
+                    <p class="p-hero">Kami menyediakan Service motor dan menjual berbagai sparepart motor</p>
+                    <button class="btn-hero py-2 px-4">Booking Now</button>
+                </div>
+                <div class="col-5">
+                    <img src="{{ asset('assets/img/banner/hero-img.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="hero-second">
+        
+    </section>
 @endsection
