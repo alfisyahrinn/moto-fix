@@ -24,8 +24,9 @@
                 </ul>
             </div>
             <div>
-                <Button class="btn-signin-outline py-2 px-4">Sign In</Button>
+                <a href="{{ route('login') }}" class="btn-signin-outline py-2 px-4">Sign In</a>
             </div>
+
         </div>
     </div>
 </nav>
