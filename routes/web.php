@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,14 @@ Route::get('/booking/jadwal', function () {
 });
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::middleware(['auth', 'verified', 'checkRole:admin'])->group(function () {
+    Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.index');
+});
+
+Route::middleware(['auth', 'verified', 'checkRole:user'])->group(function () {
+    Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
+});
