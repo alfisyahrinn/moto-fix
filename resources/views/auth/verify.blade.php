@@ -1,28 +1,39 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+    {{-- Verify-Style --}}
+    <link rel="stylesheet" href="{{ asset('css/verify-style.css') }}">
+    <div class="verification-container">
+        <div class="verification-content text-center">
+            <div class="verification-header">
+                <div class="verification-title">Verify Your Email Address</div>
+                <div class="verification-subtitle">Before proceeding, please check your email for a verification link.</div>
+            </div>
 
+            <div class="card">
                 <div class="card-body">
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
+                            A fresh verification link has been sent to your email address.
                         </div>
                     @endif
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
+                    <p class="lead">
+                        If you did not receive the email, click the button below to request another:
+                    </p>
+
+                    <div class="verification-buttons">
+                        <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                            @csrf
+                            <div class="button-container">
+                                <button type="submit" class="button-background">
+                                    <div class="button-text">Request Verification Link</div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
