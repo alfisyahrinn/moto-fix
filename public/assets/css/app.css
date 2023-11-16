@@ -2,6 +2,8 @@
     --primary: #00a862;
     --secondary: rgba(45, 170, 118, 0.63);
     --thir: #e7eaf5;
+    --card: #f9faff;
+    --desk: rgba(57, 57, 57, 0.88);
 }
 
 .btn-signin-outline {
@@ -51,7 +53,7 @@
     width: 360px;
     height: 274px;
     border-radius: 26px;
-    background: #f9faff;
+    background: var(--card);
     padding: 30px;
     margin-top: 30px;
 }
@@ -68,5 +70,48 @@
     font-weight: 400;
     line-height: 32px; /* 177.778% */
     width: 251px;
+    margin-top: 8px;
+}
+.h1-hero-page3 {
+    color: var(--primary);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: normal;
+    width: 167px;
+}
+.p-hero-page3 {
+    color: var(--primary);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.card-items-hero-page3 {
+    background-color: var(--card);
+    width: 186px;
+    height: 263px;
+    border-radius: 15px;
+    padding: 12px;
+}
+.a-card-items-hero-page3 {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 16px;
+}
+.desk-card-items-hero-page3 {
+    color: var(--desk);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 8px;
+}
+.price-card-items-hero-page3 {
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: normal;
     margin-top: 8px;
 }

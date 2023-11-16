@@ -36,4 +36,22 @@
             </div>
         </div>
     </section>
+    <section class="hero-page3">
+        <div style="margin-top: 100px">
+            <div class="d-flex justify-content-between">
+                <h1 class="h1-hero-page3">Sparepart Motor</h1>
+                <a href="#" class="p-hero-page3 mt-auto">lihat semua</a>
+            </div>
+            <div class="card-hero-page3 mt-5 d-flex gap-2">
+                @for ($i = 0; $i < 6; $i++)
+                    <div class="card-items-hero-page3">
+                        <img src="{{ asset('assets/img/banner/piston-karisma.png') }}" alt="piston-karisma">
+                        <a class="a-card-items-hero-page3">Piston Supra x 125 old , karisma </a>
+                        <p class="desk-card-items-hero-page3">Piston Merek Astra honda motor (AHM) size 32mm</p>
+                        <p class="price-card-items-hero-page3">Rp. 155.000</p>
+                    </div>
+                @endfor
+            </div>
+        </div>
+    </section>
 @endsection
