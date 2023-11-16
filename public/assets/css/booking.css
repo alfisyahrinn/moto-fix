@@ -1,0 +1,62 @@
+:root {
+    --primary: #00a862;
+    --secondary: rgba(45, 170, 118, 0.63);
+    --thir: #e7eaf5;
+    --card: #f9faff;
+    --desk: rgba(57, 57, 57, 0.88);
+}
+.ul-nav-booking {
+    text-decoration: none;
+}
+.a-nav-booking-active {
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration: none;
+    border-bottom: 2px solid var(--primary);
+}
+.a-nav-booking {
+    color: rgba(0, 98, 59, 0.49);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.h1-booking {
+    margin-top: 62px;
+    color: var(--primary);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.p-booking {
+    color: #7e8cac;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px; /* 177.778% */
+}
+.h1-form-booking {
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.input-booking {
+    width: 437px;
+    border-radius: 39px;
+    color: #ccd0dd;
+    font-size: 18px;
+    font-weight: 400;
+    border: 1px solid var(--primary);
+}
+
+.label-booking {
+    color: var(--Primart-2, #00623b);
+    font-size: 18px;
+    font-weight: 500;
+}

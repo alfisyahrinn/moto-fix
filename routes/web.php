@@ -18,6 +18,10 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('user.pages.home');
 });
+Route::get('/booking', function () {
+    return view('user.pages.booking');
+});
+
 
 Auth::routes();
 
