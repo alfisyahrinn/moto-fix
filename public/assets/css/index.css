@@ -3,3 +3,9 @@
 * {
     font-family: "Poppins", sans-serif;
 }
+ul,
+li,
+a {
+    text-decoration: none;
+    list-style: none;
+}

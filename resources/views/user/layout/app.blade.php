@@ -27,7 +27,7 @@
     <div>
         @include('user.components.navbar')
 
-        <main class="py-4 container mb-5">
+        <main class="py-4 container">
             @yield('content')
         </main>
     </div>
