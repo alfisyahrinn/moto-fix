@@ -19,6 +19,7 @@
 
     {{-- Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
 
 </head>

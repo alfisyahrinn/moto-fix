@@ -45,7 +45,7 @@
             <div class="card-hero-page3 mt-5 d-flex gap-2">
                 @for ($i = 0; $i < 6; $i++)
                     <div class="card-items-hero-page3">
-                        <img src="{{ asset('assets/img/banner/piston-karisma.png') }}" alt="piston-karisma">
+                        <img src="{{ asset('assets/img/banner/piston.png') }}" alt="piston-karisma">
                         <a class="a-card-items-hero-page3">Piston Supra x 125 old , karisma </a>
                         <p class="desk-card-items-hero-page3">Piston Merek Astra honda motor (AHM) size 32mm</p>
                         <p class="price-card-items-hero-page3">Rp. 155.000</p>
