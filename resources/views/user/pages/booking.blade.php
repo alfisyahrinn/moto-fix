@@ -3,8 +3,8 @@
     <section id="booking">
         <div>
             <div>
-                <a class="a-nav-booking-active me-4" aria-current="page" href="/">Booking</a>
-                <a class="a-nav-booking" href="/booking">Jadwal</a>
+                <a class="a-nav-booking-active me-4" aria-current="page" href="/booking">Booking</a>
+                <a class="a-nav-booking" href="/booking/jadwal">Jadwal</a>
             </div>
             {{-- <div>
                 <h1 class="h1-booking">Booking Service Motor</h1>

@@ -21,6 +21,9 @@ Route::get('/', function () {
 Route::get('/booking', function () {
     return view('user.pages.booking');
 });
+Route::get('/booking/jadwal', function () {
+    return view('user.pages.jadwal');
+});
 
 
 Auth::routes();
