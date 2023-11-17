@@ -31,11 +31,21 @@
 
 <body>
     <div>
-        @include('user.components.navbar')
+        @guest
+            @include('user.components.navbar')
+        @endguest
 
+        <!-- Main content -->
         <main class="py-4 container">
+            <!-- Include the authenticated user's navigation bar -->
+            @auth
+                @include('user.components.navbar-login')
+            @endauth
             @yield('content')
+
         </main>
+
+
     </div>
 </body>
 
