@@ -24,6 +24,7 @@
 
     {{-- Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
 
 </head>
@@ -41,10 +42,12 @@
                 @include('user.components.navbar-login')
             @endauth
             @yield('content')
+
         </main>
 
 
     </div>
+    
 </body>
 
 </html>

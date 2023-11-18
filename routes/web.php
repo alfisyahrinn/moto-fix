@@ -20,6 +20,13 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('user.pages.home');
 });
+Route::get('/booking', function () {
+    return view('user.pages.booking');
+});
+Route::get('/booking/jadwal', function () {
+    return view('user.pages.jadwal');
+});
+
 
 Auth::routes(['verify' => true]);
 
