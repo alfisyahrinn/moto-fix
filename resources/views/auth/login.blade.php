@@ -1,4 +1,4 @@
-@extends('user.layout.app')
+@extends('admin.layouts.app')
 
 @section('content')
     {{-- Login-Style --}}

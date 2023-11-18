@@ -16,10 +16,12 @@
                         <a class="nav-link" href="/booking">Booking</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Store</a>
+                        <a class="nav-link" href="#service">Service</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sparepart">Sparepart</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#about">About</a>
                     </li>
                 </ul>
             </div>

@@ -115,3 +115,19 @@
     line-height: normal;
     margin-top: 8px;
 }
+/* Add this to your existing CSS or create a new CSS file */
+#hero {
+    padding-bottom: 50px; /* Adjust the padding as needed */
+}
+
+#service {
+    padding-bottom: 100px; /* Adjust the padding as needed */
+}
+
+#sparepart {
+    padding-bottom: 90px; /* Adjust the padding as needed */
+}
+
+#about {
+    padding-bottom: 50px; /* Adjust the padding as needed */
+}
