@@ -36,7 +36,8 @@
         @endguest
 
         <!-- Main content -->
-        <main class="py-4 container">
+        <main class="py-4 container ">
+
             <!-- Include the authenticated user's navigation bar -->
             @auth
                 @include('user.components.navbar-login')
@@ -47,7 +48,7 @@
 
 
     </div>
-    
+
 </body>
 
 </html>

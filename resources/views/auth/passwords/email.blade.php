@@ -1,4 +1,4 @@
-@extends('user.layout.app')
+@extends('admin.layouts.app')
 
 @section('content')
     {{-- Email Send -Style --}}
@@ -15,6 +15,7 @@
 
                     <div class="form-field">
                         <label for="email" class="field-label">Email Address</label>
+                        <br>
                         <input id="email" type="email" class="input-field  @error('email') is-invalid @enderror"
                             placeholder="Enter your email address" name="email" value="{{ old('email') }}" required
                             autocomplete="email" autofocus>

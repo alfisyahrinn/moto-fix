@@ -37,12 +37,21 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                            <!-- Home Item -->
+                            <a class="dropdown-item" href="{{ route('user.index') }}">Home</a>
+
+                            <!-- Profile Item -->
+                            <a class="dropdown-item" href="{{ route('user.profile') }}">My Profile</a>
+
+                            <!-- New Booking Item -->
+                            <a class="dropdown-item"href="{{ route('booking.index') }}">Book a Service</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
+                            <!-- Logout Item -->
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>

@@ -18,32 +18,33 @@
 
     <section id="service" class="mt-7">
         <div class="container mt-4">
-            <h1 class="h1-hero-page2 text-center">Masalah masalah <br> dalam Motor</h1>
+            <h1 class="h1-hero-page2 text-center">Layanan Servis Motor</h1>
             <div class="card-hero-page2 row justify-content-around">
                 <div class="card-items-hero-page2 col-md-4">
-                    <img src="{{ asset('assets/img/banner/kelistrikan.png') }}" class="img-fluid" alt="">
-                    <h1>Kelistrikan</h1>
-                    <p>Lampu tidak hidup maupun hazard tidak bisa</p>
+                    <img src="{{ asset('assets/img/banner/servis-kecil.png') }}" class="img-fluid" alt="">
+                    <h1>Servis Kecil</h1>
+                    <p>Paket servis ringan untuk menjaga performa motor Anda.</p>
                 </div>
                 <div class="card-items-hero-page2 col-md-4">
-                    <img src="{{ asset('assets/img/banner/kelistrikan.png') }}" class="img-fluid" alt="">
-                    <h1>Kelistrikan</h1>
-                    <p>Lampu tidak hidup maupun hazard tidak bisa</p>
+                    <img src="{{ asset('assets/img/banner/servis-sedang.png') }}" class="img-fluid" alt="">
+                    <h1>Servis Sedang</h1>
+                    <p>Servis menengah untuk pemeliharaan lebih detail.</p>
                 </div>
                 <div class="card-items-hero-page2 col-md-4">
-                    <img src="{{ asset('assets/img/banner/kelistrikan.png') }}" class="img-fluid" alt="">
-                    <h1>Kelistrikan</h1>
-                    <p>Lampu tidak hidup maupun hazard tidak bisa</p>
+                    <img src="{{ asset('assets/img/banner/servis-besar.png') }}" class="img-fluid" alt="">
+                    <h1>Servis Besar</h1>
+                    <p>Paket servis menyeluruh untuk menjaga kesehatan motor Anda.</p>
                 </div>
             </div>
         </div>
     </section>
 
+
     <section id="sparepart">
         <div class="container mt-4">
             <div class="d-flex justify-content-between">
                 <h1 class="h1-hero-page3">Sparepart Motor</h1>
-                <a href="{{route('user.index')}}" class="p-hero-page3 mt-auto">lihat semua</a>
+                <a href="{{ route('user.index') }}" class="p-hero-page3 mt-auto">lihat semua</a>
             </div>
             <div class="card-hero-page3 mt-4 row justify-content-around">
                 @for ($i = 0; $i < 6; $i++)
@@ -71,11 +72,11 @@
                     <p class="p-about">
                         Kunjungi kami di:
                         <br>
-                        [Alamat Bengkel]
+                        Alamat Bengkel: Jl. Ir. H. Juanda, Sidoarjo, Jawa Timur
                         <br>
-                        Telepon: [Nomor Telepon]
+                        Telepon: 08xxxxxxxxxxx
                         <br>
-                        Email: [Alamat Email]
+                        Email: Alamat Email: moto.fix@gmail.com
                     </p>
                 </div>
             </div>

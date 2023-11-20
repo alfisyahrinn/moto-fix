@@ -124,3 +124,40 @@
     margin-top: 16px;
     margin-bottom: 16px;
 }
+/* Add this to your existing CSS */
+
+.btn-booking {
+    width: 437px;
+    height: 50px;
+    background-color: var(--primary);
+    color: #fff;
+    border-radius: 100px;
+    border: 1px solid var(--primary);
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-booking:hover {
+    background-color: var(--secondary);
+}
+/* Add this to your existing CSS */
+
+.btn-cancel {
+    width: 437px;
+    height: 50px;
+    background-color: var(--thir);
+    color: var(--primary);
+    border-radius: 100px;
+    border: 1px solid var(--primary);
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: lightgray;
+    color: #333; /* Dark gray color for hover */
+}
