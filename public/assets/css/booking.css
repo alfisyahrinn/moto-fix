@@ -161,3 +161,14 @@
     background-color: lightgray;
     color: #333; /* Dark gray color for hover */
 }
+
+.total {
+    background-color: var(--primary);
+}
+
+.btn-total {
+    
+    border: none;
+    background-color: var(--primary);
+    color: #fff;
+}
