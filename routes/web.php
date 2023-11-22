@@ -43,3 +43,56 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/user/profile/update', [UserController::class, 'updateProfile'])->name('user.profile.update');
     });
 });
+
+
+Route::get('/admin', function () {
+    return view('viewadmin.index');
+});
+
+Route::get('/storage', function () {
+    return view('viewadmin.storage');
+});
+
+Route::get('/category', function () {
+    return view('viewadmin.category');
+});
+
+Route::get('/suplier', function () {
+    return view('viewadmin.suplier');
+});
+
+Route::get('/price', function () {
+    return view('viewadmin.price');
+});
+
+Route::get('/editqueue', function () {
+    return view('viewadmin.EditIndex');
+});
+
+Route::get('/additem', function () {
+    return view('viewadmin.addstorage');
+});
+
+Route::get('/addcategory', function () {
+    return view('viewadmin.addcategory');
+});
+
+Route::get('/addprice', function () {
+    return view('viewadmin.addprice');
+});
+
+Route::get('/addsuplier', function () {
+    return view('viewadmin.addsuplier');
+});
+
+Route::get('/editcategory', function () {
+    return view('viewadmin.editcategory');
+});
+
+Route::get('/editprice', function () {
+    return view('viewadmin.editprice');
+});
+
+Route::get('/editsuplier', function () {
+    return view('viewadmin.editsuplier');
+});
