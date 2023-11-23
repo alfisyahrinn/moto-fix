@@ -45,54 +45,58 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-Route::get('/admin', function () {
-    return view('viewadmin.index');
+Route::get('/queue', function () {
+    return view('admin.pages.queue');
 });
 
 Route::get('/storage', function () {
-    return view('viewadmin.storage');
+    return view('admin.pages.storage');
 });
 
 Route::get('/category', function () {
-    return view('viewadmin.category');
+    return view('admin.pages.category');
 });
 
 Route::get('/suplier', function () {
-    return view('viewadmin.suplier');
+    return view('admin.pages.suplier');
 });
 
 Route::get('/price', function () {
-    return view('viewadmin.price');
+    return view('admin.pages.price');
 });
 
 Route::get('/editqueue', function () {
-    return view('viewadmin.EditIndex');
+    return view('admin.pages.EditIndex');
 });
 
 Route::get('/additem', function () {
-    return view('viewadmin.addstorage');
+    return view('admin.pages.add.addstorage');
 });
 
 Route::get('/addcategory', function () {
-    return view('viewadmin.addcategory');
+    return view('admin.pages.add.addcategory');
 });
 
 Route::get('/addprice', function () {
-    return view('viewadmin.addprice');
+    return view('admin.pages.add.addprice');
 });
 
 Route::get('/addsuplier', function () {
-    return view('viewadmin.addsuplier');
+    return view('admin.pages.add.addsuplier');
 });
 
 Route::get('/editcategory', function () {
-    return view('viewadmin.editcategory');
+    return view('admin.pages.editcategory');
 });
 
 Route::get('/editprice', function () {
-    return view('viewadmin.editprice');
+    return view('admin.pages.editprice');
 });
 
 Route::get('/editsuplier', function () {
-    return view('viewadmin.editsuplier');
+    return view('admin.pages.editsuplier');
+});
+
+Route::get('/adminnn', function () {
+    return view('admin.pages.index');
 });
