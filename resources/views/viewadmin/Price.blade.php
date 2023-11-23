@@ -39,6 +39,13 @@
         <td> <a href="#" class="btn btn-sm btn-primary rounded-pill px-3">  <i class="fas fa-pen-square"> Edit </i></a></td>
         <td><button class="btn btn-sm btn-danger rounded-pill px-3"> <i class="fas fa-times-circle"> Hapus </i> </button> </td>
     </tr>
+    <tr>
+        <td>1</td>
+        <td> Pekerjaa Kecil </td>
+        <td> Rp 25.000 </td>
+        <td> <a href="#" class="btn btn-sm btn-primary rounded-pill px-3">  <i class="fas fa-pen-square"> Edit </i></a></td>
+        <td><button class="btn btn-sm btn-danger rounded-pill px-3"> <i class="fas fa-times-circle"> Hapus </i> </button> </td>
+    </tr>
     {{-- @endforeach   --}}
 </table>
 
