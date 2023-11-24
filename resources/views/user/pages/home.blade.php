@@ -32,8 +32,8 @@
                 </div>
                 <div class="card-items-hero-page2 col-md-4">
                     <img src="{{ asset('assets/img/banner/servis-besar.png') }}" class="img-fluid" alt="">
-                    <h1>Servis Besar</h1>
-                    <p>Paket servis menyeluruh untuk menjaga kesehatan motor Anda.</p>
+                    <h1>Servis Besar </h1>
+                    <p>Paket servis menyeluruh untuk menjaga kesehatan motor Anda. </p>
                 </div>
             </div>
         </div>
