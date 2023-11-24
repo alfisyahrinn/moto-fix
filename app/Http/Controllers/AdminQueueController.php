@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Queue;
 use Illuminate\Http\Request;
 
 class AdminQueueController extends Controller
@@ -11,7 +12,11 @@ class AdminQueueController extends Controller
      */
     public function index()
     { 
-        return view('admin.pages.queue');
+        $datas = Queue::all();
+        return view('admin.pages.queue',[
+            'title' => 'queue',
+            'datas' => $datas,
+        ]);
     }
 
     /**
