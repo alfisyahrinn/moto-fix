@@ -1,4 +1,4 @@
-@extends('viewadmin.layout.temp')
+@extends('admin.layouts.temp')
 
 @section('content')
 <form action="POST" class=" container-fluid">
