@@ -27,7 +27,10 @@ Auth::routes(['verify' => true]);
 Route::middleware(['auth', 'verified'])->group(function () {
     // Common routes for both admin and user
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+    // Route::resource('/booking', BookingController::class);
     Route::get('/booking/jadwal', [BookingController::class, 'showJadwal'])->name('booking.jadwal');
+    Route::get('/booking/jadwal/{queue}', [BookingController::class, 'show'])->name('booking.show');
 
     Route::middleware(['checkRole:admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');

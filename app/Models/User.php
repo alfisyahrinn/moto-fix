@@ -27,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'email_verified_at',
         'remember_token',
-        
+
     ];
 
     /**
@@ -49,4 +49,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function queue(){
+        return $this->hasOne(Queue::class);
+    }
+    public function transaction(){
+        return $this->hasOne(Transaction::class);
+    }
+    public function service_price(){
+        return $this->hasOne(Service_price::class);
+    }
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
 }
