@@ -16,5 +16,6 @@ class BookingController extends Controller
     public function showJadwal()
     {
         return view('user.pages.jadwal');
+        
     }
 }

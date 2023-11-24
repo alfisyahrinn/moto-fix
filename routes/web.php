@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\BookingController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/booking/jadwal', [BookingController::class, 'showJadwal'])->name('booking.jadwal');
 
     Route::middleware(['checkRole:admin'])->group(function () {
-        Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::resource('admin/queue', AdminQueueController::class);
     });
 
     Route::middleware(['checkRole:user'])->group(function () {
@@ -45,58 +46,58 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-Route::get('/queue', function () {
-    return view('admin.pages.queue');
-});
+// Route::get('/queue', function () {
+//     return view('admin.pages.queue');
+// });
 
 Route::get('/storage', function () {
     return view('admin.pages.storage');
 });
 
-Route::get('/category', function () {
-    return view('admin.pages.category');
-});
+// Route::get('/category', function () {
+//     return view('admin.pages.category');
+// });
 
-Route::get('/suplier', function () {
-    return view('admin.pages.suplier');
-});
+// Route::get('/suplier', function () {
+//     return view('admin.pages.suplier');
+// });
 
-Route::get('/price', function () {
-    return view('admin.pages.price');
-});
+// Route::get('/price', function () {
+//     return view('admin.pages.price');
+// });
 
-Route::get('/editqueue', function () {
-    return view('admin.pages.EditIndex');
-});
+// Route::get('/editqueue', function () {
+//     return view('admin.pages.EditIndex');
+// });
 
-Route::get('/additem', function () {
-    return view('admin.pages.add.addstorage');
-});
+// Route::get('/additem', function () {
+//     return view('admin.pages.add.addstorage');
+// });
 
-Route::get('/addcategory', function () {
-    return view('admin.pages.add.addcategory');
-});
+// Route::get('/addcategory', function () {
+//     return view('admin.pages.add.addcategory');
+// });
 
-Route::get('/addprice', function () {
-    return view('admin.pages.add.addprice');
-});
+// Route::get('/addprice', function () {
+//     return view('admin.pages.add.addprice');
+// });
 
-Route::get('/addsuplier', function () {
-    return view('admin.pages.add.addsuplier');
-});
+// Route::get('/addsuplier', function () {
+//     return view('admin.pages.add.addsuplier');
+// });
 
-Route::get('/editcategory', function () {
-    return view('admin.pages.editcategory');
-});
+// Route::get('/editcategory', function () {
+//     return view('admin.pages.editcategory');
+// });
 
-Route::get('/editprice', function () {
-    return view('admin.pages.editprice');
-});
+// Route::get('/editprice', function () {
+//     return view('admin.pages.editprice');
+// });
 
-Route::get('/editsuplier', function () {
-    return view('admin.pages.editsuplier');
-});
+// Route::get('/editsuplier', function () {
+//     return view('admin.pages.editsuplier');
+// });
 
-Route::get('/adminnn', function () {
-    return view('admin.pages.index');
-});
+// Route::get('/admin', function () {
+//     return view('admin.pages.index');
+// });
