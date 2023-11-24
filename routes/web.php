@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +32,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::resource('/booking', BookingController::class);
     Route::get('/booking/jadwal', [BookingController::class, 'showJadwal'])->name('booking.jadwal');
     Route::get('/booking/jadwal/{queue}', [BookingController::class, 'show'])->name('booking.show');
+
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/product/{id}', [ProductController::class, 'detailProduct'])->name('product.detail');
+    Route::get('/product/{category}', [ProductController::class, 'filterCategory'])->name('product.category');
+    // Route::get('/product/supplier/{supplier}', [ProductController::class, 'filterSupplier'])->name('product.supplier');
 
     Route::middleware(['checkRole:admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
@@ -104,3 +110,7 @@ Route::get('/storage', function () {
 // Route::get('/admin', function () {
 //     return view('admin.pages.index');
 // });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
