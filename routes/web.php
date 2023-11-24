@@ -57,9 +57,9 @@ Route::get('/storage', function () {
     return view('admin.pages.storage');
 });
 
-// Route::get('/category', function () {
-//     return view('admin.pages.category');
-// });
+Route::get('/tes', function () {
+    return view('tes');
+});
 
 // Route::get('/suplier', function () {
 //     return view('admin.pages.suplier');

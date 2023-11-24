@@ -11,9 +11,9 @@ class AdminQueueController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    { 
+    {
         $datas = Queue::all();
-        return view('admin.pages.queue',[
+        return view('admin.pages.queue.index', [
             'title' => 'queue',
             'datas' => $datas,
         ]);
@@ -46,9 +46,12 @@ class AdminQueueController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Queue $queue)
     {
-        //
+        return view('admin.pages.queue.edit', [
+            'title' => 'queue',
+            'data' => $queue,
+        ]);
     }
 
     /**

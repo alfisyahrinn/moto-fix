@@ -6,7 +6,7 @@
 
         <!-- Page Heading -->
         <div class="d-flex">
-            <h1 class="h3 mb-4 text-gray-800">{{ $title }}</h1>
+            <h1 class="h3 mb-4 text-gray-800 my-auto">{{ $title }}</h1>
             <a href="" class="btn btn-primary btn-icon-split ms-auto mb-auto">
                 <span><i class="fas fa-plus-square"></i></span>
                 <span class="text">Add</span>
@@ -32,16 +32,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 10; $i++)
+                            @foreach ($datas as $data)
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
+                                    <td>{{ $data->User->name }}</td>
+                                    <td>{{ $data->no_queue }}</td>
+                                    <td>{{ $data->merk }}</td>
+                                    <td>{{ $data->number_plate }}</td>
+                                    <td>{{ $data->time }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-success btn-circle">
+                                        <div class="alert p-0 text-center {{ $data->status === 1 ? 'alert-success' : 'alert-danger' }}"
+                                            role="alert">
+                                            {{ $data->status === 1 ? 'Success' : 'Pending' }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('queue.edit', $data->id) }}" class="btn btn-success btn-circle">
                                             <i class="fas fa-pen-square"></i>
                                         </a>
                                         <a href="#" class="btn btn-danger btn-circle">
@@ -49,7 +54,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
