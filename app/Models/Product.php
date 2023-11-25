@@ -17,6 +17,14 @@ class Product extends Model
         'image',
     ];
 
+    public function scopeFilter($query){
+        if (request('search')) {
+            return $query->where('name', 'like', '%'.request('search').'%')
+                        ->orWhere('description', 'like', '%'.request('search').'%')
+                        ->orWhere('price', 'like', '%'.request('search').'%');
+        }
+
+    }
     public function user(){
         return $this->belongsTo(User::class);
     }

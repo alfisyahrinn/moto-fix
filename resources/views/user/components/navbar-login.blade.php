@@ -46,6 +46,11 @@
 
                             <!-- New Booking Item -->
                             <a class="dropdown-item"href="{{ route('booking.index') }}">Book a Service</a>
+
+                            <!-- Product Item -->
+                            <a class="dropdown-item"href="{{ route('product.index') }}">Sparepart</a>
+
+                            <!-- Logout -->
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
