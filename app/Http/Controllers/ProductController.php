@@ -16,10 +16,10 @@ class ProductController extends Controller
         ]);
     }
 
-    public function detailProduct(Product $id){
-        return view('user.pages.detailProduct')->with([
-            'products'=>Product::find($id)
-        ]);
+    public function show($id){
+        $product = Product::findOrFail($id);
+
+        return view('user.pages.detailProduct', compact('product'));
     }
 
     // public function filterSupplier(Supplier $supplier){
@@ -29,6 +29,7 @@ class ProductController extends Controller
 
     //     return view('user.pages.product', compact('products', 'suppliers'));
     // }
+
     public function filterCategory(Category $category){
         $categories = Category::all();
 
