@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/booking/jadwal/{queue}', [BookingController::class, 'show'])->name('booking.show');
 
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/product/{id}', [ProductController::class, 'detailProduct'])->name('product.detail');
+    Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('product.detail');
     Route::get('/product/{category}', [ProductController::class, 'filterCategory'])->name('product.category');
     // Route::get('/product/supplier/{supplier}', [ProductController::class, 'filterSupplier'])->name('product.supplier');
 
