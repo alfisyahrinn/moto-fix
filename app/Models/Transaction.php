@@ -14,10 +14,20 @@ class Transaction extends Model
         'total_price',
     ];
 
-    public function queue(){
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function queue()
+    {
         return $this->belongsTo(Queue::class);
     }
-    public function service_price(){
+    public function service_price()
+    {
         return $this->hasOne(Service_price::class);
     }
 }

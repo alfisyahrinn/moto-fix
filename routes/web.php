@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQueueController;
+use App\Http\Controllers\AdminTransactionController;
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\ProductController;
+use App\Models\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +31,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Common routes for both admin and user
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
-    // Route::resource('/booking', BookingController::class);
     Route::get('/booking/jadwal', [BookingController::class, 'showJadwal'])->name('booking.jadwal');
     Route::get('/booking/jadwal/{queue}', [BookingController::class, 'show'])->name('booking.show');
 
@@ -41,6 +42,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['checkRole:admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
         Route::resource('admin/queue', AdminQueueController::class);
+        // Route::post('/admin/add-to-cart', [AdminQueueController::class, 'addToCard'])->name('addToCard');
+        Route::resource('/admin/transaction', AdminTransactionController::class);
+        Route::post('/admin/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('addToCard');
     });
 
     Route::middleware(['checkRole:user'])->group(function () {
@@ -63,9 +67,12 @@ Route::get('/storage', function () {
     return view('admin.pages.storage');
 });
 
-// Route::get('/category', function () {
-//     return view('admin.pages.category');
-// });
+Route::get('/tes', function () {
+    $produts = Product::all();
+    return view('tes', [
+        'products' => $produts,
+    ]);
+});
 
 // Route::get('/suplier', function () {
 //     return view('admin.pages.suplier');

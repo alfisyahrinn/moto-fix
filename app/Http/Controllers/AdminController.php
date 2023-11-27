@@ -15,4 +15,8 @@ class AdminController extends Controller
     {
         return view('admin.pages.index');
     }
+    public function addToCard($id)
+    {
+        dd('sau');
+    }
 }

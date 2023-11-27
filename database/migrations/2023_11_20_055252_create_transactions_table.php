@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('service_price_id');
+            $table->unsignedBigInteger('detail_service_id');
             $table->unsignedBigInteger('queue_id');
-            $table->string('status');
-            $table->decimal('total_price');
+            $table->string('status')->default('0');
+            $table->unsignedBigInteger('total_price')->default('0');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('service_price_id')->references('id')->on('service_prices');
             $table->foreign('queue_id')->references('id')->on('queues');
+            // $table->foreign('detail_service_id')->references('id')->on('detail_service');
         });
     }
 

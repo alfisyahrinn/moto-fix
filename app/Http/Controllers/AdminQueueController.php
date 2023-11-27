@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Queue;
 use Illuminate\Http\Request;
 
@@ -10,10 +11,14 @@ class AdminQueueController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function addToCard(Request $request)
+    {
+        dd($request->product_id);
+    }
     public function index()
-    { 
+    {
         $datas = Queue::all();
-        return view('admin.pages.queue',[
+        return view('admin.pages.queue.index', [
             'title' => 'queue',
             'datas' => $datas,
         ]);
@@ -32,7 +37,7 @@ class AdminQueueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('kjk');
     }
 
     /**
@@ -46,9 +51,14 @@ class AdminQueueController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Queue $queue)
     {
-        //
+        $produts = Product::all();
+        return view('admin.pages.queue.edit', [
+            'title' => 'queue',
+            'data' => $queue,
+            'products' => $produts,
+        ]);
     }
 
     /**
@@ -56,7 +66,10 @@ class AdminQueueController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Queue::where('id', $id)->update([
+            'status' => true,
+        ]);
+        return redirect()->route('queue.index')->with('success', 'Service Update Done');
     }
 
     /**
