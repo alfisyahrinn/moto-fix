@@ -21,6 +21,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Name</th>
                                 <th>No Queue</th>
                                 <th>Merk</th>
@@ -34,6 +35,7 @@
                         <tbody>
                             @foreach ($datas as $data)
                                 <tr>
+                                    <td>{{ $data->id }}</td>
                                     <td>{{ $data->User->name }}</td>
                                     <td>{{ $data->Queue->no_queue }}</td>
                                     <td>{{ $data->Queue->merk }}</td>

@@ -12,13 +12,13 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item {{ $title === 'queue' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('queue.index') }}">
             <i class="fas fa-solid fa-list"></i>
             <span>QUEUE</span></a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ $title === 'transaction' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('transaction.index') }}">
             <i class="fas fa-solid fa-warehouse"></i>
             <span>Transaction</span>
