@@ -15,18 +15,19 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse rounded">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
-                        {{-- <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Supplier
                             </a>
                             <ul class="dropdown-menu">
-                                   @foreach ($suppliers as $supplier)    
-                                        <li><a class="dropdown-item" href="{{route('product.supplier', $supplier->id)}}">{{$supplier->name}}</a></li>
-                                   @endforeach
-                                
+                                @foreach ($suppliers as $supplier)
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('product.supplier', $supplier->id) }}">{{ $supplier->name }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
-                        </li> --}}
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -52,19 +53,42 @@
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="card-hero-page3 row d-inline-flex gap-2">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     @foreach ($products as $product)
-                        <div class="card-items-hero-page3 col-lg-4 col-md-6 mb-2 bg-white"
-                            onclick="window.location.href='{{ route('product.detail', $product->id) }}'">
-                            <img src="{{ asset('storage/images/' . $product->image) }}" class="img-fluid"
-                                alt="gambar-produk">
-                            <a class="a-card-items-hero-page3">{{ $product->name }}</a>
-                            <p class="desk-card-items-hero-page3">{{ $product->description }}</p>
-                            <p class="price-card-items-hero-page3">Rp. {{ $product->price }}</p>
+                        <div class="col mb-4" onclick="window.location.href='{{ route('product.detail', $product->id) }}'"
+                            style="cursor: pointer;">
+                            <div class="card h-100">
+                                <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
+                                    alt="{{ $product->name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                    <p class="card-text">{{ $product->description }}</p>
+                                    <p class="card-text">Rp. {{ $product->price }}</p>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
             </main>
+
+            {{-- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach ($products as $product)
+                        <div class="card mb-2 bg-white" style="width: 18rem;"
+                            onclick="window.location.href='{{ route('product.detail', $product->id) }}'">
+                            <div style="max-width: 200px; overflow:hidden">
+                                <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
+                                    alt="{{ $product->name }}">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">{{ $product->description }}</p>
+                                <p class="price-card-items-hero-page3">Rp. {{ $product->price }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </main> --}}
         </div>
     </div>
 @endsection
