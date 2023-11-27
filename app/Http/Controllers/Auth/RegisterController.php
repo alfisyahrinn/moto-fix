@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -27,21 +24,18 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-
-
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-
-    protected $redirectTo = RouteServiceProvider::HOME;
     public function __construct()
     {
         $this->middleware('guest');
@@ -75,16 +69,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-    protected function registered(Request $request, $user)
-    {
-        if ($user->role == 'admin') {
-            return Redirect::route('admin.index');
-        } elseif ($user->role == 'user') {
-            return Redirect::route('user.index');
-        }
-
-        // Default redirection for other cases
-        return redirect($this->redirectTo);
     }
 }

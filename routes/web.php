@@ -34,6 +34,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/booking/jadwal', [BookingController::class, 'showJadwal'])->name('booking.jadwal');
     Route::get('/booking/jadwal/{queue}', [BookingController::class, 'show'])->name('booking.show');
 
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('product.detail');
+    Route::get('/product/{category}', [ProductController::class, 'filterCategory'])->name('product.category');
+    // Route::get('/product/supplier/{supplier}', [ProductController::class, 'filterSupplier'])->name('product.supplier');
+
     Route::middleware(['checkRole:admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
         Route::resource('admin/queue', AdminQueueController::class);
@@ -112,3 +117,7 @@ Route::get('/tes', function () {
 // Route::get('/admin', function () {
 //     return view('admin.pages.index');
 // });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
