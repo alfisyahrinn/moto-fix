@@ -36,11 +36,14 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        @if (!Request::is('login'))
+        {{-- @if (!Request::is('login') || !Request::is('register'))
             @include('admin.components.sidebar')
-        @endif
+        @endif --}}
+        @unless (Request::is('login') || Request::is('register'))
+            @include('admin.components.sidebar')
+        @endunless
         <div id="content-wrapper" class="d-flex flex-column">
-            @unless (Request::is('login'))
+            @unless (Request::is('login') || Request::is('register'))
                 @include('admin.components.navbar')
             @endunless
             <div id="content">

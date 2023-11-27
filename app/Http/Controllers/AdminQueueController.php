@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Queue;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,10 @@ class AdminQueueController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function addToCard(Request $request)
+    {
+        dd($request->product);
+    }
     public function index()
     {
         $datas = Queue::all();
@@ -32,7 +37,7 @@ class AdminQueueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('kjk');
     }
 
     /**
@@ -48,9 +53,11 @@ class AdminQueueController extends Controller
      */
     public function edit(Queue $queue)
     {
+        $produts = Product::all();
         return view('admin.pages.queue.edit', [
             'title' => 'queue',
             'data' => $queue,
+            'products' => $produts,
         ]);
     }
 

@@ -12,8 +12,6 @@
     <p id="b">2021573010042</p>
     <select class="form-select" id="itemSelect" aria-label="Default select example">
         <option value="1" selected>
-            <span class="name">Kampas Rem</span>
-            <span class="price">Rp.20.100</span>
         </option>
         <option value="1">
             <span class="name">wakwaww</span>
