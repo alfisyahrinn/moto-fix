@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQueueController;
+use App\Http\Controllers\AdminTransactionController;
 use App\Http\Controllers\BookingController;
+use App\Models\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,8 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['checkRole:admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
         Route::resource('admin/queue', AdminQueueController::class);
-        Route::post('/admin/add-to-cart', [AdminQueueController::class, 'addToCard'])->name('addToCard');
-        // Route::get('/admin/add-to-cart/{id}', [AdminController::class, 'addToCard'])->name('addToCard');
+        // Route::post('/admin/add-to-cart', [AdminQueueController::class, 'addToCard'])->name('addToCard');
+        Route::resource('/admin/transaction', AdminTransactionController::class);
+        Route::post('/admin/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('addToCard');
     });
 
     Route::middleware(['checkRole:user'])->group(function () {
@@ -59,7 +63,10 @@ Route::get('/storage', function () {
 });
 
 Route::get('/tes', function () {
-    return view('tes');
+    $produts = Product::all();
+    return view('tes', [
+        'products' => $produts,
+    ]);
 });
 
 // Route::get('/suplier', function () {

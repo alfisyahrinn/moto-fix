@@ -13,7 +13,7 @@ class AdminQueueController extends Controller
      */
     public function addToCard(Request $request)
     {
-        dd($request->product);
+        dd($request->product_id);
     }
     public function index()
     {
