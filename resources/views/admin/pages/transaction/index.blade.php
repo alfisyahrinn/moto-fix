@@ -42,12 +42,13 @@
                                     <td>{{ $data->Queue->number_plate }}</td>
                                     <td>{{ $data->Queue->time }}</td>
                                     <td>
-                                        <div class="alert p-0 text-center {{ $data->status === 1 ? 'alert-success' : 'alert-danger' }}"
+                                        {{-- @dd($data->status) --}}
+                                        <div class="alert p-0 text-center {{ $data->status === '1' ? 'alert-success' : 'alert-danger' }}"
                                             role="alert">
-                                            {{ $data->status === 1 ? 'Success' : 'Pending' }}
+                                            {{ $data->status === '1' ? 'Success' : 'Pending' }}
                                         </div>
                                     </td>
-                                    <td>{{ $data->total_price }}</td>
+                                    <td>Rp.{{ number_format($data->total_price, 0, ',', '.') }}</td>
                                     <td>
                                         <a href="{{ route('transaction.edit', $data->id) }}"
                                             class="btn btn-success btn-circle">

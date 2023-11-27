@@ -40,52 +40,27 @@
                         </div>
                     </div>
                     <div class="col-5">
-                        <h1 class="h1-form-booking text-primary">Transaksi</h1>
+                        <h1 class="h1-form-booking text-primary">Status</h1>
                         <div class="mt-4">
-                            <ul class="list-group">
-                                <li class="list-group-item px-3 py-4 d-flex justify-content-between" style="border: none">
-                                    <i class="fas fa-plus-circle fa-2x m-auto" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" style="color: #005eff;"></i>
-                                </li>
-                                <li class="list-group-item px-3 py-4 d-flex justify-content-between total bg-light ">
-                                    <p class="my-auto text-dark">Total</p>
-                                    <h5 class="text-dark">RP.280.000</h5>
-                                </li>
-                                <li class="list-group-item p-0 py-3" style="border: none">
-                                    <button type="submit" class="btn btn-primary w-100"
-                                        style="border-radius: 5px">Upload</button>
-                                </li>
-                            </ul>
+                            <form action="{{ route('queue.update', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-4">
+                                    <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
+                                    <select
+                                        class="form-select {{ $data->status === 0 ? 'border-danger' : 'border-success' }}"
+                                        name="product" aria-label="Default select example">
+                                        <option value="{{ $data->status }}">{{ $data->status }}</option>
+                                        <option value="{{ $data->status === 1 ? '0' : '1' }}">
+                                            {{ $data->status === 1 ? '0' : '1' }}</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100" style="border-radius: 5px"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModalBayar">Update</button>
+                            </form>
                         </div>
                         <!-- Modal tambah barang -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form action="{{ route('addToCard') }}" method="POST">
-                                        <div class="modal-body">
-                                            @csrf
-                                            <select class="form-select" name="product" aria-label="Default select example">
-                                                @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }} -
-                                                        {{ $product->price }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" id="addToCart" class="btn btn-primary">Add</button>
-                                    </form>
-                                </div>
-                            </div>
 
-                        </div>
                     </div>
                 </div>
             </div>

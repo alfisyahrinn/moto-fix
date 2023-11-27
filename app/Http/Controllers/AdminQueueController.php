@@ -66,7 +66,10 @@ class AdminQueueController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Queue::where('id', $id)->update([
+            'status' => true,
+        ]);
+        return redirect()->route('queue.index')->with('success', 'Service Update Done');
     }
 
     /**

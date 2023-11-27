@@ -58,11 +58,103 @@
                                     <h5 class="text-dark">Rp.{{ number_format($data->total_price, 0, ',', '.') }}</h5>
                                 </li>
                                 <li class="list-group-item p-0 py-3" style="border: none">
-                                    <button type="submit" class="btn btn-primary w-100"
-                                        style="border-radius: 5px">Upload</button>
+                                    <button type="submit" class="btn btn-primary w-100" style="border-radius: 5px"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModalBayar">Bayar</button>
                                 </li>
                             </ul>
                         </div>
+                        {{-- Modal Bayar --}}
+                        <div class="modal fade" id="exampleModalBayar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Bayar</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('transaction.update', $data->id) }}" method="POST">
+                                        <div class="modal-body">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
+                                            <input type="text" name="uang_cek" value="" id="iniBayar" hidden>
+                                            <div class="row">
+                                                <div class="col-6 mb-4">
+                                                    <label for="type" class="form-label">Total</label>
+                                                    <input name="number_plate"
+                                                        value="{{ number_format($data->total_price, 0, ',', '.') }}"
+                                                        placeholder="BL-351-GA" type="text"
+                                                        class="form-control text-dark py-4" disabled id="type"
+                                                        aria-describedby="emailHelp">
+                                                </div>
+                                                <div class="col-6 mb-4">
+                                                    <label for="number" class="form-label">Money</label>
+                                                    <input name="money" value="" type="text"
+                                                        class="form-control text-dark py-4" id="moneyInput">
+                                                </div>
+                                                <div class="text-center">
+                                                    <label for="type" class="form-label">Back</label>
+                                                    <input name="number_plate" type="text"
+                                                        class="form-control text-dark text-center py-4" disabled
+                                                        id="backInput" aria-describedby="emailHelp">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" id="done" disabled
+                                                class="btn btn-primary">Done</button>
+                                        </div>
+                                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                        <script>
+                                            $(document).ready(function() {
+                                                // Mendapatkan nilai total dari PHP ke JavaScript
+                                                const totalValue = {{ $data->total_price }};
+
+                                                // Event listener ketika input 'Money' berubah
+                                                $('#moneyInput').on('input', function() {
+                                                    // Ambil nilai uang yang dimasukkan
+                                                    const money = parseFloat($(this).val().replace(/[^\d.-]/g, '')) || 0;
+                                                    console.log(money);
+                                                    if (money < totalValue) {
+                                                        $(this).addClass('border-danger');
+                                                    } else {
+                                                        // $(this).removeClass('border-danger');
+                                                        $(this).addClass('border-success');
+                                                    }
+                                                    if (money < totalValue) {
+                                                        $('#done').prop('disabled', true); // Menonaktifkan tombol jika nilai < 1
+                                                        // $(this).addClass('border-danger');
+                                                    } else {
+                                                        $('#done').prop('disabled', false); // Mengaktifkan tombol jika nilai >= 1
+                                                        // $(this).removeClass('border-danger');
+                                                    }
+                                                    // $(this).val(formatCurrency(money));
+                                                    // Hitung kembalian
+                                                    const back = money - totalValue;
+
+                                                    // Tampilkan kembalian dengan format mata uang
+                                                    $('#iniBayar').val(money);
+                                                    $('#backInput').val(formatCurrency(back));
+                                                });
+
+                                                // Fungsi untuk memformat nilai ke mata uang Rupiah
+                                                function formatCurrency(value) {
+                                                    return new Intl.NumberFormat('id-ID', {
+                                                        style: 'currency',
+                                                        currency: 'IDR'
+                                                    }).format(value);
+                                                }
+                                            });
+                                        </script>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Modal tambah barang -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
@@ -77,8 +169,10 @@
                                     <form action="{{ route('addToCard', $data->id) }}" method="POST">
                                         <div class="modal-body">
                                             @csrf
-                                            <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
-                                            <select class="form-select" name="product" aria-label="Default select example">
+                                            <input type="text" name="transaction_id" value="{{ $data->id }}"
+                                                hidden>
+                                            <select class="form-select" name="product"
+                                                aria-label="Default select example">
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">{{ $product->name }} -
                                                         {{ $product->price }}</option>

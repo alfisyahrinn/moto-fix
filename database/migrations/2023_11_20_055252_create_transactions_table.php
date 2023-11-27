@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('detail_service_id');
             $table->unsignedBigInteger('queue_id');
-            $table->string('status');
-            $table->decimal('total_price');
+            $table->string('status')->default('0');
+            $table->unsignedBigInteger('total_price')->default('0');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

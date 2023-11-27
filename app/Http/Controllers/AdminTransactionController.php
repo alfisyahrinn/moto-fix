@@ -26,7 +26,7 @@ class AdminTransactionController extends Controller
     {
         $harga = Product::find($request->product);
         $transaction = Transaction::find($request->transaction_id);
-        
+
         if ($transaction) {
             $price = $harga->price; // Mengambil nilai price dari produk terkait
             $transaction->increment('total_price', $price);
@@ -102,7 +102,12 @@ class AdminTransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($request, $id);
+        if ($request->uang_cek) {
+            Transaction::where('id', $id)->update([
+                'status' => true,
+            ]);
+            return redirect()->route('transaction.edit', $id)->with('success', 'Success Payment');
+        }
     }
 
     /**
