@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\AdminTransactionController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Models\Product;
 
 /*
@@ -25,6 +27,7 @@ Route::get('/', function () {
     return view('user.pages.home');
 });
 
+
 Auth::routes(['verify' => true]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -37,7 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('product.detail');
     Route::get('/product/{category}', [ProductController::class, 'filterCategory'])->name('product.category');
-    // Route::get('/product/supplier/{supplier}', [ProductController::class, 'filterSupplier'])->name('product.supplier');
+    Route::get('/product/supplier/{supplier}', [ProductController::class, 'filterSupplier'])->name('product.supplier');
 
     Route::middleware(['checkRole:admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');

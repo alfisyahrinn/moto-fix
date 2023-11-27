@@ -6,7 +6,7 @@
     <div class="container-fluid mt-3">
         <div class="row">  
             <div class="col-md-3 col-lg-4 d-md-block">
-                <img src="{{asset('storage/images/'.$product->name)}}" alt="gambar-produk" style="width: 370px; heigt:370px">
+                <img src="data:image/png;base64,{{ base64_encode($product->image) }}" alt="{{$product->name}}" style="width: 370px; heigt:370px">
             </div>
             <main class="col-md-9 ms-sm-auto col-lg-8 px-md-4">
                 <h4 class="">{{$product->name}}</h4>

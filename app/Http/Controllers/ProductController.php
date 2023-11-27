@@ -22,20 +22,22 @@ class ProductController extends Controller
         return view('user.pages.detailProduct', compact('product'));
     }
 
-    // public function filterSupplier(Supplier $supplier){
-    //     $suppliers = Supplier::all();
+    public function filterSupplier(Supplier $supplier){
+        $suppliers = Supplier::all();
+        $categories = Category::all();
 
-    //     $products = Product::where('supplier_id', $supplier->id)->get();
+        $products = Product::where('supplier_id', $supplier->id)->get();
 
-    //     return view('user.pages.product', compact('products', 'suppliers'));
-    // }
+        return view('user.pages.product', compact('products', 'suppliers', 'categories'));
+    }
 
     public function filterCategory(Category $category){
+        $suppliers = Supplier::all();
         $categories = Category::all();
 
         $products = Product::where('category_id', $category->id)->get();
 
-        return view('user.pages.product', compact('products', 'categories'));
+        return view('user.pages.product', compact('products', 'suppliers','categories'));
     }
 
 }
