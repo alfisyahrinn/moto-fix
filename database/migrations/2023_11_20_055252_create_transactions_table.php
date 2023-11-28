@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            
+
             $table->string('status')->default('0');
             $table->unsignedBigInteger('total_price')->default('0');
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreignId('queue_id')->constrained()->onDelete('cascade');
             // $table->foreign('detail_service_id')->references('id')->on('detail_service');
