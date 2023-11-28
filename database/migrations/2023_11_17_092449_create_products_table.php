@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name', 100);
             $table->text('description');
-            $table->decimal('price');
+            $table->unsignedBigInteger('price');
             $table->integer('stock');
             $table->binary('image');
             $table->unsignedBigInteger('supplier_id');

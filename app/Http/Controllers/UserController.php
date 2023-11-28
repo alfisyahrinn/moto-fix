@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +15,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        return view('user.pages.index');
+        return view('user.pages.home');
     }
 
     public function showProfile()

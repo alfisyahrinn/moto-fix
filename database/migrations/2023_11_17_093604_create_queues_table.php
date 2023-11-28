@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('queues', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('no_queue');
+            $table->unsignedBigInteger('no_queue');
             $table->boolean('status');
             $table->dateTime('time');
-            $table->string('problem', 200);
+            $table->text('problem');
             $table->string('number_plate', 10);
             $table->string('merk', 30);
             $table->timestamps();

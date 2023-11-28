@@ -175,7 +175,8 @@
                                                 aria-label="Default select example">
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">{{ $product->name }} -
-                                                        {{ $product->price }}</option>
+                                                        {{ ' ' }}Rp.{{ number_format($product->price, 0, ',', '.') }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
