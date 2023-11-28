@@ -11,29 +11,30 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ $title === 'dashboard' ? 'active' : '' }}">
-        <a class="nav-link" href="">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-        </a>
-    </li>
+   <!-- Nav Item - Dashboard -->
+<li class="nav-item {{ request()->routeIs('admin.pages.dashboard') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('admin.pages.dashboard') }}">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+    </a>
+</li>
 
-    <!-- Nav Item - Queue -->
-    <li class="nav-item {{ $title === 'queue' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('queue.index') }}">
-            <i class="fas fa-solid fa-clock"></i> <!-- Updated icon to clock -->
-            <span>QUEUE</span>
-        </a>
-    </li>
+<!-- Nav Item - Queue -->
+<li class="nav-item {{ request()->routeIs('queue.index') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('queue.index') }}">
+        <i class="fas fa-solid fa-clock"></i> <!-- Updated icon to clock -->
+        <span>Queue</span>
+    </a>
+</li>
 
-    <!-- Nav Item - Transaction -->
-    <li class="nav-item {{ $title === 'transaction' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('transaction.index') }}">
-            <i class="fas fa-money-bill-wave"></i>
-            <span>Transaction</span>
-        </a>
-    </li>
+<!-- Nav Item - Transaction -->
+<li class="nav-item {{ request()->routeIs('transaction.index') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('transaction.index') }}">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>Transaction</span>
+    </a>
+</li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">

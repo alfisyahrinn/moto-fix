@@ -6,7 +6,7 @@
                 <div class="col-lg-7">
                     <h1 class="h1-hero">Atur waktu sesukanya tanpa Menunggu</h1>
                     <p class="p-hero">Kami menyediakan Service motor dan menjual berbagai sparepart motor</p>
-                    <a href="{{ route('user.index') }}" class="btn-hero py-2 px-4">Booking Now</a>
+                    <a href="{{ route('booking.index') }}" class="btn-hero py-2 px-4">Booking Now</a>
                 </div>
 
                 <div class="col-lg-5">

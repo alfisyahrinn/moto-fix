@@ -16,7 +16,7 @@
 
                     <div class="form-field">
                         <label for="email" class="field-label">Email</label>
-                        <input type="email" name="email" id="email" value="sahrin201@gmail.com"
+                        <input type="email" name="email" id="email" value="{{ old('email') }}"
                             placeholder="Your email address" class="input-field">
 
                         <!-- Customize the error message for the email field -->
@@ -29,7 +29,7 @@
 
                     <div class="form-field">
                         <label for="password" class="field-label">Password</label>
-                        <input type="password" value="password" name="password" id="password" placeholder="Your password"
+                        <input type="password"  name="password" id="password" placeholder="Your password"
                             class="input-field">
 
                         <!-- Customize the error message for the password field -->

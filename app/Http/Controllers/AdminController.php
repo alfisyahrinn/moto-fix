@@ -13,7 +13,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.pages.index');
+        return view('admin.pages.dashboard');
     }
     public function addToCard($id)
     {

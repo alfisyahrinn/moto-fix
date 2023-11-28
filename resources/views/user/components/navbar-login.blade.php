@@ -37,19 +37,19 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            @if (auth()->user()->role == 'user')
+                                <!-- Home Item -->
+                                <a class="dropdown-item" href="{{ route('user.index') }}">Home</a>
 
-                            <!-- Home Item -->
-                            <a class="dropdown-item" href="{{ route('user.index') }}">Home</a>
+                                <!-- Profile Item -->
+                                <a class="dropdown-item" href="{{ route('user.profile') }}">My Profile</a>
 
-                            <!-- Profile Item -->
-                            <a class="dropdown-item" href="{{ route('user.profile') }}">My Profile</a>
+                                <!-- New Booking Item -->
+                                <a class="dropdown-item"href="{{ route('booking.index') }}">Book a Service</a>
 
-                            <!-- New Booking Item -->
-                            <a class="dropdown-item"href="{{ route('booking.index') }}">Book a Service</a>
-
-                            <!-- Product Item -->
-                            <a class="dropdown-item"href="{{ route('product.index') }}">Sparepart</a>
-
+                                <!-- Product Item -->
+                                <a class="dropdown-item"href="{{ route('product.index') }}">Sparepart</a>
+                            @endif
                             <!-- Logout -->
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
