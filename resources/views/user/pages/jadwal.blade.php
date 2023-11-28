@@ -11,18 +11,19 @@
             @endif
             <div class="row mt-5 gap-4">
                 @foreach ($datas as $data)
-                    <div class="col-3 {{ $data->status === 0 ? 'card-booking-active' : 'card-booking' }} text-center px-4">
-                        <div class="{{ $data->status === 0 ? 'card-history-active' : 'card-history' }} d-flex">
+                    <div
+                        class="col-3 {{ $data->Queue->status === 0 ? 'card-booking-active' : 'card-booking' }} text-center px-4">
+                        <div class="{{ $data->Queue->status === 0 ? 'card-history-active' : 'card-history' }} d-flex">
                             <img class="m-auto img-booking"
-                                src="{{ asset($data->status === 0 ? 'assets/img/icon/history-active.svg' : 'assets/img/icon/history.svg') }}"
+                                src="{{ asset($data->Queue->status === 0 ? 'assets/img/icon/history-active.svg' : 'assets/img/icon/history.svg') }}"
                                 alt="history  ">
                         </div>
-                        <h1 class="{{ $data->status === 0 ? 'h1-card-booking-active' : 'h1-card-booking' }}">
-                            {{ $data->no_queue }}</h1>
-                        <p class=" {{ $data->status === 0 ? 'p-card-booking-active' : 'p-card-booking' }}">
-                            {{ $data->problem }}</p>
+                        <h1 class="{{ $data->Queue->status === 0 ? 'h1-card-booking-active' : 'h1-card-booking' }}">
+                            {{ $data->Queue->no_queue }}</h1>
+                        <p class=" {{ $data->Queue->status === 0 ? 'p-card-booking-active' : 'p-card-booking' }}">
+                            {{ $data->Queue->problem }}</p>
                         <a href="{{ route('booking.show', $data->id) }}"
-                            class="btn-hero py-2 px-4  {{ $data->status === 0 ? 'btn-card-booking' : '' }}">{{ $data->status === 0 ? $data->time : 'Selesai' }}</a>
+                            class="btn-hero py-2 px-4  {{ $data->Queue->status === 0 ? 'btn-card-booking' : '' }}">{{ $data->Queue->status === 0 ? $data->Queue->time : 'Selesai' }}</a>
                     </div>
                 @endforeach
 

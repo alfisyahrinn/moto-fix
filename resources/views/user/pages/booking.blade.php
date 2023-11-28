@@ -12,6 +12,7 @@
             <div class="mt-5">
                 <form action="{{ route('booking.store') }}" method="POST">
                     @csrf
+                    {{-- <input type="text" hidden name="id_saya" value="{{ Auth::user()->id }}"> --}}
                     <div class="row">
                         <div class="col-6">
                             <h1 class="h1-form-booking">Booking Information</h1>
@@ -42,7 +43,7 @@
                                 <div class="mb-4">
                                     <label for="permasalahan" class="form-label label-booking">Problem</label>
                                     <textarea class="form-control input-booking p-4" name="problem" id="permasalahan" cols="30" rows="10">{{ old('problem') }}"</textarea>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                         <div class="col-6">
