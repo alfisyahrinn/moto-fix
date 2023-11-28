@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Queue;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AdminQueueController extends Controller
 {
@@ -66,17 +68,31 @@ class AdminQueueController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Queue::where('id', $id)->update([
-            'status' => true,
+        $request->validate([
+            'status' => 'required|in:0,1', // Validate that status is either 0 or 1
         ]);
-        return redirect()->route('queue.index')->with('success', 'Service Update Done');
+
+        $status = (bool) $request->input('status');
+
+        Queue::where('id', $id)->update([
+            'status' => $status,
+        ]);
+
+        // Display success alert
+        Alert::success('Success', 'Service Update Done');
+
+        return redirect()->route('queue.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $queue = Queue::findOrFail($id);
+        $queue->delete();
+
+        // Display success alert
+        Alert::success('Success', 'Service Deleted');
+
+        return redirect()->route('queue.index');
     }
+
 }

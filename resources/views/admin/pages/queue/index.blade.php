@@ -7,10 +7,7 @@
         <!-- Page Heading -->
         <div class="d-flex">
             <h1 class="h3 mb-4 text-gray-800 my-auto">{{ $title }}</h1>
-            <a href="" class="btn btn-primary btn-icon-split ms-auto mb-auto">
-                <span><i class="fas fa-plus-square"></i></span>
-                <span class="text">Add</span>
-            </a>
+           
         </div>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -51,10 +48,45 @@
                                         <a href="{{ route('queue.edit', $data->id) }}" class="btn btn-success btn-circle">
                                             <i class="fas fa-pen-square"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-circle">
+
+                                        <!-- Button trigger modal for delete confirmation -->
+                                        <button type="button" class="btn btn-danger btn-circle" data-toggle="modal"
+                                            data-target="#deleteModal{{ $data->id }}">
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </button>
+
+                                        <!-- Delete Confirmation Modal -->
+                                        <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="deleteModalLabel{{ $data->id }}"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">
+                                                            Delete Confirmation</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete this item?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <form action="{{ route('queue.destroy', $data->id) }}"
+                                                            method="POST" style="display: inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

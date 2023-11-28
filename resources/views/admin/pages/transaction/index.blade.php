@@ -6,10 +6,7 @@
         <!-- Page Heading -->
         <div class="d-flex">
             <h1 class="h3 mb-4 text-gray-800 my-auto">{{ $title }}</h1>
-            <a href="" class="btn btn-primary btn-icon-split ms-auto mb-auto">
-                <span><i class="fas fa-plus-square"></i></span>
-                <span class="text">Add</span>
-            </a>
+           
         </div>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">

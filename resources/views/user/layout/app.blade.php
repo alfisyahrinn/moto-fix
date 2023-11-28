@@ -31,6 +31,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div>
         @guest
             @include('user.components.navbar')

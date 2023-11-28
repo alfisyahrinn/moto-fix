@@ -10,10 +10,10 @@
                             <h1 class="h1-form-booking">Booking Information</h1>
                             <div class="mt-4">
                                 <div class="mb-4">
-                                    <label for="merk" class="form-label label-booking">Merk</label>
-                                    <input name="merk" value="{{ $data->User->name }}" placeholder="Yamaha, Honda ..."
+                                    <label for="name" class="form-label label-booking">Name</label>
+                                    <input name="name" value="{{ $data->User->name }}" placeholder="Yamaha, Honda ..."
                                         type="text" class="form-control input-booking  text-dark w-75" disabled
-                                        id="merk" aria-describedby="emailHelp">
+                                        id="name" aria-describedby="emailHelp">
                                 </div>
                                 <div class="mb-4">
                                     <label for="merk" class="form-label label-booking">Merk</label>
@@ -30,9 +30,10 @@
                                 </div>
                                 <div class="mb-4">
                                     <label for="tanggal" class="form-label label-booking">Date</label>
-                                    <input type="date" class="form-control  input-booking text-dark w-75"
-                                        value="{{ $data->Queue->time }}" name="date" disabled id="tanggal"
-                                        aria-describedby="emailHelp">
+                                    <input type="date" class="form-control text-dark w-75"
+                                        value="{{ \Carbon\Carbon::parse($data->time)->format('Y-m-d') }}" name="date"
+                                        disabled id="tanggal" aria-describedby="emailHelp">
+
                                 </div>
                                 <div class="mb-4">
                                     <label for="permasalahan" class="form-label label-booking">Problem</label>
@@ -67,11 +68,7 @@
                     </div>
 
 
-                    <!-- Add your submit button and form closing tags here -->
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-booking">Submit</button>
-                        <a href="{{ route('user.index') }}" class="btn btn-cancel" style="margin-left:150px;">Cancel</a>
-                    </div>
+
                 </form>
             </div>
         </div>

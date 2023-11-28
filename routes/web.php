@@ -44,10 +44,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware(['checkRole:admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
+        // Resource routes for AdminQueueController
         Route::resource('admin/queue', AdminQueueController::class);
-        // Route::post('/admin/add-to-cart', [AdminQueueController::class, 'addToCard'])->name('addToCard');
+
+        // Custom route for deleting a queue item
+        Route::get('/admin/queue/{id}/delete', [AdminQueueController::class, 'delete'])->name('admin.queue.delete');
+
+        // Resource routes for AdminTransactionController
         Route::resource('/admin/transaction', AdminTransactionController::class);
-        Route::post('/admin/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('addToCard');
+
+        // Custom route for adding to cart in AdminTransactionController
+        Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
     });
 
     Route::middleware(['checkRole:user'])->group(function () {

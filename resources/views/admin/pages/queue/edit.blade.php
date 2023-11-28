@@ -29,8 +29,10 @@
                             </div>
                             <div class="mb-4">
                                 <label for="tanggal" class="form-label">Date</label>
-                                <input type="date" class="form-control  text-dark w-75" value="{{ $data->time }}"
-                                    name="date" disabled id="tanggal" aria-describedby="emailHelp">
+                                <input type="date" class="form-control text-dark w-75"
+                                    value="{{ \Carbon\Carbon::parse($data->time)->format('Y-m-d') }}" name="date"
+                                    disabled id="tanggal" aria-describedby="emailHelp">
+
                             </div>
                             <div class="mb-4">
                                 <label for="permasalahan" class="form-label">Problem</label>
@@ -47,12 +49,10 @@
                                 @method('PUT')
                                 <div class="mb-4">
                                     <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
-                                    <select
-                                        class="form-select {{ $data->status === 0 ? 'border-danger' : 'border-success' }}"
-                                        name="product" aria-label="Default select example">
-                                        <option value="{{ $data->status }}">{{ $data->status }}</option>
-                                        <option value="{{ $data->status === 1 ? '0' : '1' }}">
-                                            {{ $data->status === 1 ? '0' : '1' }}</option>
+
+                                    <select class="form-select" name="status" aria-label="Default select example">
+                                        <option value="1" {{ $data->status ? 'selected' : '' }}>Success</option>
+                                        <option value="0" {{ !$data->status ? 'selected' : '' }}>Pending</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100" style="border-radius: 5px"
@@ -60,8 +60,8 @@
                             </form>
                         </div>
                         <!-- Modal tambah barang -->
-
                     </div>
+
                 </div>
             </div>
             <ul id="selectedItemsList" class="list-group">
