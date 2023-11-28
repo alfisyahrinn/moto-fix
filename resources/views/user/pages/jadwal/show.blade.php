@@ -56,7 +56,10 @@
                                         <h5 class="text-dark">Rp.{{ number_format($data->total_price, 0, ',', '.') }}</h5>
                                     </li>
                                     <li class="list-group-item p-0 py-3" style="border: none">
-                                        <button class="btn-booking p-0 w-100 " style="border-radius: 5px">Chekout</button>
+                                        <button
+                                            class="btn-booking p-0 w-100  {{ $data->Queue->status === 0 ? 'bg-secondary' : '' }}"
+                                            {{ $data->Queue->status === 0 ? 'disabled' : '' }}
+                                            style="border-radius: 5px">Chekout</button>
                                     </li>
                                 </ul>
                             </div>

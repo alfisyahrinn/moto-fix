@@ -58,8 +58,11 @@
                                     <h5 class="text-dark">Rp.{{ number_format($data->total_price, 0, ',', '.') }}</h5>
                                 </li>
                                 <li class="list-group-item p-0 py-3" style="border: none">
-                                    <button type="submit" class="btn btn-primary w-100" style="border-radius: 5px"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModalBayar">Bayar</button>
+                                    <button type="submit"
+                                        class="btn btn-primary w-100   {{ $data->Queue->status === 0 ? 'btn-secondary' : '' }}"
+                                        style="border-radius: 5px" data-bs-toggle="modal"
+                                        {{ $data->Queue->status === 0 ? 'disabled' : '' }}
+                                        data-bs-target="#exampleModalBayar">Bayar</button>
                                 </li>
                             </ul>
                         </div>
