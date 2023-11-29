@@ -11,9 +11,21 @@ class DetailService extends Model
     protected $fillable = [
         'transaction_id',
         'product_id',
+        'service_id',
     ];
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function service()
+    {
+        return $this->belongsTo(Service_price::class);
+    }
+
 }
