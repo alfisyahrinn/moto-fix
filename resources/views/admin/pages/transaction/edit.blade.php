@@ -46,7 +46,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Product Name</th>
+                                        <th scope="col"> Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Action</th>
@@ -55,19 +55,29 @@
                                 <tbody>
                                     @foreach ($details as $detail)
                                         <tr>
-                                            <td>{{ $detail->Product->name }}</td>
-                                            <td>Rp.{{ number_format($detail->Product->price, 0, ',', '.') }}</td>
                                             <td>
-                                                @php
-                                                    // Cek apakah item ada di dalam session
-                                                    $cartItems = session('cartItems', []);
-                                                    $cartItem = collect($cartItems)->firstWhere('id', $detail->id);
-                                                    $quantity = $cartItem ? $cartItem['quantity'] : 1;
-                                                @endphp
+                                                @if ($detail->product)
+                                                    {{ $detail->product->name }}
+                                                @elseif ($detail->service)
+                                                    {{ $detail->service->name }}
+                                                @else
+                                                    Data not found
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($detail->product)
+                                                    Rp.{{ number_format($detail->product->price, 0, ',', '.') }}
+                                                @elseif ($detail->service)
+                                                    Rp.{{ number_format($detail->service->price, 0, ',', '.') }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
 
+                                            <td>
                                                 <input type="text" id="quantity" name="quantity"
-                                                    style="width: 50px; text-align: center; border: none;"
-                                                    value="{{ $quantity }}" readonly>
+                                                    style="width: 50px; text-align: center; border: none;" value="1"
+                                                    readonly>
                                             </td>
                                             <td>
                                                 <form id="deleteForm_{{ $detail->id }}"
@@ -82,14 +92,33 @@
                                         </tr>
                                     @endforeach
 
+
                                 </tbody>
                             </table>
 
                             <ul class="list-group">
-                                <li class="list-group-item px-3 py-4 d-flex justify-content-between" style="border: none">
-                                    <i class="fas fa-plus-circle fa-2x m-auto" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" style="color: #005eff;"></i>
-                                </li>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="#" class="list-group-item px-3 py-4 d-flex justify-content-between"
+                                            style="border: none">
+                                            <span>Add Product</span>
+                                            <i class="fas fa-plus-circle fa-2x m-auto" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" style="color: #005eff;"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <a href="#" class="list-group-item px-3 py-4 d-flex justify-content-between"
+                                            style="border: none" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+                                            <span>Add Service</span>
+                                            <i class="fas fa-plus-circle fa-2x m-auto" style="color: #005eff;"></i>
+                                        </a>
+                                    </div>
+
+                                </div>
+
+
+
                                 <li class="list-group-item px-3 py-4 d-flex justify-content-between total bg-light ">
                                     <p class="my-auto text-dark">Total</p>
                                     <h5 class="text-dark">Rp.{{ number_format($data->total_price, 0, ',', '.') }}</h5>
@@ -107,8 +136,8 @@
 
                         </div>
                         {{-- Modal Bayar --}}
-                        <div class="modal fade" id="exampleModalBayar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="exampleModalBayar" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -205,36 +234,73 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product to Cart</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <!-- resources/views/purchase_form.blade.php -->
                                     <form action="{{ route('admin.transaction.addToCard', $data->id) }}" method="POST">
                                         <div class="modal-body">
                                             @csrf
                                             <input type="text" name="transaction_id" value="{{ $data->id }}"
                                                 hidden>
-                                            <select class="form-select" name="product"
-                                                aria-label="Default select example">
-                                                @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }} -
-                                                        {{ ' ' }}Rp.{{ number_format($product->price, 0, ',', '.') }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <div class="mb-3">
+                                                <label for="product" class="form-label">Select Product</label>
+                                                <select class="form-select" name="product" aria-label="Select Product">
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product->id }}">{{ $product->name }} - Rp.
+                                                            {{ number_format($product->price, 0, ',', '.') }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" id="addToCart" class="btn btn-primary">Add</button>
+                                            <button type="submit" id="addToCart" class="btn btn-primary">Add to
+                                                Cart</button>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                         <!-- Modal tambah barang -->
+                        <!-- Modal tambah servis -->
+                        <div class="modal fade" id="addServiceModal" tabindex="-1"
+                            aria-labelledby="addServiceModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="addServiceModalLabel">Add Service</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('admin.transaction.addService', $data->id) }}" method="POST">
+                                        <div class="modal-body">
+                                            @csrf
+                                            <input type="text" name="transaction_id" value="{{ $data->id }}"
+                                                hidden>
+                                            <div class="mb-3">
+                                                <label for="service" class="form-label">Select Service</label>
+                                                <select class="form-select" name="service" aria-label="Select Service">
+                                                    @foreach ($services as $service)
+                                                        <option value="{{ $service->id }}">{{ $service->name }} - Rp.
+                                                            {{ number_format($service->price, 0, ',', '.') }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" id="addServiceToCart" class="btn btn-primary">Add
+                                                Service</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal tambah servis -->
+
                     </div>
                 </div>
             </div>

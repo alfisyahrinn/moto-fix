@@ -65,6 +65,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Custom route for deleting an item in AdminTransactionController
         Route::delete('/delete-item/{detailId}', [AdminTransactionController::class, 'deleteItem'])->name('admin.transaction.deleteItem');
+
+        // Custom route for adding a service in AdminTransactionController
+        Route::post('/admin/transaction/add-service/{id}', [AdminTransactionController::class, 'addServiceToCart'])->name('admin.transaction.addService');
     });
 
     Route::middleware(['checkRole:user'])->group(function () {

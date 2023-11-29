@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('detail_services', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('transaction_id');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('service_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('service_id')->references('id')->on('service_prices');
             $table->foreign('transaction_id')->references('id')->on('transactions');
         });
     }
