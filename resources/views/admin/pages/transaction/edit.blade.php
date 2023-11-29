@@ -29,8 +29,9 @@
                             </div>
                             <div class="mb-4">
                                 <label for="tanggal" class="form-label">Date</label>
-                                <input type="date" class="form-control  text-dark w-75" value="{{ $data->Queue->time }}"
-                                    name="date" disabled id="tanggal" aria-describedby="emailHelp">
+                                <input type="date" class="form-control text-dark w-75"
+                                    value="{{ \Carbon\Carbon::parse($data->time)->format('Y-m-d') }}" name="date"
+                                    disabled id="tanggal" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-4">
                                 <label for="permasalahan" class="form-label">Problem</label>
@@ -42,13 +43,49 @@
                     <div class="col-5">
                         <h1 class="h1-form-booking text-primary">Transaksi</h1>
                         <div class="mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($details as $detail)
+                                        <tr>
+                                            <td>{{ $detail->Product->name }}</td>
+                                            <td>Rp.{{ number_format($detail->Product->price, 0, ',', '.') }}</td>
+                                            <td>
+                                                @php
+                                                    // Cek apakah item ada di dalam session
+                                                    $cartItems = session('cartItems', []);
+                                                    $cartItem = collect($cartItems)->firstWhere('id', $detail->id);
+                                                    $quantity = $cartItem ? $cartItem['quantity'] : 1;
+                                                @endphp
+
+                                                <input type="text" id="quantity" name="quantity"
+                                                    style="width: 50px; text-align: center; border: none;"
+                                                    value="{{ $quantity }}" readonly>
+                                            </td>
+                                            <td>
+                                                <form id="deleteForm_{{ $detail->id }}"
+                                                    action="{{ route('admin.transaction.deleteItem', $detail->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="confirmDelete({{ $detail->id }})">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+
                             <ul class="list-group">
-                                @foreach ($details as $detail)
-                                    <li class="list-group-item px-3 py-4 d-flex justify-content-between">
-                                        <p class="my-auto">{{ $detail->Product->name }}</p>
-                                        <h5>Rp.{{ number_format($detail->Product->price, 0, ',', '.') }}</h5>
-                                    </li>
-                                @endforeach
                                 <li class="list-group-item px-3 py-4 d-flex justify-content-between" style="border: none">
                                     <i class="fas fa-plus-circle fa-2x m-auto" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal" style="color: #005eff;"></i>
@@ -59,12 +96,15 @@
                                 </li>
                                 <li class="list-group-item p-0 py-3" style="border: none">
                                     <button type="submit"
-                                        class="btn btn-primary w-100   {{ $data->Queue->status === 0 ? 'btn-secondary' : '' }}"
+                                        class="btn btn-primary w-100 {{ $data->Queue->status === 0 ? 'btn-secondary' : '' }}"
                                         style="border-radius: 5px" data-bs-toggle="modal"
                                         {{ $data->Queue->status === 0 ? 'disabled' : '' }}
-                                        data-bs-target="#exampleModalBayar">Bayar</button>
+                                        data-bs-target="#exampleModalBayar">
+                                        <i class="fas fa-times"></i> Bayar
+                                    </button>
                                 </li>
                             </ul>
+
                         </div>
                         {{-- Modal Bayar --}}
                         <div class="modal fade" id="exampleModalBayar" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -80,7 +120,8 @@
                                         <div class="modal-body">
                                             @csrf
                                             @method('PUT')
-                                            <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
+                                            <input type="text" name="transaction_id" value="{{ $data->id }}"
+                                                hidden>
                                             <input type="text" name="uang_cek" value="" id="iniBayar" hidden>
                                             <div class="row">
                                                 <div class="col-6 mb-4">
@@ -169,7 +210,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <!-- resources/views/purchase_form.blade.php -->
-                                    <form action="{{ route('addToCard', $data->id) }}" method="POST">
+                                    <form action="{{ route('admin.transaction.addToCard', $data->id) }}" method="POST">
                                         <div class="modal-body">
                                             @csrf
                                             <input type="text" name="transaction_id" value="{{ $data->id }}"
@@ -192,8 +233,8 @@
 
                                 </div>
                             </div>
-
                         </div>
+                        <!-- Modal tambah barang -->
                     </div>
                 </div>
             </div>
@@ -226,5 +267,25 @@
                 }
             });
         });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmDelete(detailId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit form when user confirms
+                    document.getElementById('deleteForm_' + detailId).submit();
+                }
+            });
+        }
     </script>
 @endsection

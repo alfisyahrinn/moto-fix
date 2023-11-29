@@ -7,6 +7,9 @@ use App\Models\DetailTransaction;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AdminTransactionController extends Controller
 {
@@ -24,43 +27,80 @@ class AdminTransactionController extends Controller
 
     public function addToCard(Request $request)
     {
-        $harga = Product::find($request->product);
-        $transaction = Transaction::find($request->transaction_id);
+        try {
+            $harga = Product::find($request->product);
+            $transaction = Transaction::find($request->transaction_id);
 
-        if ($transaction) {
-            $price = $harga->price; // Mengambil nilai price dari produk terkait
-            $transaction->increment('total_price', $price);
-            $transaction->save();
+            if ($transaction) {
+                $price = $harga->price; // Mengambil nilai price dari produk terkait
+                $transaction->increment('total_price', $price);
+                $transaction->save();
+            }
+
+            DetailService::create([
+                'transaction_id' => $request->transaction_id,
+                'product_id' => $request->product,
+            ]);
+
+            // Menampilkan SweetAlert success
+            Alert::success('Success', 'Product added to cart');
+
+            return redirect()->route('transaction.edit', $request->id);
+        } catch (\Exception $e) {
+            // Menampilkan SweetAlert error jika terjadi kesalahan
+            Alert::error('Error', 'Failed to add product to cart');
+
+            return redirect()->route('transaction.edit', $request->id);
         }
-        DetailService::create([
-            'transaction_id' => $request->transaction_id,
-            'product_id' => $request->product,
-        ]);
-
-        return redirect()->route('transaction.edit', $request->id)->with('success', 'Success add Product');
     }
-    // $transaction = Product::find($request->id);
-    // if ($transaction) {
-    //     // Mendapatkan produk terkait dari transaksi
-    //     $product = $transaction->Product; // Asumsi relasi bernama 'product' ada di model Transaction
 
-    //     if ($product) {
-    //         $price = $product->price; // Mengambil nilai price dari produk terkait
-    //         $transaction->increment('total_price', $price);
-    //         $transaction->save();
-    //     }
-    // }
-    // DetailService::create([
-    //     'transaction_id' => $request->id,
-    //     'product_id' => $request->id,
-    // ]);
 
-    // return redirect()->route('transaction.edit', $request->id)->with('success', 'Success add Product');
-    // }
+    public function deleteItem($detailId)
+    {
+        try {
+            $detail = DetailService::find($detailId);
 
-    /**
-     * Show the form for creating a new resource.
-     */
+            if (!$detail) {
+                // Item tidak ditemukan
+                Alert::error('Error', 'Detail not found');
+                return redirect()->back();
+            }
+
+            $transaction = Transaction::find($detail->transaction_id);
+
+            if (!$transaction) {
+                // Transaksi tidak ditemukan
+                Alert::error('Error', 'Transaction not found');
+                return redirect()->back();
+            }
+
+            $product = Product::find($detail->product_id);
+
+            if (!$product) {
+                // Produk tidak ditemukan
+                Alert::error('Error', 'Product not found');
+                return redirect()->back();
+            }
+
+            // Kurangi total
+            $transaction->decrement('total_price', $product->price);
+
+            // Hapus detail transaksi dari database
+            $detail->delete();
+
+            // Sukses
+            Alert::success('Success', 'Service / Product Deleted');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            // Kesalahan umum
+            Alert::error('Error', 'Failed to delete service');
+            return redirect()->back();
+        }
+    }
+
+
+
+
     public function create()
     {
         //

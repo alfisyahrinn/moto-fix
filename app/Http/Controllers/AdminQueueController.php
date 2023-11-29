@@ -95,4 +95,6 @@ class AdminQueueController extends Controller
         return redirect()->route('queue.index');
     }
 
+    
+
 }
