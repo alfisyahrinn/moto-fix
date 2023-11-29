@@ -39,7 +39,7 @@
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             @if (auth()->user()->role == 'user')
                                 <!-- Home Item -->
-                                <a class="dropdown-item" href="{{ route('user.index') }}">Home</a>
+                                <a class="dropdown-item" href="/">Home</a>
 
                                 <!-- Profile Item -->
                                 <a class="dropdown-item" href="{{ route('user.profile') }}">My Profile</a>
