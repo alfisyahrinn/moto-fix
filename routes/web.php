@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\AdminTransactionController;
 
@@ -25,7 +26,8 @@ use App\Http\Controllers\AdminTransactionController;
 */
 
 Route::get('/', function () {
-    return view('user.pages.home');
+    $products = Product::latest()->limit(4)->get();
+    return view('user.pages.home', compact('products'));
 });
 
 
