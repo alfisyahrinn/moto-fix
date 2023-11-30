@@ -29,104 +29,161 @@ class AdminTransactionController extends Controller
     public function addToCard(Request $request)
     {
         try {
-            $harga = Product::find($request->product);
             $transaction = Transaction::find($request->transaction_id);
 
             if ($transaction) {
-                $price = $harga->price; // Mengambil nilai price dari produk terkait
-                $transaction->increment('total_price', $price);
-                $transaction->save();
+                $product = Product::find($request->product);
+
+                if ($product) {
+                    // Check if a detail for the selected product already exists
+                    $existingDetail = DetailService::where('transaction_id', $request->transaction_id)
+                        ->where('product_id', $request->product)
+                        ->first();
+
+                    $quantity = 1; // Default quantity
+
+                    if ($existingDetail) {
+                        // If the product already exists, increment the quantity
+                        $quantity = $existingDetail->quantity + 1;
+                        $existingDetail->increment('quantity');
+                    } else {
+                        // If the product is added for the first time, create a new row
+                        DetailService::create([
+                            'transaction_id' => $request->transaction_id,
+                            'product_id' => $request->product,
+                            'quantity' => $quantity,
+                        ]);
+                    }
+
+                    // Update the total_price attribute on the transaction model
+                    $transaction->increment('total_price', $product->price);
+                    $transaction->save();
+
+                    // Menampilkan SweetAlert success
+                    Alert::success('Success', 'Product added to cart');
+
+                    return redirect()->route('transaction.edit', $request->transaction_id);
+                }
             }
 
-            DetailService::create([
-                'transaction_id' => $request->transaction_id,
-                'product_id' => $request->product,
-            ]);
-
-            // Menampilkan SweetAlert success
-            Alert::success('Success', 'Product added to cart');
-
-            return redirect()->route('transaction.edit', $request->id);
-        } catch (\Exception $e) {
             // Menampilkan SweetAlert error jika terjadi kesalahan
             Alert::error('Error', 'Failed to add product to cart');
 
-            return redirect()->route('transaction.edit', $request->id);
+            return redirect()->route('transaction.edit', $request->transaction_id);
+        } catch (\Exception $e) {
+            // Handle exception if any
+            // Menampilkan SweetAlert error jika terjadi kesalahan
+            Alert::error('Error', 'Failed to add product to cart');
+
+            return redirect()->route('transaction.edit', $request->transaction_id);
         }
     }
-    public function addServiceToCart(Request $request)
+
+public function addServiceToCart(Request $request)
 {
     try {
-        $service = Service_price::find($request->service);
         $transaction = Transaction::find($request->transaction_id);
 
         if ($transaction) {
-            $price = $service->price; // Mengambil nilai price dari layanan terkait
-            $transaction->increment('total_price', $price);
-            $transaction->save();
+            $service = Service_price::find($request->service);
+
+            if ($service) {
+                // Check if a detail for the selected service already exists
+                $existingDetail = DetailService::where('transaction_id', $request->transaction_id)
+                    ->where('service_id', $request->service)
+                    ->first();
+
+                $quantity = 1; // Default quantity
+
+                if ($existingDetail) {
+                    // If the service already exists, increment the quantity
+                    $quantity = $existingDetail->quantity + 1;
+                    $existingDetail->increment('quantity');
+                } else {
+                    // If the service is added for the first time, create a new row
+                    DetailService::create([
+                        'transaction_id' => $request->transaction_id,
+                        'service_id' => $request->service,
+                        'quantity' => $quantity,
+                    ]);
+                }
+
+                // Update the total_price attribute on the transaction model
+                $transaction->increment('total_price', $service->price);
+                $transaction->save();
+
+                // Menampilkan SweetAlert success
+                Alert::success('Success', 'Service added to cart');
+
+                return redirect()->route('transaction.edit', $request->transaction_id);
+            }
         }
 
-        DetailService::create([
-            'transaction_id' => $request->transaction_id,
-            'service_id' => $request->service,
-        ]);
-
-        // Menampilkan SweetAlert success
-        Alert::success('Success', 'Service added to cart');
+        // Menampilkan SweetAlert error jika terjadi kesalahan
+        Alert::error('Error', 'Failed to add service to cart');
 
         return redirect()->route('transaction.edit', $request->transaction_id);
     } catch (\Exception $e) {
+        // Handle exception if any
         // Menampilkan SweetAlert error jika terjadi kesalahan
         Alert::error('Error', 'Failed to add service to cart');
 
         return redirect()->route('transaction.edit', $request->transaction_id);
     }
 }
+// AdminTransactionController.php
 
-
-public function deleteItem($detailId)
+public function updateQuantity(Request $request, $id)
 {
     try {
-        $detail = DetailService::find($detailId);
+        // Temukan detail yang terkait dengan ID yang diberikan
+        $detail = DetailService::findOrFail($id);
 
-        if (!$detail) {
-            // Item tidak ditemukan
-            Alert::error('Error', 'Detail not found');
-            return redirect()->back();
-        }
+        // Validasi input quantity
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-        $transaction = Transaction::find($detail->transaction_id);
+        // Update kuantitas pada atribut detail
+        $detail->update(['quantity' => $request->input('quantity')]);
 
-        if (!$transaction) {
-            // Transaksi tidak ditemukan
-            Alert::error('Error', 'Transaction not found');
-            return redirect()->back();
-        }
+        // Panggil fungsi updateTotalPrice untuk menghitung dan memperbarui total harga
+        $this->updateTotalPrice($detail->transaction);
 
-        if ($detail->product_id) {
-            // Hanya lakukan ini jika yang dihapus adalah produk, bukan servis
-            $product = Product::find($detail->product_id);
+        // Menampilkan SweetAlert success
+        Alert::success('Success', 'Quantity updated successfully.');
 
-            if ($product) {
-                // Kurangi total hanya jika produk ditemukan
-                $transaction->decrement('total_price', $product->price);
-            }
-        }
-
-        // Hapus detail transaksi dari database
-        $detail->delete();
-
-        // Sukses
-        Alert::success('Success', 'Service / Product Deleted');
+        // Redirect kembali atau ke halaman lain
         return redirect()->back();
     } catch (\Exception $e) {
-        // Kesalahan umum
-        Alert::error('Error', 'Failed to delete service');
+        // Tangani pengecualian jika ada
+        // Menampilkan SweetAlert error jika terjadi kesalahan
+        Alert::error('Error', 'Failed to update quantity.');
+
         return redirect()->back();
     }
 }
 
 
+private function updateTotalPrice(Transaction $transaction)
+{
+    // Retrieve details for the given transaction associated with products and services
+    $details = DetailService::where('transaction_id', $transaction->id)->get();
+
+    // Calculate the total price based on product and service prices and quantities
+    $totalPrice = $details->sum(function ($detail) {
+        if ($detail->product_id) {
+            return optional($detail->product)->price * $detail->quantity;
+        } elseif ($detail->service_id) {
+            return optional($detail->service)->price * $detail->quantity;
+        }
+
+        return 0; // Default value, modify as needed
+    });
+
+    // Update the total_price attribute on the transaction model
+    $transaction->update(['total_price' => $totalPrice]);
+}
 
 
     public function create()
@@ -154,25 +211,26 @@ public function deleteItem($detailId)
      * Show the form for editing the specified resource.
      */
     public function edit(Transaction $transaction)
-{
-    $details = DetailService::where('transaction_id', $transaction->id)
-        ->with('product', 'service') // Eager load the related product and service
-        ->get();
+    {
+        $details = DetailService::where('transaction_id', $transaction->id)
+            ->with('product', 'service') // Eager load the related product and service
+            ->get();
 
-    $products = Product::all();
-    $services = Service_price::all();
+        $products = Product::all();
+        $services = Service_price::all();
 
-    return view('admin.pages.transaction.edit', [
-        'title' => 'transaction',
-        'data' => $transaction,
-        'products' => $products,
-        'services' => $services,
-        'details' => $details,
-    ]);
-}
+        // Ambil total harga dari model transaksi
+        $totalPrice = $transaction->total_price;
 
-
-
+        return view('admin.pages.transaction.edit', [
+            'title' => 'transaction',
+            'data' => $transaction,
+            'products' => $products,
+            'services' => $services,
+            'details' => $details,
+            'totalPrice' => $totalPrice,
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -187,11 +245,38 @@ public function deleteItem($detailId)
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+
+    public function deleteDetail(Request $request, $id)
+{
+    try {
+        // Find the detail associated with the ID
+        $detail = DetailService::findOrFail($id);
+
+        // Get the transaction associated with the detail
+        $transaction = $detail->transaction;
+
+        // Delete the detail
+        $detail->delete();
+
+        // Call the function to update the total price
+        $this->updateTotalPrice($transaction);
+
+        // Display a success message
+        Alert::success('Success', 'Detail deleted successfully.');
+
+        // Redirect back or to another page
+        return redirect()->back();
+    } catch (\Exception $e) {
+        // Handle exceptions if any
+        // Display an error message
+        Alert::error('Error', 'Failed to delete detail.');
+
+        // Redirect back
+        return redirect()->back();
     }
+}
+
+
+
+
 }
