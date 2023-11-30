@@ -50,18 +50,18 @@
                                         <li class="list-group-item px-3 py-4 d-flex justify-content-between">
                                             <p class="my-auto">
                                                 @if ($detail->product)
-                                                    {{ $detail->product->name }}
+                                                    {{ $detail->quantity }} x {{ $detail->product->name }}
                                                 @elseif ($detail->service)
-                                                    {{ $detail->service->name }}
+                                                    {{ $detail->quantity }} x {{ $detail->service->name }}
                                                 @else
                                                     Product/Service not found
                                                 @endif
                                             </p>
                                             <h5>
                                                 @if ($detail->product)
-                                                    Rp.{{ number_format($detail->product->price, 0, ',', '.') }}
+                                                    Rp.{{ number_format($detail->product->price * $detail->quantity, 0, ',', '.') }}
                                                 @elseif ($detail->service)
-                                                    Rp.{{ number_format($detail->service->price, 0, ',', '.') }}
+                                                    Rp.{{ number_format($detail->service->price * $detail->quantity, 0, ',', '.') }}
                                                 @else
                                                     N/A
                                                 @endif
@@ -78,15 +78,9 @@
                                                 style="border-radius: 5px">Checkout</button>
                                         @endif
                                     </li>
-
                                 </ul>
                             </div>
                         </div>
-
-                    </div>
-
-
-
                 </form>
             </div>
         </div>

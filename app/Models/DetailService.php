@@ -10,10 +10,7 @@ class DetailService extends Model
     use HasFactory;
     protected $fillable = ['transaction_id', 'product_id', 'service_id', 'quantity'];
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'product_id');
-    }
+
     public function service()
     {
         return $this->belongsTo(Service_price::class, 'service_id');
@@ -23,4 +20,10 @@ class DetailService extends Model
     {
         return $this->belongsTo(Transaction::class);
     }
+
+    public function product()
+{
+    return $this->belongsTo(Product::class);
+}
+
 }
