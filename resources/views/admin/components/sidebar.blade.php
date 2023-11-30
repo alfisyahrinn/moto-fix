@@ -54,8 +54,8 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Master:</h6>
-                <a class="collapse-item" href="/category">Category</a>
-                <a class="collapse-item" href="/suplier">Suplier</a>
+                <a class="collapse-item" href="{{ route('category.index') }}">Category</a>
+                <a class="collapse-item" href="{{ route('supplier.index') }}">Suplier</a>
                 <a class="collapse-item" href="/price">Service Price</a>
             </div>
         </div>
