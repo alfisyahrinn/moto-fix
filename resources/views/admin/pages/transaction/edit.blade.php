@@ -2,6 +2,7 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
     <section id="booking">
+
         <div>
             <div class="mt-2 px-4">
                 @csrf
