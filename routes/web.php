@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,6 +11,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminQueueController;
+use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\AdminTransactionController;
 
 /*
@@ -69,6 +71,12 @@ Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'delet
 
         Route::put('transactions/update_quantity/{id}', [AdminTransactionController::class, 'updateQuantity'])
         ->name('admin.transactions.update_quantity');
+
+        // Resource routes for AdminCategoryController
+        Route::resource('/admin/category', AdminCategoryController::class);
+        
+        // Resource routes for AdminSupplierController
+        Route::resource('/admin/supplier', AdminSupplierController::class);
     });
 
     Route::middleware(['checkRole:user'])->group(function () {
