@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
                 $user = Auth::guard($guard)->user();
 
                 if ($user->role == 'admin') {
-                    return redirect('/admin/index');
+                    return redirect('/admin/dashboard');
                 } elseif ($user->role == 'user') {
                     return redirect('/user/index');
                 }

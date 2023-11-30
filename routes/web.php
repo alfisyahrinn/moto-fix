@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\AdminTransactionController;
 
@@ -37,7 +35,6 @@ Route::middleware(['auth', 'verified', 'checkRole:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard');
     // Add other routes for AdminController as needed
 });
-
 Route::middleware(['auth', 'verified'])->group(function () {
     // Common routes for both admin and user
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
