@@ -48,8 +48,24 @@
                                 <ul class="list-group">
                                     @foreach ($details as $detail)
                                         <li class="list-group-item px-3 py-4 d-flex justify-content-between">
-                                            <p class="my-auto">{{ $detail->Product->name }}</p>
-                                            <h5>Rp.{{ number_format($detail->Product->price, 0, ',', '.') }}</h5>
+                                            <p class="my-auto">
+                                                @if ($detail->product)
+                                                    {{ $detail->quantity }} x {{ $detail->product->name }}
+                                                @elseif ($detail->service)
+                                                    {{ $detail->quantity }} x {{ $detail->service->name }}
+                                                @else
+                                                    Product/Service not found
+                                                @endif
+                                            </p>
+                                            <h5>
+                                                @if ($detail->product)
+                                                    Rp.{{ number_format($detail->product->price * $detail->quantity, 0, ',', '.') }}
+                                                @elseif ($detail->service)
+                                                    Rp.{{ number_format($detail->service->price * $detail->quantity, 0, ',', '.') }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </h5>
                                         </li>
                                     @endforeach
                                     <li class="list-group-item px-3 py-4 d-flex justify-content-between total">
@@ -57,18 +73,14 @@
                                         <h5 class="text-dark">Rp.{{ number_format($data->total_price, 0, ',', '.') }}</h5>
                                     </li>
                                     <li class="list-group-item p-0 py-3" style="border: none">
-                                        <button
-                                            class="btn-booking p-0 w-100  {{ $data->Queue->status === 0 ? 'bg-secondary' : '' }}"
-                                            {{ $data->Queue->status === 0 ? 'disabled' : '' }}
-                                            style="border-radius: 5px">Chekout</button>
+                                        @if ($data->Queue->status === 1)
+                                            <button class="btn-booking p-0 w-100"
+                                                style="border-radius: 5px">Checkout</button>
+                                        @endif
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-
-
-
                 </form>
             </div>
         </div>

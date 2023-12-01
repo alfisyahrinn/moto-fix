@@ -1,17 +1,18 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MasterServicePrice;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminQueueController;
+use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\AdminTransactionController;
 
 /*
@@ -26,7 +27,8 @@ use App\Http\Controllers\AdminTransactionController;
 */
 
 Route::get('/', function () {
-    return view('user.pages.home');
+    $products = Product::latest()->limit(4)->get();
+    return view('user.pages.home', compact('products'));
 });
 
 
@@ -36,7 +38,6 @@ Route::middleware(['auth', 'verified', 'checkRole:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard');
     // Add other routes for AdminController as needed
 });
-
 Route::middleware(['auth', 'verified'])->group(function () {
     // Common routes for both admin and user
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
@@ -63,11 +64,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Custom route for adding to cart in AdminTransactionController
         Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
+<<<<<<< HEAD
         
         // Resource route for Master Price Service
         Route::resource('/admin/price', MasterServicePrice::class);
 
 
+=======
+
+       // Route for deleting a detail
+Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'deleteDetail'])->name('details.delete');
+        // Custom route for adding a service in AdminTransactionController
+        Route::post('/admin/transaction/add-service/{id}', [AdminTransactionController::class, 'addServiceToCart'])->name('admin.transaction.addService');
+
+        Route::put('transactions/update_quantity/{id}', [AdminTransactionController::class, 'updateQuantity'])
+        ->name('admin.transactions.update_quantity');
+
+        // Resource routes for AdminCategoryController
+        Route::resource('/admin/category', AdminCategoryController::class);
+        
+        // Resource routes for AdminSupplierController
+        Route::resource('/admin/supplier', AdminSupplierController::class);
+>>>>>>> f7d269217bf04e68402ab9afa4f416fff50203f4
     });
 
     Route::middleware(['checkRole:user'])->group(function () {

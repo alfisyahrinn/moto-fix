@@ -21,17 +21,17 @@
             <h1 class="h1-hero-page2 text-center">Layanan Servis Motor</h1>
             <div class="card-hero-page2 row justify-content-around">
                 <div class="card-items-hero-page2 col-md-4">
-                    <img src="{{ asset('assets/img/banner/servis-kecil.png') }}" class="img-fluid" alt="">
+                    <img src="{{ asset('assets/img/icon/service-kecil.png') }}" class="img-fluid" alt="" style="max-width: 100px">
                     <h1>Servis Kecil</h1>
                     <p>Paket servis ringan untuk menjaga performa motor Anda.</p>
                 </div>
                 <div class="card-items-hero-page2 col-md-4">
-                    <img src="{{ asset('assets/img/banner/servis-sedang.png') }}" class="img-fluid" alt="">
+                    <img src="{{ asset('assets/img/icon/kelistrikan.png') }}" class="img-fluid" alt="" style="max-width: 100px">
                     <h1>Servis Sedang</h1>
                     <p>Servis menengah untuk pemeliharaan lebih detail.</p>
                 </div>
                 <div class="card-items-hero-page2 col-md-4">
-                    <img src="{{ asset('assets/img/banner/servis-besar.png') }}" class="img-fluid" alt="">
+                    <img src="{{ asset('assets/img/icon/service-besar.png') }}" class="img-fluid" alt="" style="max-width: 100px">
                     <h1>Servis Besar </h1>
                     <p>Paket servis menyeluruh untuk menjaga kesehatan motor Anda. </p>
                 </div>
@@ -39,22 +39,31 @@
         </div>
     </section>
 
-
     <section id="sparepart">
-        <div class="container mt-4">
+        <div class="container">
             <div class="d-flex justify-content-between">
-                <h1 class="h1-hero-page3">Sparepart Motor</h1>
-                <a href="{{ route('user.index') }}" class="p-hero-page3 mt-auto">lihat semua</a>
+                <h1 class="h1-hero-page2">Sparepart Motor</h1>
+                <a href="{{ route('product.index') }}" class="p-hero-page3 mt-auto">lihat semua</a>
             </div>
-            <div class="card-hero-page3 mt-4 row justify-content-around">
-                @for ($i = 0; $i < 6; $i++)
-                    <div class="card-items-hero-page3 col-lg-4 col-md-6">
-                        <img src="{{ asset('assets/img/banner/piston.png') }}" class="img-fluid" alt="piston-karisma">
-                        <a class="a-card-items-hero-page3">Piston Supra x 125 old , karisma </a>
-                        <p class="desk-card-items-hero-page3">Piston Merek Astra honda motor (AHM) size 32mm</p>
-                        <p class="price-card-items-hero-page3">Rp. 155.000</p>
+            <div class="row d-flex inline-gap-2">
+                @foreach ($products as $product)
+                    <div class="col mb-1" onclick="window.location.href='{{ route('product.detail', $product->id) }}'"
+                        style="cursor: pointer;">
+                        <div class="card h-100 w-80">
+                            <div style="max-height: 250px; overflow:hidden;">
+                                <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
+                                    alt="{{ $product->name }}">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">{{ Str::of($product->description)->limit(40) }}</p>
+                                <button type="button" class="btn btn-success" style="pointer-events:none">
+                                    Rp {{ $product->price }}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
     </section>

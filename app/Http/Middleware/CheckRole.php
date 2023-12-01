@@ -26,7 +26,7 @@ class CheckRole
 
         // Redirect based on the user's role
         if ($userRole == 'admin') {
-            return Redirect::route('admin.index');
+            return Redirect::route('admin.pages.dashboard');
         } elseif ($userRole == 'user') {
             return Redirect::route('user.index');
         }

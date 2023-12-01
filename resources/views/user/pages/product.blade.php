@@ -53,17 +53,21 @@
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                     @foreach ($products as $product)
-                        <div class="col mb-4" onclick="window.location.href='{{ route('product.detail', $product->id) }}'"
+                        <div class="col mb-1" onclick="window.location.href='{{ route('product.detail', $product->id) }}'"
                             style="cursor: pointer;">
                             <div class="card h-100">
-                                <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
-                                    alt="{{ $product->name }}">
+                                <div style="max-height: 250px; overflow:hidden;">
+                                    <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
+                                        alt="{{ $product->name }}">
+                                </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
-                                    <p class="card-text">{{ $product->description }}</p>
-                                    <p class="card-text">Rp. {{ $product->price }}</p>
+                                    <p class="card-text">{{ Str::of($product->description)->limit(30) }}</p>
+                                    <button type="button" class="btn btn-success" style="pointer-events:none">
+                                        Rp {{ $product->price }}
+                                    </button>
                                 </div>
                             </div>
                         </div>
