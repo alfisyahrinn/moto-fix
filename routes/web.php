@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MasterServicePrice;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\AdminProductController;
@@ -65,6 +66,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Custom route for adding to cart in AdminTransactionController
         Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
 
+        
+
+
+        // Resource route for Master Price Service
+        Route::resource('/admin/price', MasterServicePrice::class);
+
+
+
+    
        // Route for deleting a detail
     Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'deleteDetail'])->name('details.delete');
         // Custom route for adding a service in AdminTransactionController
@@ -79,8 +89,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Resource routes for AdminSupplierController
         Route::resource('/admin/supplier', AdminSupplierController::class);
 
-        // Resource routes for AdminProductController
-        Route::resource('/admin/product', AdminProductController::class);
     });
 
     Route::middleware(['checkRole:user'])->group(function () {
