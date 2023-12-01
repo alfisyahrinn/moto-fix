@@ -3,7 +3,7 @@
     <section id="booking">
         <div>
             <div class="mt-5">
-                <form action="{{ route('booking.store') }}" method="POST">
+                {{-- <form action="{{ route('booking.store') }}" method="POST"> --}}
                     @csrf
                     <div class="row">
                         <div class="col-7">
@@ -96,7 +96,7 @@
                                 </ul>
                             </div>
                         </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </section>

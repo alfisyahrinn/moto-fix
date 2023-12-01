@@ -256,31 +256,35 @@ public function updateQuantity(Request $request, $id)
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-{
-    $paymentMethod = $request->input('payment_method');
+    {
+        // Check if the payment confirmation field is present and truthy
+        if ($request->uang_cek) {
+            // Get the payment method from the request
+            $paymentMethod = $request->input('payment_method');
 
-    if ($request->uang_cek) {
-        if ($paymentMethod == 'cash') {
-            // For offline/cash payments
-            Transaction::where('id', $id)->update([
-                'payment_status' => 'paid',
-                'payment_method' => 'cash',
-            ]);
-        } elseif ($paymentMethod == 'online') {
-            // Handle online payment logic (e.g., with Midtrans)
-            // Update payment status based on online payment result
-            // ...
+            // Check if the payment is made using cash (offline)
+            if ($paymentMethod == 'cash') {
+                // Update the transaction for offline/cash payments
+                Transaction::where('id', $id)->update([
+                    'payment_status' => 'paid',
+                    'payment_method' => 'cash',
+                ]);
+
+                // Use Alert for success
+                Alert::success('Success', 'Payment successful')->showConfirmButton('OK', '#3085d6');
+                return redirect()->route('transaction.edit', $id);
+            } else {
+                // If the admin tries to update with an online payment method, show an error
+                Alert::error('Error', 'Admin can only process offline payments (cash).')->showConfirmButton('OK', '#3085d6');
+                return redirect()->back();
+            }
+        } else {
+            // If the payment confirmation field is not present or has a false value
+            Alert::error('Error', 'Payment confirmation is required. Please try again.')->showConfirmButton('OK', '#3085d6');
+            return redirect()->back();
         }
-
-        // Use Alert for success
-        Alert::success('Success', 'Payment successful')->showConfirmButton('OK', '#3085d6');
-        return redirect()->route('transaction.edit', $id);
-    } else {
-        // Use Alert for error in payment
-        Alert::error('Error', 'Failed to process payment. Please try again.')->showConfirmButton('OK', '#3085d6');
-        return redirect()->back();
     }
-}
+
 
     private function updateTotalPrice(Transaction $transaction)
     {
