@@ -43,7 +43,7 @@
         <div class="container">
             <div class="d-flex justify-content-between">
                 <h1 class="h1-hero-page2">Sparepart Motor</h1>
-                <a href="{{ route('product.index') }}" class="p-hero-page3 mt-auto">lihat semua</a>
+                <a href="{{ route('product.display') }}" class="p-hero-page3 mt-auto">lihat semua</a>
             </div>
             <div class="row d-flex inline-gap-2">
                 @foreach ($products as $product)
@@ -58,7 +58,7 @@
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ Str::of($product->description)->limit(40) }}</p>
                                 <button type="button" class="btn btn-success" style="pointer-events:none">
-                                    Rp {{ $product->price }}
+                                    Rp{{ number_format($product->price, 0, ',', '.') }}
                                 </button>
                             </div>
                         </div>

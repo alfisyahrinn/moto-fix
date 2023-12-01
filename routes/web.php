@@ -88,7 +88,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Resource routes for AdminSupplierController
         Route::resource('/admin/supplier', AdminSupplierController::class);
-
+        
+        // Resource routes for AdminSupplierController
+        Route::resource('/admin/product', AdminProductController::class);
     });
 
     Route::middleware(['checkRole:user'])->group(function () {

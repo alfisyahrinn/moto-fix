@@ -38,7 +38,7 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $data->name }}</td>
-                                <td> {{ $data->price }} </td>
+                                <td>Rp{{ number_format($data->price, 0, ',', '.') }}</td>
                                 <td >
 
                                     <!-- Button trigger modal for Edit -->

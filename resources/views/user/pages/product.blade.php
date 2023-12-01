@@ -66,7 +66,7 @@
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">{{ Str::of($product->description)->limit(30) }}</p>
                                     <button type="button" class="btn btn-success" style="pointer-events:none">
-                                        Rp {{ $product->price }}
+                                        Rp{{ number_format($product->price, 0, ',', '.') }}
                                     </button>
                                 </div>
                             </div>
