@@ -74,7 +74,7 @@ Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'delet
 
         // Resource routes for AdminCategoryController
         Route::resource('/admin/category', AdminCategoryController::class);
-        
+
         // Resource routes for AdminSupplierController
         Route::resource('/admin/supplier', AdminSupplierController::class);
     });
