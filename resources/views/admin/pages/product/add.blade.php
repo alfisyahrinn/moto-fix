@@ -17,14 +17,6 @@
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">   
                         </div>
                         <div class="mb-3">
-                            <label for="user">User</label>
-                            <select class="form-select" name="user_id">
-                                @foreach ($users as $user)    
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
-                              </select>  
-                        </div>
-                        <div class="mb-3">
                             <label for="category">Category</label>
                             <select class="form-select" name="category_id">
                                 @foreach ($categories as $category)    
