@@ -48,7 +48,7 @@
                                 <a class="dropdown-item"href="{{ route('booking.index') }}">Book a Service</a>
 
                                 <!-- Product Item -->
-                                <a class="dropdown-item"href="{{ route('product.index') }}">Sparepart</a>
+                                <a class="dropdown-item"href="{{ route('product.display') }}">Sparepart</a>
                             @endif
                             <!-- Logout -->
                             <a class="dropdown-item" href="{{ route('logout') }}"

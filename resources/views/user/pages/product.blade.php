@@ -59,14 +59,14 @@
                             style="cursor: pointer;">
                             <div class="card h-100">
                                 <div style="max-height: 250px; overflow:hidden;">
-                                    <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
+                                    <img src="{{asset('storage/'. $product->image)}}" class="card-img-top"
                                         alt="{{ $product->name }}">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">{{ Str::of($product->description)->limit(30) }}</p>
                                     <button type="button" class="btn btn-success" style="pointer-events:none">
-                                        Rp {{ $product->price }}
+                                        Rp{{ number_format($product->price, 0, ',', '.') }}
                                     </button>
                                 </div>
                             </div>

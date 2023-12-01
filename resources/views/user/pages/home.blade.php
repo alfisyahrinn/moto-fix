@@ -43,7 +43,7 @@
         <div class="container">
             <div class="d-flex justify-content-between">
                 <h1 class="h1-hero-page2">Sparepart Motor</h1>
-                <a href="{{ route('product.index') }}" class="p-hero-page3 mt-auto">lihat semua</a>
+                <a href="{{ route('product.display') }}" class="p-hero-page3 mt-auto">lihat semua</a>
             </div>
             <div class="row d-flex inline-gap-2">
                 @foreach ($products as $product)
@@ -51,14 +51,14 @@
                         style="cursor: pointer;">
                         <div class="card h-100 w-80">
                             <div style="max-height: 250px; overflow:hidden;">
-                                <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
+                                <img src="{{asset('storage/'. $product->image)}}" class="card-img-top"
                                     alt="{{ $product->name }}">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ Str::of($product->description)->limit(40) }}</p>
                                 <button type="button" class="btn btn-success" style="pointer-events:none">
-                                    Rp {{ $product->price }}
+                                    Rp{{ number_format($product->price, 0, ',', '.') }}
                                 </button>
                             </div>
                         </div>
