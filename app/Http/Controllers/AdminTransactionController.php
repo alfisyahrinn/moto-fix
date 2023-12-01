@@ -203,25 +203,7 @@ public function updateQuantity(Request $request, $id)
 }
 
 
-private function updateTotalPrice(Transaction $transaction)
-{
-    // Retrieve details for the given transaction associated with products and services
-    $details = DetailService::where('transaction_id', $transaction->id)->get();
 
-    // Calculate the total price based on product and service prices and quantities
-    $totalPrice = $details->sum(function ($detail) {
-        if ($detail->product_id) {
-            return optional($detail->product)->price * $detail->quantity;
-        } elseif ($detail->service_id) {
-            return optional($detail->service)->price * $detail->quantity;
-        }
-
-        return 0; // Default value, modify as needed
-    });
-
-    // Update the total_price attribute on the transaction model
-    $transaction->update(['total_price' => $totalPrice]);
-}
 
 
     public function create()
@@ -283,6 +265,25 @@ private function updateTotalPrice(Transaction $transaction)
         }
     }
 
+    private function updateTotalPrice(Transaction $transaction)
+    {
+        // Retrieve details for the given transaction associated with products and services
+        $details = DetailService::where('transaction_id', $transaction->id)->get();
+
+        // Calculate the total price based on product and service prices and quantities
+        $totalPrice = $details->sum(function ($detail) {
+            if ($detail->product_id) {
+                return optional($detail->product)->price * $detail->quantity;
+            } elseif ($detail->service_id) {
+                return optional($detail->service)->price * $detail->quantity;
+            }
+
+            return 0; // Default value, modify as needed
+        });
+
+        // Update the total_price attribute on the transaction model
+        $transaction->update(['total_price' => $totalPrice]);
+    }
 
     public function deleteDetail(Request $request, $id)
     {
@@ -290,35 +291,32 @@ private function updateTotalPrice(Transaction $transaction)
             // Find the detail associated with the ID
             $detail = DetailService::findOrFail($id);
 
-            // Check if the detail is associated with a product
-            if ($detail->product) {
-                // Get the transaction associated with the detail
-                $transaction = $detail->transaction;
+            // Get the transaction associated with the detail
+            $transaction = $detail->transaction;
 
+            // Get the quantity to be returned to the stock (if applicable)
+            $returnedQuantity = $detail->quantity;
+
+            // Mulai transaksi database
+            DB::beginTransaction();
+
+            // Delete the detail
+            $detail->delete();
+
+            // If the detail is associated with a product, update the stock
+            if ($detail->product_id) {
                 // Get the product associated with the detail
                 $product = $detail->product;
 
-                // Get the quantity to be returned to the stock
-                $returnedQuantity = $detail->quantity;
-
-                // Mulai transaksi database
-                DB::beginTransaction();
-
-                // Delete the detail
-                $detail->delete();
-
                 // Return the quantity to the stock of the corresponding product
                 $product->update(['stock' => $product->stock + $returnedQuantity]);
-
-                // Call the function to update the total price
-                $this->updateTotalPrice($transaction);
-
-                // Commit transaksi database
-                DB::commit();
-            } else {
-                // If the detail is not associated with a product, just delete it without updating stock
-                $detail->delete();
             }
+
+            // Call the function to update the total price
+            $this->updateTotalPrice($transaction);
+
+            // Commit transaksi database
+            DB::commit();
 
             // Display a success message
             Alert::success('Success', 'Detail deleted successfully.');
@@ -337,7 +335,6 @@ private function updateTotalPrice(Transaction $transaction)
             return redirect()->back();
         }
     }
-
 
 
 }
