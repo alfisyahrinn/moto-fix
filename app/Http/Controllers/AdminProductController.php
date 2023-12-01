@@ -20,13 +20,11 @@ class AdminProductController extends Controller
         $products = Product::all();
         $category = Category::all();
         $supplier = Supplier::all();
-        $users = User::all();
         return view ('admin.pages.product.index')->with([
             'title' => 'Product',
             'products' => $products,
             'categories' => $category,
             'suppliers' => $supplier,
-            'users' => $users
         ]);
     }
 
@@ -45,7 +43,6 @@ class AdminProductController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|max:100',
-            'user_id' => 'required',
             'category_id' => 'required',
             'supplier_id' => 'required',
             'description' => 'required',
@@ -88,7 +85,6 @@ class AdminProductController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|max:100',
-            'user_id' => 'required',
             'category_id' => 'required',
             'supplier_id' => 'required',
             'description' => 'required',
