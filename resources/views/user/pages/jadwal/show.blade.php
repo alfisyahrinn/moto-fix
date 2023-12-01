@@ -74,6 +74,21 @@
                                     </li>
                                     <li class="list-group-item p-0 py-3" style="border: none">
                                         @if ($data->Queue->status === 1)
+                                            @if ($data->Queue->transaction->payment_status === 'paid')
+                                                <!-- If 'Queue' status is 1 and 'Transaction' payment_status is 'paid', display "Paid" -->
+                                                <button class="btn-booking p-0 w-100" style="border-radius: 5px"
+                                                    disabled>Paid</button>
+                                            @else
+                                                <!-- If 'Queue' status is 1, but 'Transaction' payment_status is not 'paid', display "Checkout" -->
+                                                <button class="btn-booking p-0 w-100"
+                                                    style="border-radius: 5px">Checkout</button>
+                                            @endif
+                                        @elseif ($data->Queue->status === 0)
+                                            <!-- If 'Queue' status is 0, display "Pending" -->
+                                            <button class="btn-booking p-0 w-100" style="border-radius: 5px"
+                                                disabled>Pending</button>
+                                        @else
+                                            <!-- If all conditions are false, display "Checkout" -->
                                             <button class="btn-booking p-0 w-100"
                                                 style="border-radius: 5px">Checkout</button>
                                         @endif

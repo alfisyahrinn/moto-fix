@@ -26,7 +26,6 @@ class BookingController extends Controller
 
         $request->validate([
             'merk' => 'nullable|string|max:255',
-            // 'type' => 'nullable|string|max:255',
             'number_plate' => 'nullable|string|max:255',
             'date' => 'nullable|string|max:255',
             'problem' => 'nullable|string',
@@ -34,32 +33,35 @@ class BookingController extends Controller
 
         $select = Queue::where('time', $request->date)->get()->count();
         if ($select == 0) {
-            $no_queuq = $select + 1;
+            $no_queue = $select + 1;
         } else {
-            $no_queuq = $select + 1;
+            $no_queue = $select + 1;
         }
-        // dd('default: ' . $select, 'sudah : ' . $no_queuq);
+
         if ($select > 2) {
             return redirect()->route('booking.index')->with('danger', 'This date is Full! ');
         } else {
             $queue = Queue::create([
                 'merk' => $request->merk,
-                'no_queue' => $no_queuq,
+                'no_queue' => $no_queue,
                 'user_id' => $user->id,
                 'number_plate' => $request->number_plate,
                 'time' => $request->date,
                 'problem' => $request->problem,
-                'status' => false,
+                'status' => false, // Set status to false initially
             ]);
+
             Transaction::create([
                 'user_id' => $user->id,
                 'queue_id' => $queue->id,
-                'status' => false,
+                'payment_status' => 'unpaid', // Set payment_status to unpaid initially
                 'total_price' => 0,
             ]);
-            return redirect()->route('booking.jadwal')->with('success', 'Booking create successfully! ' . $queue->id);
+
+            return redirect()->route('booking.jadwal')->with('success', 'Booking created successfully! ' . $queue->id);
         }
     }
+
     // Display the jadwal page
     public function showJadwal()
     {

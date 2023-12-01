@@ -7,7 +7,7 @@
         <!-- Page Heading -->
         <div class="d-flex">
             <h1 class="h3 mb-4 text-gray-800 my-auto">{{ $title }}</h1>
-           
+
         </div>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -49,14 +49,14 @@
                                             <i class="fas fa-pen-square"></i>
                                         </a>
 
-                                        <!-- Button trigger modal for delete confirmation -->
+                                        {{-- <!-- Button trigger modal for delete confirmation -->
                                         <button type="button" class="btn btn-danger btn-circle" data-toggle="modal"
                                             data-target="#deleteModal{{ $data->id }}">
                                             <i class="fas fa-trash"></i>
-                                        </button>
+                                        </button> --}}
 
                                         <!-- Delete Confirmation Modal -->
-                                        <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1"
+                                        {{-- <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1"
                                             role="dialog" aria-labelledby="deleteModalLabel{{ $data->id }}"
                                             aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -84,7 +84,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </td>
 
                                 </tr>

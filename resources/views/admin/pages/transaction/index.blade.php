@@ -6,7 +6,7 @@
         <!-- Page Heading -->
         <div class="d-flex">
             <h1 class="h3 mb-4 text-gray-800 my-auto">{{ $title }}</h1>
-           
+
         </div>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -51,9 +51,9 @@
                                             class="btn btn-success btn-circle">
                                             <i class="fas fa-pen-square"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-circle">
+                                        {{-- <a href="#" class="btn btn-danger btn-circle">
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                             @endforeach
