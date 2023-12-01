@@ -187,6 +187,8 @@
                                         <div class="modal-body">
                                             @csrf
                                             @method('PUT')
+                                            <input type="hidden" name="payment_method" value="cash">
+
                                             <input type="text" name="transaction_id" value="{{ $data->id }}"
                                                 hidden>
                                             <input type="text" name="uang_cek" value="" id="iniBayar" hidden>

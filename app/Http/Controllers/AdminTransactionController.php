@@ -256,14 +256,31 @@ public function updateQuantity(Request $request, $id)
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        if ($request->uang_cek) {
+{
+    $paymentMethod = $request->input('payment_method');
+
+    if ($request->uang_cek) {
+        if ($paymentMethod == 'cash') {
+            // For offline/cash payments
             Transaction::where('id', $id)->update([
-                'status' => true,
+                'payment_status' => 'paid',
+                'payment_method' => 'cash',
             ]);
-            return redirect()->route('transaction.edit', $id)->with('success', 'Success Payment');
+        } elseif ($paymentMethod == 'online') {
+            // Handle online payment logic (e.g., with Midtrans)
+            // Update payment status based on online payment result
+            // ...
         }
+
+        // Use Alert for success
+        Alert::success('Success', 'Payment successful')->showConfirmButton('OK', '#3085d6');
+        return redirect()->route('transaction.edit', $id);
+    } else {
+        // Use Alert for error in payment
+        Alert::error('Error', 'Failed to process payment. Please try again.')->showConfirmButton('OK', '#3085d6');
+        return redirect()->back();
     }
+}
 
     private function updateTotalPrice(Transaction $transaction)
     {
