@@ -11,6 +11,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminQueueController;
+use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\AdminTransactionController;
 
@@ -44,7 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/booking/jadwal', [BookingController::class, 'showJadwal'])->name('booking.jadwal');
     Route::get('/booking/jadwal/{transaction}', [BookingController::class, 'show'])->name('booking.show');
 
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/product', [ProductController::class, 'index'])->name('product.display');
     Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('product.detail');
     Route::get('/product/{category}', [ProductController::class, 'filterCategory'])->name('product.category');
     Route::get('/product/supplier/{supplier}', [ProductController::class, 'filterSupplier'])->name('product.supplier');
@@ -65,7 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
 
        // Route for deleting a detail
-Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'deleteDetail'])->name('details.delete');
+    Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'deleteDetail'])->name('details.delete');
         // Custom route for adding a service in AdminTransactionController
         Route::post('/admin/transaction/add-service/{id}', [AdminTransactionController::class, 'addServiceToCart'])->name('admin.transaction.addService');
 
@@ -77,6 +78,9 @@ Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'delet
 
         // Resource routes for AdminSupplierController
         Route::resource('/admin/supplier', AdminSupplierController::class);
+
+        // Resource routes for AdminProductController
+        Route::resource('/admin/product', AdminProductController::class);
     });
 
     Route::middleware(['checkRole:user'])->group(function () {

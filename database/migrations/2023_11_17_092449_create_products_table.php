@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedBigInteger('price');
             $table->integer('stock')->default(0);
-            $table->binary('image');
+            $table->string('image');
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('category_id');
 

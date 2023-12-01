@@ -59,7 +59,7 @@
                             style="cursor: pointer;">
                             <div class="card h-100">
                                 <div style="max-height: 250px; overflow:hidden;">
-                                    <img src="data:image/png;base64,{{ base64_encode($product->image) }}" class="card-img-top"
+                                    <img src="{{asset('storage/'. $product->image)}}" class="card-img-top"
                                         alt="{{ $product->name }}">
                                 </div>
                                 <div class="card-body">
