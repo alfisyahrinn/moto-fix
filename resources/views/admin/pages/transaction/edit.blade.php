@@ -102,17 +102,24 @@
                                                 </form>
                                             </td>
 
-                                            <!-- Kolom untuk menghapus item -->
                                             <td>
                                                 <form id="deleteForm"
                                                     action="{{ route('details.delete', ['id' => $detail->id]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('DELETE')
+
+                                                    @if ($detail->product)
+                                                        <input type="hidden" name="detail_type" value="product">
+                                                    @elseif ($detail->service)
+                                                        <input type="hidden" name="detail_type" value="service">
+                                                    @endif
+
                                                     <button type="button" onclick="confirmDelete()"
                                                         class="btn btn-danger">Delete</button>
                                                 </form>
                                             </td>
+
 
                                         </tr>
                                     @endforeach
@@ -151,6 +158,7 @@
                                         </h5>
                                     </div>
                                 </li>
+
 
                                 <li class="list-group-item p-0 py-3" style="border: none">
                                     <button type="submit"
