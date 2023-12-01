@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MasterServicePrice;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\AdminTransactionController;
@@ -62,6 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Custom route for adding to cart in AdminTransactionController
         Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
+        
+        // Resource route for Master Price Service
+        Route::resource('/admin/price', MasterServicePrice::class);
+
+
     });
 
     Route::middleware(['checkRole:user'])->group(function () {

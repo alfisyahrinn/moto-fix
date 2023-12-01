@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('service_prices', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('price');
-            $table->unsignedBigInteger('user_id');
+            $table->bigInteger('price');
+            // $table->unsignedBigInteger('user_id');
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

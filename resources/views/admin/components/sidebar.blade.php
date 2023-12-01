@@ -56,7 +56,7 @@
                 <h6 class="collapse-header">Custom Master:</h6>
                 <a class="collapse-item" href="/category">Category</a>
                 <a class="collapse-item" href="/suplier">Suplier</a>
-                <a class="collapse-item" href="/price">Service Price</a>
+                <a class="collapse-item" href="/admin/price">Service Price</a>
             </div>
         </div>
     </li>
