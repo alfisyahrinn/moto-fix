@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service_price;
+use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class MasterServicePrice extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class MasterServicePrice extends Controller
     {
         
             return view('admin.pages.price.price', [
-                'title' => 'master',
+                'title' => 'Service price',
+                
                 'datas' => Service_price::all()
             ]);
     }
@@ -25,7 +28,6 @@ class MasterServicePrice extends Controller
     public function create()
     {
         return view('admin.pages.add.addprice', [
-            'title' => 'master',
         ]);
     }
 
@@ -39,7 +41,9 @@ class MasterServicePrice extends Controller
             // dd($request->all());
             Service_price::create($request->all());
 
-            return redirect('/admin/price')->with('success', 'News added siccesfully'); 
+            Alert::success('Success', 'Price Added');
+            return redirect('/admin/price');
+    
         }
     }
 
@@ -73,6 +77,7 @@ class MasterServicePrice extends Controller
 
         ]);
         Service_price::where('id', $id)->update($validatedData);
+        Alert::success('Success', 'Price Updated');
         return redirect('/admin/price');
     }
 
@@ -84,7 +89,7 @@ class MasterServicePrice extends Controller
         $delete = Service_price::findorfail($id);
 
         $delete->delete(); 
-
+        Alert::success('Success', 'Price Deleted');
         return redirect('/admin/price');
     }
 }

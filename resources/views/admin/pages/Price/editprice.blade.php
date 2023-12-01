@@ -20,7 +20,7 @@
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
                         <div class="mb-3">
-                          <label for="name" class="form-label"><h4>Price Name</h4></label>
+                          <label for="name" class="form-label"><h4> Name</h4></label>
                           <input type="text" class="form-control" id="name" name="name" value="{{ old('name',$data->name) }}" style="width: 250px">
                         </div>
                       </li> 

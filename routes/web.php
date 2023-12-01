@@ -64,14 +64,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Custom route for adding to cart in AdminTransactionController
         Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
-<<<<<<< HEAD
+
         
+
+
         // Resource route for Master Price Service
         Route::resource('/admin/price', MasterServicePrice::class);
 
 
-=======
 
+    
        // Route for deleting a detail
 Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'deleteDetail'])->name('details.delete');
         // Custom route for adding a service in AdminTransactionController
@@ -85,7 +87,7 @@ Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'delet
         
         // Resource routes for AdminSupplierController
         Route::resource('/admin/supplier', AdminSupplierController::class);
->>>>>>> f7d269217bf04e68402ab9afa4f416fff50203f4
+
     });
 
     Route::middleware(['checkRole:user'])->group(function () {
