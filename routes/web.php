@@ -66,16 +66,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/payment/error', [PaymentController::class, 'errorPayment'])->name('user.payment.error');
     Route::get('/user/payment/failed', [PaymentController::class, 'failedPayment'])->name('user.payment.failed');
 
-
-
-
-
-    // Route::get('/finish-payment', [PaymentController::class, 'finishPayment'])->name('finish-payment');
-    // Route::get('/midtrans/redirect', [MidtransCallbackController::class, 'redirect'])->name('midtrans.redirect');
-    // Route::get('/midtrans/finish', [MidtransCallbackController::class, 'finishRedirect'])->name('midtrans.finish');
-    // Route::get('/midtrans/unfinish', [MidtransCallbackController::class, 'unfinishRedirect'])->name('midtrans.unfinish');
-    // Route::get('/midtrans/error', [MidtransCallbackController::class, 'errorRedirect'])->name('midtrans.error');
-
     Route::get('/product', [ProductController::class, 'index'])->name('product.display');
     Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('product.detail');
     Route::get('/product/{category}', [ProductController::class, 'filterCategory'])->name('product.category');
@@ -95,8 +85,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Custom route for adding to cart in AdminTransactionController
         Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
-
-
 
         // Resource route for Master Price Service
         Route::resource('/admin/price', MasterServicePrice::class);
@@ -136,7 +124,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/failed', [BookingController::class, 'failed'])->name('failed');
     });
 });
-
 
 
 Route::get('/tes', function () {
