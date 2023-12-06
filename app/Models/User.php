@@ -3,12 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,6 +22,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'address',
+        'phone',
+        'email_verified_at',
+        'remember_token',
+
     ];
 
     /**
@@ -42,4 +49,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function queue(){
+        return $this->hasOne(Queue::class);
+    }
+    public function transaction(){
+        return $this->hasOne(Transaction::class);
+    }
+    public function service_price(){
+        return $this->hasOne(Service_price::class);
+    }
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
 }
