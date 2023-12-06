@@ -41,16 +41,16 @@
                                             data-target="#editModal{{ $data->id }}">
                                             <i class="fas fa-pen-square"></i>
                                         </button>
-                                        
+
                                         <!-- Button trigger modal for delete confirmation -->
                                         <button type="button" class="btn btn-danger btn-circle" data-toggle="modal"
                                             data-target="#deleteModal{{ $data->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
 
-                                        @include('admin.pages.category.delete')
-                                        
-                                        @include('admin.pages.category.edit')
+                                        @include('admin.pages.Category.delete')
+
+                                        @include('admin.pages.Category.edit')
                                         </div>
                                     </td>
                                 </tr>
@@ -63,8 +63,8 @@
 
     </div>
 
-    @include('admin.pages.category.add')
-    
-    
+    @include('admin.pages.Category.add')
+
+
     </div>
 @endsection
