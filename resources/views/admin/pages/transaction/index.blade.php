@@ -31,32 +31,46 @@
                         </thead>
                         <tbody>
                             @foreach ($datas as $data)
-                                <tr>
-                                    <td>{{ $data->id }}</td>
-                                    <td>{{ $data->User->name }}</td>
-                                    <td>{{ $data->Queue->no_queue }}</td>
-                                    <td>{{ $data->Queue->merk }}</td>
-                                    <td>{{ $data->Queue->number_plate }}</td>
-                                    <td>{{ $data->Queue->time }}</td>
-                                    <td>
+                            <tr>
+                                <td>{{ $data->id }}</td>
+                                <td>{{ $data->User->name }}</td>
+                                <td>
+                                    @if ($data->Queue)
+                                        {{ $data->Queue->no_queue }}
+                                    @else
+                                        Queue Deleted
+                                    @endif
+                                </td>
+                                <td>{{ optional($data->Queue)->merk }}</td>
+                                <td>{{ optional($data->Queue)->number_plate }}</td>
+                                <td>{{ optional($data->Queue)->time }}</td>
+                                <td>
+                                    @if ($data->Queue && $data->Queue->transaction)
                                         <div class="alert p-0 text-center {{ $data->Queue->transaction->payment_status === 'paid' ? 'alert-success' : 'alert-danger' }}"
                                             role="alert">
                                             {{ $data->Queue->transaction->payment_status === 'paid' ? 'Paid' : 'Unpaid' }}
                                         </div>
-                                    </td>
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>Rp.{{ number_format($data->total_price, 0, ',', '.') }}</td>
+                                <td>
+                                    <a href="{{ route('transaction.edit', $data->id) }}" class="btn btn-success btn-circle">
+                                        <i class="fas fa-pen-square"></i>
+                                    </a>
+                                    <form action="{{ route('transaction.destroy', $data->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
 
-                                    <td>Rp.{{ number_format($data->total_price, 0, ',', '.') }}</td>
-                                    <td>
-                                        <a href="{{ route('transaction.edit', $data->id) }}"
-                                            class="btn btn-success btn-circle">
-                                            <i class="fas fa-pen-square"></i>
-                                        </a>
-                                        {{-- <a href="#" class="btn btn-danger btn-circle">
+                                        <button type="submit" class="btn btn-danger btn-circle">
                                             <i class="fas fa-trash"></i>
-                                        </a> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+
                         </tbody>
                     </table>
                 </div>

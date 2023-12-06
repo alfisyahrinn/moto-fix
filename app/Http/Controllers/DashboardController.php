@@ -14,13 +14,16 @@ class DashboardController extends Controller
     public function index()
     {
         $pendingQueues = Queue::where('status', 0)->get();
-        $pendingTransactions = Transaction::where('status', 0)->get();
+        $unpaidTransactions = Transaction::where('payment_status', 'unpaid')->get();
 
-        // Fetch paid transactions for the chart
-        $paidTransactions = Transaction::where('status', '1') // '1' represents the "paid" status
-            ->selectRaw('DATE(created_at) as date, SUM(total_price) as total')
-            ->groupBy('date')
-            ->get();
+
+
+
+        $paidTransactions = Transaction::where('payment_status', 'paid') // 'paid' represents the "paid" status
+        ->selectRaw('DATE(created_at) as date, SUM(total_price) as total')
+        ->groupBy('date')
+        ->get();
+
 
         // Fetch total counts
         $categoryCount = Category::count();
@@ -29,7 +32,8 @@ class DashboardController extends Controller
         // Fetch total count of products
         $totalProductCount = Product::count();
 
-        return view('admin.pages.dashboard', compact('pendingQueues', 'pendingTransactions', 'paidTransactions', 'categoryCount', 'supplierCount', 'totalProductCount'));
+        return view('admin.pages.dashboard', compact('pendingQueues', 'unpaidTransactions', 'paidTransactions', 'categoryCount', 'supplierCount', 'totalProductCount'));
+
     }
 
 }

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailService;
-use App\Models\DetailTransaction;
 use App\Models\Product;
 use App\Models\Transaction;
-use App\Models\Service_price;
 use Illuminate\Http\Request;
+use App\Models\DetailService;
+use App\Models\Service_price;
+use App\Models\DetailTransaction;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class AdminTransactionController extends Controller
@@ -252,38 +253,8 @@ public function updateQuantity(Request $request, $id)
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        // Check if the payment confirmation field is present and truthy
-        if ($request->uang_cek) {
-            // Get the payment method from the request
-            $paymentMethod = $request->input('payment_method');
 
-            // Check if the payment is made using cash (offline)
-            if ($paymentMethod == 'cash') {
-                // Update the transaction for offline/cash payments
-                Transaction::where('id', $id)->update([
-                    'payment_status' => 'paid',
-                    'payment_method' => 'cash',
-                ]);
 
-                // Use Alert for success
-                Alert::success('Success', 'Payment successful')->showConfirmButton('OK', '#3085d6');
-                return redirect()->route('transaction.edit', $id);
-            } else {
-                // If the admin tries to update with an online payment method, show an error
-                Alert::error('Error', 'Admin can only process offline payments (cash).')->showConfirmButton('OK', '#3085d6');
-                return redirect()->back();
-            }
-        } else {
-            // If the payment confirmation field is not present or has a false value
-            Alert::error('Error', 'Payment confirmation is required. Please try again.')->showConfirmButton('OK', '#3085d6');
-            return redirect()->back();
-        }
-    }
 
 
     private function updateTotalPrice(Transaction $transaction)
@@ -357,5 +328,41 @@ public function updateQuantity(Request $request, $id)
         }
     }
 
+    public function destroy($id)
+    {
+        try {
+            // Find the transaction by ID
+            $transaction = Transaction::findOrFail($id);
+
+            // Begin a database transaction
+            DB::beginTransaction();
+
+            // Delete associated details (services and products)
+            DetailService::where('transaction_id', $transaction->id)->delete();
+
+            // Commit the transaction
+            DB::commit();
+
+            // Delete the transaction
+            $transaction->delete();
+
+            // Display a success message
+            Alert::success('Success', 'Transaction deleted successfully.');
+            return redirect()->route('transaction.index')->with('success', 'Transaction deleted successfully.');
+        } catch (ModelNotFoundException $e) {
+            // Handle the case where the transaction is not found
+            return redirect()->route('transaction.index')->with('error', 'Transaction not found.');
+        } catch (\Exception $e) {
+            // Rollback the transaction if an error occurs
+            DB::rollBack();
+
+            // Log the error for further investigation
+            \Log::error('Failed to delete transaction. ' . $e->getMessage());
+
+            // Display an error message
+            Alert::error('Error', 'Failed to delete transaction. Please try again.');
+            return redirect()->route('transaction.index')->with('error', 'Failed to delete transaction. Please try again.');
+        }
+    }
 
 }

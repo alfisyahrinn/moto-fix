@@ -13,15 +13,34 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');// Added field for user ID
-            $table->string('payment_status')->default('unpaid'); // Added field for payment status
-            $table->unsignedBigInteger('total_price')->default('0');
-            $table->string('payment_method')->nullable(); // Added field for payment method
-            $table->string('payment_transaction_id')->nullable(); // Added field for payment transaction ID
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('queue_id')->constrained()->onDelete('cascade');
+            $table->string('order_id')->unique();
+            $table->enum('payment_status', ['unpaid', 'paid', 'failed'])->default('unpaid');
+            $table->unsignedBigInteger('total_price')->default(0);
+            $table->string('payment_method')->nullable();
+            $table->string('payment_transaction_id')->nullable();
+            $table->string('midtrans_transaction_id')->nullable();
+            $table->string('payment_url')->nullable();
+            $table->timestamp('payment_expiration')->nullable();
+            $table->string('payment_channel')->nullable();
+            $table->timestamp('transaction_time')->nullable(); // Add this line
+            $table->string('transaction_status')->nullable(); // Add this line
+            $table->string('fraud_status')->nullable(); // Add this line
+            $table->string('masked_card')->nullable(); // Add this line
+            $table->string('gross_amount')->nullable(); // Add this line
+            $table->timestamp('expiry_time')->nullable(); // Add this line
+            $table->string('currency')->nullable(); // Add this line
+            $table->string('channel_response_message')->nullable(); // Add this line
+            $table->string('channel_response_code')->nullable(); // Add this line
+            $table->string('card_type')->nullable(); // Add this line
+            $table->string('bank')->nullable(); // Add this line
+            $table->string('approval_code')->nullable(); // Add this line
             $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreignId('queue_id')->constrained()->onDelete('cascade');
         });
+
 
     }
 

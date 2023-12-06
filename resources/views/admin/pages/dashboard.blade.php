@@ -37,7 +37,7 @@
                                     Pending Transactions
                                 </div>
                                 <div class="h4 font-weight-bold text-gray-800 ml-3">
-                                    {{ $pendingTransactions->count() }}
+                                    {{ $unpaidTransactions->count() }}
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -126,22 +126,7 @@
             </div>
         </div>
     </div>
-    @php
-        $startDate = '2023-11-01';
-        $numDays = 30;
-
-        $paidTransactions = collect();
-
-        for ($i = 0; $i < $numDays; $i++) {
-            $date = date('Y-m-d', strtotime($startDate . ' +' . $i . ' days'));
-            $total = rand(300, 1000);
-
-            $paidTransactions->push(['date' => $date, 'total' => $total]);
-        }
-    @endphp
-
-
-
+   
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
 

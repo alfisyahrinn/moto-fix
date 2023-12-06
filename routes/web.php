@@ -1,20 +1,24 @@
 <?php
 
-use App\Http\Controllers\AdminCategoryController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MasterServicePrice;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminQueueController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\AdminTransactionController;
+use App\Http\Controllers\MidtransCallbackController;
+use App\Http\Middleware\PaymentStatusMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,14 +30,22 @@ use App\Http\Controllers\AdminTransactionController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/user/payment/finish', [PaymentController::class, 'finishPayment'])->name('user.payment.finish');
+Route::get('/user/payment/unfinish', [PaymentController::class, 'unfinishPayment'])->name('user.payment.unfinish');
+Route::get('/user/payment/error', [PaymentController::class, 'errorPayment'])->name('user.payment.error');
+Route::post('/midtrans/callback', [BookingController::class, 'callback']);
+
 
 Route::get('/', function () {
-    $products = Product::latest()->limit(4)->get();
+    $products = Product::latest()
+        ->limit(4)
+        ->get();
     return view('user.pages.home', compact('products'));
 });
 
-
 Auth::routes(['verify' => true]);
+
+
 
 Route::middleware(['auth', 'verified', 'checkRole:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.pages.dashboard');
@@ -44,7 +56,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
     Route::get('/booking/jadwal', [BookingController::class, 'showJadwal'])->name('booking.jadwal');
-    Route::get('/booking/jadwal/{transaction}', [BookingController::class, 'show'])->name('booking.show');
+    Route::get('/booking/show/{transaction}', [BookingController::class, 'show'])
+        ->middleware('checkPaymentStatus')
+        ->name('booking.show');
+    Route::get('/booking/show/{transaction}', [BookingController::class, 'show'])
+        ->middleware(['checkPaymentStatus', 'checkTransactionConditions'])
+        ->name('booking.show');
+
+    Route::get('/user/payment/error', [PaymentController::class, 'errorPayment'])->name('user.payment.error');
+    Route::get('/user/payment/failed', [PaymentController::class, 'failedPayment'])->name('user.payment.failed');
+
+
+
+
+
+    // Route::get('/finish-payment', [PaymentController::class, 'finishPayment'])->name('finish-payment');
+    // Route::get('/midtrans/redirect', [MidtransCallbackController::class, 'redirect'])->name('midtrans.redirect');
+    // Route::get('/midtrans/finish', [MidtransCallbackController::class, 'finishRedirect'])->name('midtrans.finish');
+    // Route::get('/midtrans/unfinish', [MidtransCallbackController::class, 'unfinishRedirect'])->name('midtrans.unfinish');
+    // Route::get('/midtrans/error', [MidtransCallbackController::class, 'errorRedirect'])->name('midtrans.error');
 
     Route::get('/product', [ProductController::class, 'index'])->name('product.display');
     Route::get('/product/detail/{id}', [ProductController::class, 'show'])->name('product.detail');
@@ -66,29 +96,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Custom route for adding to cart in AdminTransactionController
         Route::post('/admin/transaction/add-to-cart/{id}', [AdminTransactionController::class, 'addToCard'])->name('admin.transaction.addToCard');
 
-        
 
 
         // Resource route for Master Price Service
         Route::resource('/admin/price', MasterServicePrice::class);
 
-
-
-    
-       // Route for deleting a detail
-    Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'deleteDetail'])->name('details.delete');
+        // Route for deleting a detail
+        Route::delete('/details/{id}/delete', [AdminTransactionController::class, 'deleteDetail'])->name('details.delete');
         // Custom route for adding a service in AdminTransactionController
         Route::post('/admin/transaction/add-service/{id}', [AdminTransactionController::class, 'addServiceToCart'])->name('admin.transaction.addService');
 
-        Route::put('transactions/update_quantity/{id}', [AdminTransactionController::class, 'updateQuantity'])
-        ->name('admin.transactions.update_quantity');
+        Route::put('transactions/update_quantity/{id}', [AdminTransactionController::class, 'updateQuantity'])->name('admin.transactions.update_quantity');
+
+        Route::delete('transaction/{id}/destroy', [AdminTransactionController::class, 'destroy'])
+    ->name('transaction.destroy');
 
         // Resource routes for AdminCategoryController
         Route::resource('/admin/category', AdminCategoryController::class);
 
         // Resource routes for AdminSupplierController
         Route::resource('/admin/supplier', AdminSupplierController::class);
-        
+
         // Resource routes for AdminSupplierController
         Route::resource('/admin/product', AdminProductController::class);
     });
@@ -97,12 +125,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
         Route::get('/user/profile', [UserController::class, 'showProfile'])->name('user.profile');
     });
+
     Route::middleware(['auth', 'verified', 'checkRole:user'])->group(function () {
         Route::get('/user/profile', [UserController::class, 'showProfile'])->name('user.profile');
         Route::get('/user/profile/edit', [UserController::class, 'editProfile'])->name('user.profile.edit');
         Route::put('/user/profile/update', [UserController::class, 'updateProfile'])->name('user.profile.update');
+
+        Route::get('/booking/checkout/{transaction}', [BookingController::class, 'checkout'])->name('booking.checkout');
+
+        Route::get('/failed', [BookingController::class, 'failed'])->name('failed');
     });
 });
+
+
+
 Route::get('/tes', function () {
     $produts = Product::all();
     return view('tes', [

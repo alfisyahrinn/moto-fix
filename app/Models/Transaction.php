@@ -12,9 +12,30 @@ class Transaction extends Model
     protected $fillable = [
         'user_id',
         'queue_id',
-        'status',
+        'payment_status',
         'total_price',
+        'payment_method',
+        'payment_transaction_id',
+        'midtrans_transaction_id',
+        'payment_url',
+        'payment_expiration',
+        'payment_channel',
+        'transaction_time',
+        'transaction_status',
+        'fraud_status',
+        'masked_card',
+        'gross_amount',
+        'expiry_time',
+        'currency',
+        'channel_response_message',
+        'channel_response_code',
+        'card_type',
+        'bank',
+        'approval_code',
+        'order_id',
+        // Add other fields as needed
     ];
+
 
     public function user()
     {

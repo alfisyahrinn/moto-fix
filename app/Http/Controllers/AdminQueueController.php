@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use DB;
 use App\Models\Queue;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -86,8 +87,17 @@ class AdminQueueController extends Controller
 
     public function destroy(string $id)
     {
-        $queue = Queue::findOrFail($id);
-        $queue->delete();
+        // Check if there are any related records in detail_services
+        $hasRelatedRecords = \DB::table('detail_services')->where('transaction_id', $id)->exists();
+
+        if ($hasRelatedRecords) {
+            // Display alert indicating related records in transactions
+            Alert::error('Error', 'There are items in transactions related to this queue. Delete them first.');
+            return redirect()->route('queue.index');
+        }
+
+        // If no related records, proceed with deleting the queue
+        Queue::where('id', $id)->delete();
 
         // Display success alert
         Alert::success('Success', 'Service Deleted');
@@ -95,6 +105,7 @@ class AdminQueueController extends Controller
         return redirect()->route('queue.index');
     }
 
-    
+
+
 
 }
