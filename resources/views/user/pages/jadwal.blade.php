@@ -22,11 +22,17 @@
                             {{ $data->Queue->no_queue }}</h1>
                         <p class=" {{ $data->Queue->status === 0 ? 'p-card-booking-active' : 'p-card-booking' }}">
                             {{ $data->Queue->problem }}</p>
-                        <a href="{{ route('booking.show', $data->id) }}"
-                            class="btn-hero py-2 px-4  {{ $data->Queue->status === 0 ? 'btn-card-booking' : '' }}">{{ $data->Queue->status === 0 ? $data->Queue->time : 'Selesai' }}</a>
+                        @if ($data->Queue->transaction->payment_status === 'paid')
+                            <span class="btn-hero py-2 px-4 btn-card-booking-paid"
+                                style="border-radius: 20px; ">
+                                Paid
+                            </span>
+                        @else
+                            <a href="{{ route('booking.show', $data->id) }}"
+                                class="btn-hero py-2 px-4  {{ $data->Queue->status === 0 ? 'btn-card-booking' : '' }}">{{ $data->Queue->status === 0 ? $data->Queue->time : 'Selesai' }}</a>
+                        @endif
                     </div>
                 @endforeach
-
             </div>
         </div>
     </section>

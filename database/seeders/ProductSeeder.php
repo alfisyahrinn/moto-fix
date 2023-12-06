@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
             'description' => 'Federal',
             'price' => 35000,
             'stock' => 10,
-            'image' => 'Federal',
+            'image' => 'images/federal_oli.jpg',
             'supplier_id' => 1,
             'category_id' => 1,
         ]);
@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
             'description' => 'bor up',
             'price' => 123000,
             'stock' => 10,
-            'image' => 'Federal',
+            'image' => 'images/federal_oli.jpg',
             'supplier_id' => 1,
             'category_id' => 2,
         ]);
@@ -39,7 +39,7 @@ class ProductSeeder extends Seeder
             'description' => 'bor up',
             'price' => 240000,
             'stock' => 10,
-            'image' => 'Federal',
+            'image' => 'images/federal_oli.jpg',
             'supplier_id' => 1,
             'category_id' => 2,
         ]);
@@ -49,7 +49,7 @@ class ProductSeeder extends Seeder
             'description' => 'bor up',
             'price' => 300000,
             'stock' => 10,
-            'image' => 'Federal',
+            'image' => 'images/federal_oli.jpg',
             'supplier_id' => 1,
             'category_id' => 2,
         ]);
@@ -59,7 +59,7 @@ class ProductSeeder extends Seeder
             'description' => 'bor up',
             'price' => 10000,
             'stock' => 10,
-            'image' => 'Federal',
+            'image' => 'images/federal_oli.jpg',
             'supplier_id' => 1,
             'category_id' => 2,
         ]);

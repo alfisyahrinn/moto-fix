@@ -48,22 +48,23 @@
                                         <a href="{{ route('queue.edit', $data->id) }}" class="btn btn-success btn-circle">
                                             <i class="fas fa-pen-square"></i>
                                         </a>
-
-                                        {{-- <!-- Button trigger modal for delete confirmation -->
-                                        <button type="button" class="btn btn-danger btn-circle" data-toggle="modal"
-                                            data-target="#deleteModal{{ $data->id }}">
+                                        <!-- Delete button with a confirmation modal -->
+                                        <a href="#" class="btn btn-danger btn-circle" data-toggle="modal"
+                                            data-target="#deleteConfirmationModal{{ $data->id }}">
                                             <i class="fas fa-trash"></i>
-                                        </button> --}}
+                                        </a>
 
-                                        <!-- Delete Confirmation Modal -->
-                                        {{-- <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="deleteModalLabel{{ $data->id }}"
+                                        <!-- Delete confirmation modal -->
+                                        <div class="modal fade" id="deleteConfirmationModal{{ $data->id }}"
+                                            tabindex="-1" role="dialog"
+                                            aria-labelledby="deleteConfirmationModalLabel{{ $data->id }}"
                                             aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">
-                                                            Delete Confirmation</h5>
+                                                        <h5 class="modal-title"
+                                                            id="deleteConfirmationModalLabel{{ $data->id }}">Delete
+                                                            Confirmation</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -75,8 +76,8 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <form action="{{ route('queue.destroy', $data->id) }}"
-                                                            method="POST" style="display: inline;">
+                                                        <form method="post"
+                                                            action="{{ route('queue.destroy', ['queue' => $data->id]) }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -84,7 +85,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </td>
 
                                 </tr>

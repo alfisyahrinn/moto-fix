@@ -10,14 +10,16 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'description',
         'price',
         'stock',
         'image',
         'supplier_id',
-        'category_id'
+        'category_id',
     ];
+
 
     public function scopeFilter($query){
         if (request('search')) {

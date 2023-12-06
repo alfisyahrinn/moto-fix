@@ -12,6 +12,8 @@
             <div class="mt-5">
                 <form action="{{ route('booking.store') }}" method="POST">
                     @csrf
+                    {{-- Add a hidden input field for order_id --}}
+
                     {{-- <input type="text" hidden name="id_saya" value="{{ Auth::user()->id }}"> --}}
                     <div class="row">
                         <div class="col-6">
@@ -21,7 +23,7 @@
                                     <label for="merk" class="form-label label-booking">Merk</label>
                                     <input name="merk" value="{{ old('merk') }}" placeholder="Yamaha, Honda ..."
                                         type="text" class="form-control input-booking" id="merk"
-                                        aria-describedby="emailHelp">
+                                        aria-describedby="emailHelp" required>
                                 </div>
                                 {{-- <div class="mb-4">
                                     <label for="type" class="form-label label-booking">Type</label>
@@ -30,19 +32,19 @@
                                 </div> --}}
                                 <div class="mb-4">
                                     <label for="type" class="form-label label-booking">Number Plate</label>
-                                    <input name="number_plate" value="{{ old('number_plate') }}" placeholder="BL-351-GA"
+                                    <input name="number_plate" value="{{ old('number_plate') }}" placeholder="L 123 AM "
                                         type="text" class="form-control input-booking" id="type"
-                                        aria-describedby="emailHelp">
+                                        aria-describedby="emailHelp" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="tanggal" class="form-label label-booking">Date</label>
                                     <input type="date" class="form-control input-booking" value="{{ old('name') }}"
-                                        name="date" id="tanggal" aria-describedby="emailHelp">
+                                        name="date" id="tanggal" aria-describedby="emailHelp" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="permasalahan" class="form-label label-booking">Problem</label>
-                                    <textarea class="form-control input-booking p-4" name="problem" id="permasalahan" cols="30" rows="10">{{ old('problem') }}"</textarea>
+                                    <textarea class="form-control input-booking p-4" name="problem" id="permasalahan" cols="30" rows="10" required>{{ old('problem') }}</textarea>
                                 </div>
                             </div>
                         </div>
