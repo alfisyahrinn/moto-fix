@@ -51,13 +51,14 @@ class AdminProductController extends Controller
             'price' => 'required'
         ]);
 
-        if($request->file('image')){
-            $data['image'] = $request->file('image')->store('data-image');
+        if ($request->file('image')) {
+            // Get the public path and concatenate the desired subdirectory
+            $data['image'] = $request->file('image')->store('data-image', 'public');
         }
 
         Alert::success('Success', 'Product Added');
 
-		Product::create($data);
+        Product::create($data);
 
         return back()->with('i');
     }
@@ -102,10 +103,10 @@ class AdminProductController extends Controller
 
         $product = Product::findOrFail($id);
         $product -> update($data);
-    
+
         // Display success alert
         Alert::success('Success', 'Product Updated');
-    
+
         return redirect()->route('product.index');
     }
 
@@ -117,12 +118,12 @@ class AdminProductController extends Controller
         if($product->image){
             Storage::delete($product->image);
         }
-        
+
         Product::destroy($product->id);
-        
+
         // Display success alert
         Alert::success('Success', 'Product Deleted');
-        
+
         return redirect()->route('product.index');
     }
 }

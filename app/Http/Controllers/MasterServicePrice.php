@@ -14,10 +14,10 @@ class MasterServicePrice extends Controller
      */
     public function index()
     {
-        
-            return view('admin.pages.price.price', [
+
+            return view('admin.pages.Price.Price', [
                 'title' => 'Service price',
-                
+
                 'datas' => Service_price::all()
             ]);
     }
@@ -36,14 +36,14 @@ class MasterServicePrice extends Controller
      */
     public function store(Request $request)
     {
-    
+
         {
             // dd($request->all());
             Service_price::create($request->all());
 
             Alert::success('Success', 'Price Added');
             return redirect('/admin/price');
-    
+
         }
     }
 
@@ -61,9 +61,9 @@ class MasterServicePrice extends Controller
     public function edit(string $id)
     {
         return view("admin.pages.edit.editprice",[
-            "title" => "manage",                                                        
-            "datas" => Service_price::find($id),          
-        ]);    
+            "title" => "manage",
+            "datas" => Service_price::find($id),
+        ]);
     }
 
     /**
@@ -88,7 +88,7 @@ class MasterServicePrice extends Controller
     {
         $delete = Service_price::findorfail($id);
 
-        $delete->delete(); 
+        $delete->delete();
         Alert::success('Success', 'Price Deleted');
         return redirect('/admin/price');
     }

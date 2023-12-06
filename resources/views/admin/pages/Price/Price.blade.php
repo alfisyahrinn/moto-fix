@@ -29,7 +29,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th colspan="2" >Action</th>
-                           
+
                         </tr>
                     </thead>
                     <tbody>
@@ -46,9 +46,9 @@
                                         data-target="#EditModal{{ $data->id }}">
                                         <i class="fas fa-pen-square"></i>
                                     </button>
-                                
-                                    
-                                    
+
+
+
                                     <!-- Button trigger modal for delete confirmation -->
 
                                     <button type="button" class="btn btn-danger btn-circle" data-toggle="modal"
@@ -58,8 +58,8 @@
 
                                 </td>
                             </tr>
-                            @include('admin.pages.price.delete')
-                            @include('admin.pages.price.editprice')    
+                            @include('admin.pages.Price.delete')
+                            @include('admin.pages.Price.editprice')
                         @endforeach
                     </tbody>
                 </table>
@@ -69,7 +69,7 @@
 
 </div>
 
-@include('admin.pages.price.addprice')
+@include('admin.pages.Price.addprice')
 
 
 </div>
