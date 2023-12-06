@@ -14,10 +14,10 @@ class AdminCategoryController extends Controller
     public function index()
     {
         $datas = Category::all();
-        return view('admin.pages.category.index', [
+        return view('admin.pages.Category.index', [
             'title' => 'Category',
             'datas' => $datas,
-           
+
         ]);
     }
 
@@ -39,10 +39,10 @@ class AdminCategoryController extends Controller
         ]);
 
         $data['name'] = ($data['name']);
-        
+
         // Display success alert
         Alert::success('Success', 'Category Added');
-        
+
 
         Category::create($data);
 
@@ -73,13 +73,13 @@ class AdminCategoryController extends Controller
         $data = $request->validate([
             'name' => 'required',
         ]);
-    
+
         $category = Category::findOrFail($id);
         $category->update($data);
-    
+
         // Display success alert
         Alert::success('Success', 'Category Updated');
-    
+
         return redirect()->route('category.index');
     }
 
@@ -90,10 +90,10 @@ class AdminCategoryController extends Controller
     {
         $category = Category::findOrFail($id);
             $category->delete();
-        
+
             // Display success alert
             Alert::success('Success', 'Category Deleted');
-        
+
             return redirect()->route('category.index');
     }
 }
