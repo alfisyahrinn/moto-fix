@@ -574,20 +574,10 @@ class ComposerStaticInitb10d94327d6897155ce4c9b857729890
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckPaymentStatusMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckPaymentStatusMiddleware.php',
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
-        'App\\Http\\Middleware\\CheckTransactionConditions' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckTransactionConditions.php',
-
-
         'App\\Http\\Middleware\\CustomPaymentMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CustomPaymentMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PaymentCompletedMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/PaymentCompletedMiddleware.php',
         'App\\Http\\Middleware\\PaymentStatusMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/PaymentStatusMiddleware.php',
-
-        'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
-
-
-
-        'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
-
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
@@ -720,13 +710,7 @@ class ComposerStaticInitb10d94327d6897155ce4c9b857729890
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\AdminSeeder' => __DIR__ . '/../..' . '/database/seeders/AdminSeeder.php',
-
-
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
-
-
-
-
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
