@@ -59,8 +59,7 @@
                             style="cursor: pointer;">
                             <div class="card h-100">
                                 <div style="max-height: 250px; overflow:hidden;">
-                                    <img src="{{asset('storage/'. $product->image)}}" class="card-img-top"
-                                        alt="{{ $product->name }}">
+                                   <img src="{{ asset($product->image) }}" class="rounded img-fluid" style="width: 3000px; height: 300px" alt="{{ $product->name }} Image">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>

@@ -39,8 +39,9 @@ class AdminProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+   public function store(Request $request)
+{
+    try {
         $data = $request->validate([
             'name' => 'required|max:100',
             'category_id' => 'required',
@@ -52,16 +53,21 @@ class AdminProductController extends Controller
         ]);
 
         if ($request->file('image')) {
-            // Get the public path and concatenate the desired subdirectory
-            $data['image'] = $request->file('image')->store('data-image', 'public');
+            $imageName = uniqid().'.'.$request->image->extension();
+            $request->file('image')->move(public_path('images'), $imageName);
+            $data['image'] = 'images/' . $imageName;
         }
-
-        Alert::success('Success', 'Product Added');
 
         Product::create($data);
 
-        return back()->with('i');
+        Alert::success('Success', 'Product Added');
+
+        return back()->with('success', 'Product added successfully.');
+    } catch (\Exception $e) {
+        // Handle the exception, you can log it or show an error message
+        return back()->with('error', 'Failed to add product. Please try again.');
     }
+}
 
     /**
      * Display the specified resource.
@@ -82,33 +88,47 @@ class AdminProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
+    public function update(Request $request, $id)
+{
+    try {
         $data = $request->validate([
             'name' => 'required|max:100',
             'category_id' => 'required',
             'supplier_id' => 'required',
             'description' => 'required',
-            'image' => 'required|image|file|max:1024',
             'stock' => 'required',
             'price' => 'required'
         ]);
 
-        if($request->file('image')){
-            if($request->imageOld){
-                Storage::delete($request->imageOld);
+        $product = Product::findOrFail($id);
+
+        // Check if there is a new image file
+        if ($request->hasFile('image')) {
+            // Remove old image file if it exists
+            if ($product->image) {
+                $oldImagePath = public_path($product->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
             }
-            $data['image'] = $request->file('image')->store('data-image');
+
+            // Upload and save the new image
+            $imageName = uniqid().'.'.$request->image->extension();
+            $request->file('image')->move(public_path('images'), $imageName);
+            $data['image'] = 'images/' . $imageName;
         }
 
-        $product = Product::findOrFail($id);
-        $product -> update($data);
+        $product->update($data);
 
-        // Display success alert
         Alert::success('Success', 'Product Updated');
 
-        return redirect()->route('product.index');
+        return back()->with('success', 'Product updated successfully.');
+    } catch (\Exception $e) {
+        // Handle the exception, you can log it or show an error message
+        return back()->with('error', 'Failed to update product. Please try again.');
     }
+}
+
 
     /**
      * Remove the specified resource from storage.

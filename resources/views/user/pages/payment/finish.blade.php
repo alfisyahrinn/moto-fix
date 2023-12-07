@@ -1,7 +1,5 @@
 <!-- resources/views/user/pages/payment/finish.blade.php -->
 
-<!-- resources/views/user/pages/payment/finish.blade.php -->
-
 @extends('user.layout.app')
 
 @section('content')
@@ -12,7 +10,7 @@
             <img src="{{ asset('assets/img/check.png') }}" alt="Check Image" width="100" height="100">
             <br>
             <h4 class="alert-heading">Your payment was successful</h4>
-            <p class="mb-0">Thank you for your payment. We will be in contact with more details shortly.</p>
+            <p class="mb-0">Thank you for your payment. Your order ID is: {{ $orderId }}</p>
         </div>
 
         <!-- Button for Success with Border Radius -->
