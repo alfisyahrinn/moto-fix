@@ -1,9 +1,17 @@
 @extends('user.layout.app')
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
 
 @section('content')
     <section id="booking">
         <div class="container">
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
             <div class="mt-3">
                 <a class="a-nav-booking-active me-4" aria-current="page" href="/booking">Booking</a>
                 <a class="a-nav-booking" href="/booking/jadwal">Jadwal</a>
@@ -39,15 +47,25 @@
                                     <input type="date" class="form-control input-booking" value="{{ old('name') }}"
                                         name="date" id="tanggal" aria-describedby="emailHelp" required>
                                 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
                                 <div class="mb-4">
                                     <label for="permasalahan" class="form-label label-booking">Problem</label>
                                     <textarea class="form-control input-booking p-4" name="problem" id="permasalahan" cols="30" rows="10" required>{{ old('problem') }}</textarea>
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div class="col-md-6 mb-4 order-md-2 order-1">
 
+=======
+
+                        <div class="col-md-6 mb-4 order-md-2 order-1">
+
+
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
                             <h1 class="h1-form-booking">Personal Information</h1>
                             <div class="mt-4">
                                 <div class="mb-4">
@@ -56,9 +74,17 @@
                                         disabled id="name" aria-describedby="emailHelp"
                                         value="{{ Auth::user()->name }}">
                                 </div>
+<<<<<<< HEAD
                                 <!-- Add other Personal Information fields below -->
                                 <!-- Example: -->
 
+=======
+
+                                <!-- Add other Personal Information fields below -->
+                                <!-- Example: -->
+
+
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
                                 <div class="mb-4">
                                     <label for="email" class="form-label label-booking">Email</label>
                                     <input name="email" type="email" class="form-control input-booking text-dark"
@@ -75,11 +101,18 @@
                         </div>
                     </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
                     <!-- Button wrapper for proper alignment -->
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <button type="submit" class="btn btn-booking">Submit</button>
                         <a href="{{ route('user.index') }}" class="btn btn-cancel">Cancel</a>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
                     </div>
                 </form>
             </div>

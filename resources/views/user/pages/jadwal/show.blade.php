@@ -117,7 +117,14 @@
                 onSuccess: function(result) {
 
                     // Redirect to the 'user.payment.finish' route
+<<<<<<< HEAD
                     window.location.href = '{{ route('user.payment.finish') }}';
+=======
+
+                     window.location.href = '{{ route('user.payment.finish') }}';
+
+
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
                 },
                 onPending: function(result) {
 

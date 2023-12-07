@@ -42,6 +42,7 @@
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->supplier->name }}</td>
                                     <td>{{ $product->description }}</td>
+<<<<<<< HEAD
                                      <td class="text-center">
             <img src="{{ asset($product->image) }}" class="rounded" style="width: 150px; height: 150px" alt="{{ $product->name }} Image">
         </td>
@@ -49,6 +50,12 @@
                                      <td class="text-center">
             
 
+=======
+
+                                     <td class="text-center">
+            <img src="{{ asset($product->image) }}" class="rounded" style="width: 150px; height: 150px" alt="{{ $product->name }} Image">
+        </td>
+>>>>>>> 41780c7fd573d0a233afefd835f40af2ede53ca8
                                     <td>{{ $product->stock }}</td>
                                     <td>Rp{{ number_format($product->price, 0, ',', '.') }}</td>
                                     <td>

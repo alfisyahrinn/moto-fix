@@ -157,7 +157,6 @@ class BookingController extends Controller
         // Configure your Midtrans credentials
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
-
         $snapToken = Snap::getSnapToken($params);
 
         return $snapToken;
