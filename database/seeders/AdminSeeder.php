@@ -23,6 +23,7 @@ class AdminSeeder extends Seeder
             'password' => \Illuminate\Support\Facades\Hash::make('motofixadmin'),
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
+
         $admin = \App\Models\User::create([
             'name' => 'Alam',
             'email' => 'rizkyalamsyah.dev@gmail.com',
@@ -55,5 +56,7 @@ class AdminSeeder extends Seeder
             'password' => \Illuminate\Support\Facades\Hash::make('user123'),
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
+
+
     }
 }

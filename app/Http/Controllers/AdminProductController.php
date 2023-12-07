@@ -39,14 +39,15 @@ class AdminProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-<<<<<<< HEAD
+
+
    public function store(Request $request)
 {
     try {
-=======
-    public function store(Request $request)
-    {
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+
+
+
+
         $data = $request->validate([
             'name' => 'required|max:100',
             'category_id' => 'required',
@@ -58,10 +59,14 @@ class AdminProductController extends Controller
         ]);
 
         if ($request->file('image')) {
-<<<<<<< HEAD
+
+
+
             $imageName = uniqid().'.'.$request->image->extension();
             $request->file('image')->move(public_path('images'), $imageName);
             $data['image'] = 'images/' . $imageName;
+
+
         }
 
         Product::create($data);
@@ -73,19 +78,11 @@ class AdminProductController extends Controller
         // Handle the exception, you can log it or show an error message
         return back()->with('error', 'Failed to add product. Please try again.');
     }
+
+
 }
-=======
-            // Get the public path and concatenate the desired subdirectory
-            $data['image'] = $request->file('image')->store('data-image', 'public');
-        }
 
-        Alert::success('Success', 'Product Added');
 
-        Product::create($data);
-
-        return back()->with('i');
-    }
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
 
     /**
      * Display the specified resource.
@@ -106,28 +103,31 @@ class AdminProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-<<<<<<< HEAD
+
+
     public function update(Request $request, $id)
 {
     try {
-=======
-    public function update(Request $request, string $id)
-    {
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+
+
+
+
         $data = $request->validate([
             'name' => 'required|max:100',
             'category_id' => 'required',
             'supplier_id' => 'required',
             'description' => 'required',
-<<<<<<< HEAD
-=======
-            'image' => 'required|image|file|max:1024',
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+
+
+
+
+
+
             'stock' => 'required',
             'price' => 'required'
         ]);
 
-<<<<<<< HEAD
+
         $product = Product::findOrFail($id);
 
         // Check if there is a new image file
@@ -138,6 +138,8 @@ class AdminProductController extends Controller
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
+
+
             }
 
             // Upload and save the new image
@@ -157,23 +159,34 @@ class AdminProductController extends Controller
     }
 }
 
-=======
+
         if($request->file('image')){
             if($request->imageOld){
                 Storage::delete($request->imageOld);
+
             }
-            $data['image'] = $request->file('image')->store('data-image');
+
+            // Upload and save the new image
+            $imageName = uniqid().'.'.$request->image->extension();
+            $request->file('image')->move(public_path('images'), $imageName);
+            $data['image'] = 'images/' . $imageName;
         }
 
-        $product = Product::findOrFail($id);
-        $product -> update($data);
+        $product->update($data);
 
-        // Display success alert
         Alert::success('Success', 'Product Updated');
 
-        return redirect()->route('product.index');
+        return back()->with('success', 'Product updated successfully.');
+    } catch (\Exception $e) {
+        // Handle the exception, you can log it or show an error message
+        return back()->with('error', 'Failed to update product. Please try again.');
     }
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+
+
+}
+
+
+
 
     /**
      * Remove the specified resource from storage.
