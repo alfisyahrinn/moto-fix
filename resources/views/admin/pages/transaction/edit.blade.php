@@ -34,8 +34,8 @@
                                     <div class="mb-4">
                                         <label for="date" class="form-label">Date</label>
                                         <input type="date" class="form-control text-dark w-75 mx-auto"
-                                            value="{{ optional($data->time)->format('Y-m-d') }}" name="date" disabled
-                                            id="date">
+                                            value="{{ \Carbon\Carbon::parse($data->time)->format('Y-m-d') }}" name="date"
+                                            disabled id="date">
                                     </div>
                                     <div class="mb-4">
                                         <label for="problem" class="form-label">Problem</label>

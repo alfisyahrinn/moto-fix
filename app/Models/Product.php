@@ -38,4 +38,8 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+  public function detailServices()
+    {
+        return $this->hasMany(DetailService::class, 'product_id');
+    }
 }

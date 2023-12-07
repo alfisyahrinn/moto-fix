@@ -27,7 +27,7 @@
                             </div>
                             <div class="mb-4">
                                 <label for="tanggal" class="form-label label-booking">Date</label>
-                                <input type="date" class="form-control text-dark w-75"
+                                <input type="date" class="form-control input-booking text-dark w-75"
                                     value="{{ \Carbon\Carbon::parse($data->time)->format('Y-m-d') }}" name="date"
                                     disabled id="tanggal" aria-describedby="emailHelp">
 
@@ -106,9 +106,10 @@
                 </div>
             </div>
     </section>
-      
-     <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js">
-        data-client-key="{{ config('midtrans.client_key') }}"></script>
+
+    <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js">
+        data - client - key = "{{ config('midtrans.client_key') }}" >
+    </script>
     <script type="text/javascript">
         var payButton = document.getElementById('pay-button');
         payButton.addEventListener('click', function() {
@@ -116,7 +117,7 @@
                 onSuccess: function(result) {
 
                     // Redirect to the 'user.payment.finish' route
-                     window.location.href = '{{ route('user.payment.finish') }}';
+                    window.location.href = '{{ route('user.payment.finish') }}';
                 },
                 onPending: function(result) {
 

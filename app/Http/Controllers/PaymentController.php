@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
+
        public function finishPayment(Request $request)
     {
         return view('user.pages.payment.finish');
@@ -23,4 +24,4 @@ class PaymentController extends Controller
     {
         return view('user.pages.payment.error');
     }
-}
+   }
