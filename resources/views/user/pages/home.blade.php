@@ -21,17 +21,20 @@
             <h1 class="h1-hero-page2 text-center">Layanan Servis Motor</h1>
             <div class="card-hero-page2 row justify-content-around">
                 <div class="card-items-hero-page2 col-md-4 ">
-                    <img src="{{ asset('assets/img/icon/service-kecil.png') }}" class="img-fluid" alt="" style="max-width: 100px">
+                    <img src="{{ asset('assets/img/icon/service-kecil.png') }}" class="img-fluid" alt=""
+                        style="max-width: 100px">
                     <h1>Servis Kecil</h1>
                     <p>Paket servis ringan untuk menjaga performa motor Anda.</p>
                 </div>
                 <div class="card-items-hero-page2 col-md-4 ">
-                    <img src="{{ asset('assets/img/icon/kelistrikan.png') }}" class="img-fluid" alt="" style="max-width: 100px">
+                    <img src="{{ asset('assets/img/icon/kelistrikan.png') }}" class="img-fluid" alt=""
+                        style="max-width: 100px">
                     <h1>Servis Sedang</h1>
                     <p>Servis menengah untuk pemeliharaan lebih detail.</p>
                 </div>
                 <div class="card-items-hero-page2 col-md-4">
-                    <img src="{{ asset('assets/img/icon/service-besar.png') }}" class="img-fluid" alt="" style="max-width: 100px">
+                    <img src="{{ asset('assets/img/icon/service-besar.png') }}" class="img-fluid" alt=""
+                        style="max-width: 100px">
                     <h1>Servis Besar </h1>
                     <p>Paket servis menyeluruh untuk menjaga kesehatan motor Anda. </p>
                 </div>
@@ -51,8 +54,8 @@
                         style="cursor: pointer;">
                         <div class="card h-100 w-80">
                             <div style="max-height: 250px; overflow:hidden;">
-                                <img src="{{asset('storage/'. $product->image)}}" class="card-img-top"
-                                    alt="{{ $product->name }}">
+                                <img src="{{ asset($product->image) }}" class="rounded" style="width: 150px; height: 150px"
+                                    alt="{{ $product->name }} Image">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
@@ -78,7 +81,8 @@
                     <h1 class="h1-about" style="color:#ffffff">Tentang Kami</h1>
                     <p class="p-about" style="color:#ffffff">
                         Bengkel Motor Moto Fix adalah tempat terbaik untuk merawat dan memperbaiki sepeda motor Anda.
-                        Dengan lokasi yang strategis di Jl. Ir. H. Juanda, Sidoarjo, Jawa Timur, kami menyediakan layanan berkualitas tinggi
+                        Dengan lokasi yang strategis di Jl. Ir. H. Juanda, Sidoarjo, Jawa Timur, kami menyediakan layanan
+                        berkualitas tinggi
                         dan berbagai sparepart motor terbaik untuk memastikan kendaraan Anda tetap dalam kondisi prima.
                     </p>
                     <p class="p-about" style="color:#ffffff">

@@ -1,7 +1,8 @@
 @extends('user.layout.app')
+
 @section('content')
     <section id="booking">
-        <div>
+        <div class="container">
             <div class="mt-3">
                 <a class="a-nav-booking-active me-4" aria-current="page" href="/booking">Booking</a>
                 <a class="a-nav-booking" href="/booking/jadwal">Jadwal</a>
@@ -12,11 +13,8 @@
             <div class="mt-5">
                 <form action="{{ route('booking.store') }}" method="POST">
                     @csrf
-                    {{-- Add a hidden input field for order_id --}}
-
-                    {{-- <input type="text" hidden name="id_saya" value="{{ Auth::user()->id }}"> --}}
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6 mb-4 order-md-1 order-2">
                             <h1 class="h1-form-booking">Booking Information</h1>
                             <div class="mt-4">
                                 <div class="mb-4">
@@ -25,11 +23,8 @@
                                         type="text" class="form-control input-booking" id="merk"
                                         aria-describedby="emailHelp" required>
                                 </div>
-                                {{-- <div class="mb-4">
-                                    <label for="type" class="form-label label-booking">Type</label>
-                                    <input name="type" value="{{ old('type') }}" placeholder="Supra, Beat" type="text"
-                                        class="form-control input-booking" id="type" aria-describedby="emailHelp">
-                                </div> --}}
+                                <!-- Add other Booking Information fields below -->
+                                <!-- Example: -->
                                 <div class="mb-4">
                                     <label for="type" class="form-label label-booking">Number Plate</label>
                                     <input name="number_plate" value="{{ old('number_plate') }}" placeholder="L 123 AM "
@@ -41,14 +36,14 @@
                                     <input type="date" class="form-control input-booking" value="{{ old('name') }}"
                                         name="date" id="tanggal" aria-describedby="emailHelp" required>
                                 </div>
-
                                 <div class="mb-4">
                                     <label for="permasalahan" class="form-label label-booking">Problem</label>
-                                    <textarea class="form-control input-booking p-4" name="problem" id="permasalahan" cols="30" rows="10" required>{{ old('problem') }}</textarea>
+                                    <textarea class="form-control input-booking p-4" name="problem" id="permasalahan" cols="30" rows="10"
+                                        required>{{ old('problem') }}</textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6 mb-4 order-md-2 order-1">
                             <h1 class="h1-form-booking">Personal Information</h1>
                             <div class="mt-4">
                                 <div class="mb-4">
@@ -57,6 +52,8 @@
                                         disabled id="name" aria-describedby="emailHelp"
                                         value="{{ Auth::user()->name }}">
                                 </div>
+                                <!-- Add other Personal Information fields below -->
+                                <!-- Example: -->
                                 <div class="mb-4">
                                     <label for="email" class="form-label label-booking">Email</label>
                                     <input name="email" type="email" class="form-control input-booking text-dark"
@@ -73,10 +70,10 @@
                         </div>
                     </div>
 
-                    <!-- Add your submit button and form closing tags here -->
-                    <div class="mt-4">
+                    <!-- Button wrapper for proper alignment -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
                         <button type="submit" class="btn btn-booking">Submit</button>
-                        <a href="{{ route('user.index') }}" class="btn btn-cancel" style="margin-left:150px;">Cancel</a>
+                        <a href="{{ route('user.index') }}" class="btn btn-cancel">Cancel</a>
                     </div>
                 </form>
             </div>
