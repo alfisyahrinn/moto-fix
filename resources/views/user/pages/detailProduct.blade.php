@@ -6,7 +6,9 @@
     <div class="container-fluid mt-3">
         <div class="row">  
             <div class="col-md-3 col-lg-4 d-md-block">
+
               <img src="{{ asset($product->image) }}" class="rounded img-fluid" style="width: 3000px; height: 300px" alt="{{ $product->name }} Image">
+
             </div>
             <main class="col-md-9 ms-sm-auto col-lg-8 px-md-4">
                 <h4 class="">{{$product->name}}</h4>

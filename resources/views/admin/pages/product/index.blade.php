@@ -42,6 +42,7 @@
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->supplier->name }}</td>
                                     <td>{{ $product->description }}</td>
+
                                      <td class="text-center">
             <img src="{{ asset($product->image) }}" class="rounded" style="width: 150px; height: 150px" alt="{{ $product->name }} Image">
         </td>

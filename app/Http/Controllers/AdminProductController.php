@@ -39,9 +39,12 @@ class AdminProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
    public function store(Request $request)
 {
     try {
+
+
         $data = $request->validate([
             'name' => 'required|max:100',
             'category_id' => 'required',
@@ -53,9 +56,12 @@ class AdminProductController extends Controller
         ]);
 
         if ($request->file('image')) {
+
             $imageName = uniqid().'.'.$request->image->extension();
             $request->file('image')->move(public_path('images'), $imageName);
             $data['image'] = 'images/' . $imageName;
+
+
         }
 
         Product::create($data);
@@ -67,7 +73,10 @@ class AdminProductController extends Controller
         // Handle the exception, you can log it or show an error message
         return back()->with('error', 'Failed to add product. Please try again.');
     }
+
 }
+
+
 
     /**
      * Display the specified resource.
@@ -88,17 +97,26 @@ class AdminProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, $id)
 {
     try {
+
+
         $data = $request->validate([
             'name' => 'required|max:100',
             'category_id' => 'required',
             'supplier_id' => 'required',
             'description' => 'required',
+
+
+
             'stock' => 'required',
             'price' => 'required'
         ]);
+
+
+
 
         $product = Product::findOrFail($id);
 
@@ -127,7 +145,10 @@ class AdminProductController extends Controller
         // Handle the exception, you can log it or show an error message
         return back()->with('error', 'Failed to update product. Please try again.');
     }
+
 }
+
+
 
 
     /**
