@@ -106,8 +106,12 @@
                 </div>
             </div>
     </section>
+<<<<<<< HEAD
       
      <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js">
+=======
+    <script type="text/javascript" src="https://app.midtrans.com/snap/v1/transactions"
+>>>>>>> 562b7654275ed848d96b497654446c0be45c3669
         data-client-key="{{ config('midtrans.client_key') }}"></script>
     <script type="text/javascript">
         var payButton = document.getElementById('pay-button');
@@ -116,7 +120,11 @@
                 onSuccess: function(result) {
 
                     // Redirect to the 'user.payment.finish' route
+<<<<<<< HEAD
                      window.location.href = '{{ route('user.payment.finish') }}';
+=======
+                    window.location.href = '{{ route('user.payment.finish') }}';
+>>>>>>> 562b7654275ed848d96b497654446c0be45c3669
                 },
                 onPending: function(result) {
 

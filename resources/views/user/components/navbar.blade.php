@@ -1,6 +1,10 @@
 <nav class="navbar navbar-expand-lg bg-transparent mt-2">
     <div class="container-fluid" style="padding-right: 85px; padding-left: 120px">
+<<<<<<< HEAD
         <a class="navbar-brand" href="/"><img src="{{ asset('assets/img/icon/logo.svg') }}" alt="moto-fix"
+=======
+        <a class="navbar-brand" href="#"><img src="{{ asset('assets/img/icon/logo.svg') }}" alt="moto-fix"
+>>>>>>> 562b7654275ed848d96b497654446c0be45c3669
                 width="42"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
