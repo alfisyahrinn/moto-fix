@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 16px; /* Fixed padding for top and bottom */
     font-family: "Poppins", sans-serif;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
 }
 .signup-container {
     width: 100%;
@@ -112,6 +112,10 @@ body {
     border-radius: 100px;
     border: none;
 }
+.button-background:hover {
+    background: #008753; /* Slightly darker green on hover */
+}
+
 .button-text {
     width: 355.06px;
     left: 40.97px;
@@ -123,10 +127,28 @@ body {
     font-weight: 500;
     word-wrap: break-word;
 }
-.button-background:hover {
-    background: #008753;
+.button-background-alt {
+    width: 437px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #e7eaf5;
+    border-radius: 100px;
 }
-<<<<<<< HEAD
+.button-background-alt:hover {
+    background: #e7eaf5; /* Slightly darker gray on hover */
+    filter: brightness(0.9);
+}
 
-=======
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+.button-text-alt {
+    width: 355.06px;
+    left: 40.97px;
+    top: 11px;
+    position: absolute;
+    text-align: center;
+    color: #00623b;
+    font-size: 18px;
+    font-weight: 400;
+    word-wrap: break-word;
+}

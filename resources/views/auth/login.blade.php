@@ -4,7 +4,7 @@
     {{-- Login-Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/login-style.css') }}">
 
-    <div class="login-container">
+    <div class="d-flex justify-content-center mt-5">
         <div class="login-content">
             <div class="login-header">
                 <div class="login-title">Sign In</div>
@@ -29,7 +29,7 @@
 
                     <div class="form-field">
                         <label for="password" class="field-label">Password</label>
-                        <input type="password"  name="password" id="password" placeholder="Your password"
+                        <input type="password" name="password" id="password" placeholder="Your password"
                             class="input-field">
 
                         <!-- Customize the error message for the password field -->

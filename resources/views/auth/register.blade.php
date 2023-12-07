@@ -3,7 +3,7 @@
 @section('content')
     {{-- Register-Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/register-style.css') }}">
-    <div class="signup-container">
+    <div class="d-flex justify-content-center mt-5">
         <div class="signup-content">
             <div class="signup-header">
                 <div class="signup-title">Sign Up</div>
