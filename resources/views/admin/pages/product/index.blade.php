@@ -49,9 +49,7 @@
         </td>
 
 
-                                    <td class="text-center">
-                                        <img src="{{asset('storage/'. $product->image)}}" class="rounded" style="width: 150px; height:150px">
-                                    </td>
+                                  
 
 
                                     <td>{{ $product->stock }}</td>
@@ -63,7 +61,7 @@
                                             data-target="#editModal{{ $product->id }}">
                                             <i class="fas fa-pen-square"></i>
                                         </button>
-                                        
+
                                         <!-- Button trigger modal for delete confirmation -->
                                         <button type="button" class="btn btn-danger btn-circle" data-toggle="modal"
                                             data-target="#deleteModal{{ $product->id }}">
@@ -71,7 +69,7 @@
                                         </button>
 
                                         @include('admin.pages.product.delete')
-                                        
+
                                         @include('admin.pages.product.edit')
                                         </div>
                                     </td>
@@ -86,7 +84,7 @@
     </div>
 
     @include('admin.pages.product.add')
-    
-    
+
+
     </div>
 @endsection

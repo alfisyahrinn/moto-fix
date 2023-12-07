@@ -4,7 +4,7 @@
         <a class="navbar-brand" href="/"><img src="{{ asset('assets/img/icon/logo.svg') }}" alt="moto-fix"
 
 
-        <a class="navbar-brand" href="#"><img src="{{ asset('assets/img/icon/logo.svg') }}" alt="moto-fix"
+       
 
                 width="42"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -17,7 +17,7 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="#service">Service</a>
                     <li class="nav-item">

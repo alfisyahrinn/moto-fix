@@ -4,15 +4,15 @@
         <h4><a href="{{route('product.display')}}"><i class="bi bi-arrow-left" style="color: black"></i>  </a>Detail Sparepart</h4>
     </div>
     <div class="container-fluid mt-3">
-        <div class="row">  
+        <div class="row">
             <div class="col-md-3 col-lg-4 d-md-block">
 
 
-              <img src="{{ asset($product->image) }}" class="rounded img-fluid" style="width: 3000px; height: 300px" alt="{{ $product->name }} Image">
+              <img src="{{ asset($product->image) }}" class="rounded img-fluid" style="width: 300px; height: 300px" alt="{{ $product->name }} Image">
 
 
 
-                <img src="{{asset('storage/'. $product->image)}}" alt="{{$product->name}}" style="width: 370px; height:370px">
+
 
             </div>
             <main class="col-md-9 ms-sm-auto col-lg-8 px-md-4">
