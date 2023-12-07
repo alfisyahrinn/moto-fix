@@ -18,10 +18,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
-<<<<<<< HEAD
 use RealRashid\SweetAlert\Facades\Alert;
-=======
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+
 
 class BookingController extends Controller
 {
@@ -56,11 +54,7 @@ class BookingController extends Controller
             $no_queue = $select + 1;
         }
 
-<<<<<<< HEAD
         if ($select > 10) {
-=======
-        if ($select > 2) {
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
             return redirect()
                 ->route('booking.index')
                 ->with('danger', 'This date is Full! ');
@@ -164,11 +158,7 @@ class BookingController extends Controller
         // Configure your Midtrans credentials
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
-<<<<<<< HEAD
-=======
-        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
-        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+      
 
         // Use Midtrans Snap API to get the Snap token
         $snapToken = Snap::getSnapToken($params);

@@ -3,12 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-<<<<<<< HEAD
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-=======
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
