@@ -3,9 +3,9 @@
 @section('content')
     {{-- Verify-Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/verify-style.css') }}">
-    <div class="verification-container">
+    <div class="d-flex justify-content-center mt-5">
         <div class="verification-content text-center">
-            <div class="verification-header">
+            <div class="text-center">
                 <div class="verification-title">Verify Your Email Address</div>
                 <div class="verification-subtitle">Before proceeding, please check your email for a verification link.</div>
             </div>
@@ -18,18 +18,16 @@
                         </div>
                     @endif
 
-                    <p class="lead">
+                    <p class="text-center">
                         If you did not receive the email, click the button below to request another:
                     </p>
 
                     <div class="verification-buttons">
                         <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                             @csrf
-                            <div class="button-container">
-                                <button type="submit" class="button-background">
-                                    <div class="button-text">Request Verification Link</div>
-                                </button>
-                            </div>
+                            <button type="submit" class="button-background">
+                                Request Verification Link
+                            </button>
                         </form>
                     </div>
                 </div>
