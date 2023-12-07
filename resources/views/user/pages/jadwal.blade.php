@@ -1,5 +1,12 @@
 @extends('user.layout.app')
 @section('content')
+    <style>
+        @media (max-width: 576px) {
+            #jadwal-menu {
+                justify-content: center !important;
+            }
+        }
+    </style>
     <section id="booking">
         <div>
             <div class="mt-3">
@@ -9,7 +16,7 @@
             @if (session('success'))
                 <div class="alert alert-success mt-3">{{ session('success') }}</div>
             @endif
-            <div class="row mt-5 gap-4">
+            <div class="row mt-5 gap-4" id="jadwal-menu">
                 @foreach ($datas as $data)
                     <div
                         class="col-3 {{ $data->Queue->status === 0 ? 'card-booking-active' : 'card-booking' }} text-center px-4">
@@ -23,8 +30,7 @@
                         <p class=" {{ $data->Queue->status === 0 ? 'p-card-booking-active' : 'p-card-booking' }}">
                             {{ $data->Queue->problem }}</p>
                         @if ($data->Queue->transaction->payment_status === 'paid')
-                            <span class="btn-hero py-2 px-4 btn-card-booking-paid"
-                                style="border-radius: 20px; ">
+                            <span class="btn-hero py-2 px-4 btn-card-booking-paid" style="border-radius: 20px; ">
                                 Paid
                             </span>
                         @else
