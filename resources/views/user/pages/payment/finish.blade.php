@@ -3,6 +3,10 @@
 
 
 
+
+
+
+
 @extends('user.layout.app')
 
 @section('content')
@@ -14,8 +18,13 @@
             <br>
             <h4 class="alert-heading">Your payment was successful</h4>
 
+
             <p class="mb-0">Thank you for your payment. Your order ID is: {{ $orderId }}</p>
 
+
+
+
+            <p class="mb-0">Thank you for your payment. We will be in contact with more details shortly.</p>
 
         </div>
 

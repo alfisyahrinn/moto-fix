@@ -33,10 +33,15 @@ return array(
     'App\\Http\\Middleware\\CheckRole' => $baseDir . '/app/Http/Middleware/CheckRole.php',
     'App\\Http\\Middleware\\CheckTransactionConditions' => $baseDir . '/app/Http/Middleware/CheckTransactionConditions.php',
 
+
     'App\\Http\\Middleware\\CustomPaymentMiddleware' => $baseDir . '/app/Http/Middleware/CustomPaymentMiddleware.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\PaymentCompletedMiddleware' => $baseDir . '/app/Http/Middleware/PaymentCompletedMiddleware.php',
     'App\\Http\\Middleware\\PaymentStatusMiddleware' => $baseDir . '/app/Http/Middleware/PaymentStatusMiddleware.php',
+
+    'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
+
+
 
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
 
@@ -173,7 +178,10 @@ return array(
     'Database\\Factories\\UserFactory' => $baseDir . '/database/factories/UserFactory.php',
     'Database\\Seeders\\AdminSeeder' => $baseDir . '/database/seeders/AdminSeeder.php',
 
+
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
+
+
 
     'DateError' => $vendorDir . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
     'DateException' => $vendorDir . '/symfony/polyfill-php83/Resources/stubs/DateException.php',

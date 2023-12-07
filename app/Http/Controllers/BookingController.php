@@ -18,7 +18,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
+
 use RealRashid\SweetAlert\Facades\Alert;
+
+
 
 
 class BookingController extends Controller
@@ -54,7 +57,10 @@ class BookingController extends Controller
             $no_queue = $select + 1;
         }
 
+
         if ($select > 10) {
+
+
             return redirect()
                 ->route('booking.index')
                 ->with('danger', 'This date is Full! ');
@@ -158,7 +164,10 @@ class BookingController extends Controller
         // Configure your Midtrans credentials
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
+
       
+
+
 
         // Use Midtrans Snap API to get the Snap token
         $snapToken = Snap::getSnapToken($params);

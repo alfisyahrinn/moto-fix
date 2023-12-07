@@ -107,9 +107,14 @@
             </div>
     </section>
 
+
       
      <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js">
 
+
+
+
+    <script type="text/javascript" src="https://app.midtrans.com/snap/v1/transactions"
 
         data-client-key="{{ config('midtrans.client_key') }}"></script>
     <script type="text/javascript">
@@ -120,8 +125,13 @@
 
                     // Redirect to the 'user.payment.finish' route
 
+
                      window.location.href = '{{ route('user.payment.finish') }}';
 
+
+
+
+                    window.location.href = '{{ route('user.payment.finish') }}';
 
                 },
                 onPending: function(result) {

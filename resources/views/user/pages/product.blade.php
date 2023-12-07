@@ -63,6 +63,11 @@
                                    <img src="{{ asset($product->image) }}" class="rounded img-fluid" style="width: 3000px; height: 300px" alt="{{ $product->name }} Image">
 
 
+
+
+                                    <img src="{{asset('storage/'. $product->image)}}" class="card-img-top"
+                                        alt="{{ $product->name }}">
+
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>

@@ -40,9 +40,12 @@ class AdminProductController extends Controller
      * Store a newly created resource in storage.
      */
 
+
    public function store(Request $request)
 {
     try {
+
+
 
 
         $data = $request->validate([
@@ -56,6 +59,8 @@ class AdminProductController extends Controller
         ]);
 
         if ($request->file('image')) {
+
+
 
             $imageName = uniqid().'.'.$request->image->extension();
             $request->file('image')->move(public_path('images'), $imageName);
@@ -73,6 +78,7 @@ class AdminProductController extends Controller
         // Handle the exception, you can log it or show an error message
         return back()->with('error', 'Failed to add product. Please try again.');
     }
+
 
 }
 
@@ -98,9 +104,12 @@ class AdminProductController extends Controller
      * Update the specified resource in storage.
      */
 
+
     public function update(Request $request, $id)
 {
     try {
+
+
 
 
         $data = $request->validate([
@@ -111,11 +120,12 @@ class AdminProductController extends Controller
 
 
 
+
+
+
             'stock' => 'required',
             'price' => 'required'
         ]);
-
-
 
 
         $product = Product::findOrFail($id);
@@ -128,6 +138,8 @@ class AdminProductController extends Controller
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
+
+
             }
 
             // Upload and save the new image
@@ -145,6 +157,31 @@ class AdminProductController extends Controller
         // Handle the exception, you can log it or show an error message
         return back()->with('error', 'Failed to update product. Please try again.');
     }
+}
+
+
+        if($request->file('image')){
+            if($request->imageOld){
+                Storage::delete($request->imageOld);
+
+            }
+
+            // Upload and save the new image
+            $imageName = uniqid().'.'.$request->image->extension();
+            $request->file('image')->move(public_path('images'), $imageName);
+            $data['image'] = 'images/' . $imageName;
+        }
+
+        $product->update($data);
+
+        Alert::success('Success', 'Product Updated');
+
+        return back()->with('success', 'Product updated successfully.');
+    } catch (\Exception $e) {
+        // Handle the exception, you can log it or show an error message
+        return back()->with('error', 'Failed to update product. Please try again.');
+    }
+
 
 }
 

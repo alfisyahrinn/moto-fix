@@ -576,10 +576,15 @@ class ComposerStaticInitb10d94327d6897155ce4c9b857729890
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
         'App\\Http\\Middleware\\CheckTransactionConditions' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckTransactionConditions.php',
 
+
         'App\\Http\\Middleware\\CustomPaymentMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CustomPaymentMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PaymentCompletedMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/PaymentCompletedMiddleware.php',
         'App\\Http\\Middleware\\PaymentStatusMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/PaymentStatusMiddleware.php',
+
+        'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
+
+
 
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
 
@@ -716,7 +721,10 @@ class ComposerStaticInitb10d94327d6897155ce4c9b857729890
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\AdminSeeder' => __DIR__ . '/../..' . '/database/seeders/AdminSeeder.php',
 
+
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+
+
 
 
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
