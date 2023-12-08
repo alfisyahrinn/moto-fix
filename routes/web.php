@@ -96,8 +96,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::put('transactions/update_quantity/{id}', [AdminTransactionController::class, 'updateQuantity'])->name('admin.transactions.update_quantity');
 
-        Route::delete('transaction/{id}/destroy', [AdminTransactionController::class, 'destroy'])
-    ->name('transaction.destroy');
+        Route::delete('transaction/{id}/destroy', [AdminTransactionController::class, 'destroy'])->name('transaction.destroy');
 
         // Resource routes for AdminCategoryController
         Route::resource('/admin/category', AdminCategoryController::class);

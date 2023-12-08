@@ -45,14 +45,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{ route('queue.edit', $data->id) }}" class="btn btn-success btn-circle">
-                                            <i class="fas fa-pen-square"></i>
-                                        </a>
-                                        <!-- Delete button with a confirmation modal -->
-                                        <a href="#" class="btn btn-danger btn-circle" data-toggle="modal"
-                                            data-target="#deleteConfirmationModal{{ $data->id }}">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        @if ($data->status !== 1)
+                                            <a href="{{ route('queue.edit', $data->id) }}"
+                                                class="btn btn-success btn-circle">
+                                                <i class="fas fa-pen-square"></i>
+                                            </a>
+                                            <!-- Delete button with a confirmation modal -->
+
+                                            <a href="#" class="btn btn-danger btn-circle" data-toggle="modal"
+                                                data-target="#deleteConfirmationModal{{ $data->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        @endif
 
                                         <!-- Delete confirmation modal -->
                                         <div class="modal fade" id="deleteConfirmationModal{{ $data->id }}"

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
     <!-- CSRF Token -->
@@ -28,6 +28,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-LC9z57AO2eiTO2PvGO8XW6W4gY4ZOlFaGxW1OZLCA73bLdsTkqAW6F+ZrknUvyuI2wU9B6Iwsd7WqHRWTJqAQg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 
 

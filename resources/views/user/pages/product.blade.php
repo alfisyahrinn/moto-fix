@@ -12,20 +12,27 @@
     </div>
     <div class="container-fluid mt-3">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse rounded">
-                <div class="position-sticky pt-3">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-white sidebar rounded mb-3">
+                <div class="pt-1 sidebar">
                     <ul class="nav flex-column">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Supplier
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropup">
                                 @foreach ($suppliers as $supplier)
                                     <li><a class="dropdown-item"
                                             href="{{ route('product.supplier', $supplier->id) }}">{{ $supplier->name }}</a>
                                     </li>
                                 @endforeach
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a href="{{ route('product.index') }}"><button type="submit"
+                                            class="dropdown-item">Reset</button></a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -33,7 +40,7 @@
                                 aria-expanded="false">
                                 Kategori
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropup">
                                 @foreach ($categories as $category)
                                     <li><a class="dropdown-item"
                                             href="{{ route('product.category', $category->id) }}">{{ $category->name }}</a>
@@ -51,23 +58,17 @@
                     </ul>
                 </div>
             </nav>
-
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                     @foreach ($products as $product)
-                        <div class="col mb-1" onclick="window.location.href='{{ route('product.detail', $product->id) }}'"
+                        <div class="col col-sm-6 mb-1" onclick="window.location.href='{{ route('product.detail', $product->id) }}'"
                             style="cursor: pointer;">
                             <div class="card h-100">
                                 <div style="max-height: 250px; overflow:hidden;">
-
-                                   <img src="{{ asset($product->image) }}" class="rounded img-fluid" style="width: 3000px; height: 300px" alt="{{ $product->name }} Image">
-
-
-
-
-                                    <img src="{{asset('storage/'. $product->image)}}" class="card-img-top"
+                                    <img src="{{ asset($product->image) }}" class="rounded img-fluid"
+                                        style="width: 3000px; height: 300px" alt="{{ $product->name }} Image">
+                                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top"
                                         alt="{{ $product->name }}">
-
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>

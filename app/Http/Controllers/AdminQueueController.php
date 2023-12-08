@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Queue;
 use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -21,6 +22,7 @@ class AdminQueueController extends Controller
     public function index()
     {
         $datas = Queue::all();
+
         return view('admin.pages.queue.index', [
             'title' => 'queue',
             'datas' => $datas,
@@ -87,12 +89,21 @@ class AdminQueueController extends Controller
 
     public function destroy(string $id)
     {
-        // Check if there are any related records in detail_services
-        $hasRelatedRecords = \DB::table('detail_services')->where('transaction_id', $id)->exists();
+        // Check if there are any related records in transactions
+        $hasRelatedTransactions = Transaction::where('queue_id', $id)->exists();
 
-        if ($hasRelatedRecords) {
+        if ($hasRelatedTransactions) {
             // Display alert indicating related records in transactions
-            Alert::error('Error', 'There are items in transactions related to this queue. Delete them first.');
+            Alert::error('Error', 'There are transactions related to this queue. Delete them first.');
+            return redirect()->route('queue.index');
+        }
+
+        // Check if there are any related records in detail_services
+        $hasRelatedDetails = \DB::table('detail_services')->where('transaction_id', $id)->exists();
+
+        if ($hasRelatedDetails) {
+            // Display alert indicating related records in detail_services
+            Alert::error('Error', 'There are detail services related to transactions of this queue. Delete them first.');
             return redirect()->route('queue.index');
         }
 
@@ -100,12 +111,10 @@ class AdminQueueController extends Controller
         Queue::where('id', $id)->delete();
 
         // Display success alert
-        Alert::success('Success', 'Service Deleted');
+        Alert::success('Success', 'Queue Deleted');
 
         return redirect()->route('queue.index');
     }
-
-
 
 
 }

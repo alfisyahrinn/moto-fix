@@ -10,7 +10,7 @@
 @extends('user.layout.app')
 
 @section('content')
- 
+
     <div class="container mt-5 text-center">
 
         <div class="d-flex align-items-center justify-content-center flex-column">
@@ -19,7 +19,7 @@
             <h4 class="alert-heading">Your payment was successful</h4>
 
 
-            <p class="mb-0">Thank you for your payment. Your order ID is: {{ $orderId }}</p>
+            {{-- <p class="mb-0">Thank you for your payment. Your order ID is: {{ $orderId }}</p> --}}
 
 
 

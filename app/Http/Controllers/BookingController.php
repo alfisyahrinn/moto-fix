@@ -165,7 +165,7 @@ class BookingController extends Controller
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = config('midtrans.is_production');
 
-      
+
 
 
 

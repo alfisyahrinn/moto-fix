@@ -41,16 +41,24 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
+
     public function queue()
     {
         return $this->belongsTo(Queue::class);
     }
+
     public function service_price()
     {
         return $this->hasOne(Service_price::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
     }
 }

@@ -2,131 +2,132 @@ body {
     margin: 0;
     padding: 16px; /* Fixed padding for top and bottom */
     font-family: "Poppins", sans-serif;
-    overflow-y: hidden;
+    background-color: #f2f2f2; /* Set a light background color */
+}
+.form-field {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start; /* Adjusted to align items to the left */
+    width: 300px; /* Make the input field full width */
+    display: flex;
+    margin-bottom: 10px;
+    
 }
 .signup-container {
     width: 100%;
-    height: 100%;
-    padding-top: 50px;
-    padding-bottom: 110px;
-    padding-left: 501px;
-    padding-right: 502px;
-    background: white;
+    height: 100vh; /* Set the container height to 100% of the viewport height */
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: inline-flex;
+    flex-direction: column;
+    padding: 20vh 20px; /* Adjusted padding for equal spacing from top and bottom */
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
 .signup-content {
     align-self: stretch;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center; /* Center items horizontally on smaller screens */
     gap: 43px;
-    display: inline-flex;
+    display: flex;
+    text-align: center; /* Center text on smaller screens */
 }
 
 .signup-header {
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center; /* Center items vertically on smaller screens */
+    align-items: center; /* Center items horizontally on smaller screens */
     gap: 10px;
     display: flex;
 }
 
-.signup-title {
+.signup-title,
+.signup-subtitle {
     color: #00623b;
     font-size: 32px;
-    font-family: Poppins;
     font-weight: 700;
     word-wrap: break-word;
+    text-align: center; /* Center text on smaller screens */
 }
 
 .signup-subtitle {
-    color: #00623b;
     font-size: 18px;
-    font-family: Poppins;
     font-weight: 400;
     line-height: 32px;
-    word-wrap: break-word;
 }
 
 .signup-form {
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-start; /* Adjusted to align items to the left */
     gap: 30px;
     display: flex;
 }
 
-.signup-form .input-field::placeholder {
-    padding-left: 15px; /* Adjust the value as needed */
-}
-
-.form-field {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 10px;
-    display: flex;
-    margin-bottom: 30px;
-}
-
-.field-label {
-    color: #00623b;
-    font-size: 18px;
-    font-family: Poppins;
-    font-weight: 500;
-    word-wrap: break-word;
-}
-
 .input-field {
-    width: 437px;
+    width: 100%; /* Make the input field full width */
+    max-width: 437px; /* Limit maximum width on larger screens */
     height: 50px;
     border-radius: 100px;
     border: 1px #00623b solid;
-    padding-left: 20px;
-}
-
-.signup-buttons {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 16px;
-    display: flex;
+    padding-left: 25px;
 }
 
 .button-container {
-    width: 437px;
+    width: 100%; /* Make the button container full width */
+    max-width: 437px; /* Limit maximum width on larger screens */
     height: 50px;
     position: relative;
 }
 
-.button-background {
-    width: 437px;
+.button-background,
+.button-background-alt {
+    width: 100%; /* Make the button full width */
     height: 50px;
     left: 0px;
     top: 0px;
     position: absolute;
-    background: #00a862;
     border-radius: 100px;
-    border: none;
 }
-.button-text {
-    width: 355.06px;
-    left: 40.97px;
-    top: 11px;
+
+.button-text,
+.button-text-alt {
+    width: 100%; /* Make the text full width */
+    left: 0;
+    top: 50%;
     position: absolute;
+    transform: translateY(-50%);
     text-align: center;
-    color: white;
     font-size: 18px;
-    font-weight: 500;
     word-wrap: break-word;
 }
+
+.button-background {
+    background: #00a862;
+    border: none;
+}
+
 .button-background:hover {
     background: #008753;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 562b7654275ed848d96b497654446c0be45c3669
+.button-text {
+    color: white;
+    font-weight: 500;
+}
+
+.button-background-alt {
+    background: #e7eaf5;
+}
+
+.button-background-alt:hover {
+    background: #e7eaf5;
+    filter: brightness(0.9);
+}
+
+.button-text-alt {
+    color: #00623b;
+    font-weight: 400;
+}

@@ -25,4 +25,16 @@ class Queue extends Model
     public function transaction(){
         return $this->hasOne(Transaction::class);
     }
+    public static function boot()
+    {
+        parent::boot();
+
+        // Listen for the deleting event
+        static::deleting(function ($queue) {
+            // Delete the associated transaction if exists
+            if ($queue->transaction) {
+                $queue->transaction->delete();
+            }
+        });
+    }
 }
