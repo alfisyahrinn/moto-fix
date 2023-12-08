@@ -137,6 +137,13 @@
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-right:150px;
+}
+
+@media screen and (max-width: 767px) {
+    .btn-booking {
+        margin-right:10px;
+    }
 }
 
 .btn-booking:hover {

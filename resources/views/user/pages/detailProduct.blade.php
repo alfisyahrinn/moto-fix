@@ -5,18 +5,11 @@
     </div>
     <div class="container-fluid mt-3">
         <div class="row">
-            <div class="col-md-3 col-lg-4 d-md-block">
-
-
+            <div class="col-md-3 col-lg-4 d-md-block mb-3">
               <img src="{{ asset($product->image) }}" class="rounded img-fluid" style="width: 300px; height: 300px" alt="{{ $product->name }} Image">
-
-
-
-
-
             </div>
             <main class="col-md-9 ms-sm-auto col-lg-8 px-md-4">
-                <h4 class="">{{$product->name}}</h4>
+                <h3 class="">{{$product->name}}</h3>
                 <h6 class="mt-3">Deskripsi barang</h6>
                 <p class="">{{ $product->description }}</p>
                 <p class="d-inline-flex gap-1">

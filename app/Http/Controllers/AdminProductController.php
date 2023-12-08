@@ -6,25 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Exception;
 
 class AdminProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $products = Product::all();
-        $categories = Category::all();
-        $suppliers = Supplier::all();
-
+        $category = Category::all();
+        $supplier = Supplier::all();
         return view('admin.pages.product.index')->with([
             'title' => 'Product',
             'products' => $products,
-            'categories' => $categories,
-            'suppliers' => $suppliers,
+            'categories' => $category,
+            'suppliers' => $supplier,
         ]);
     }
 
@@ -33,12 +31,13 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        // Implement your logic for creating a new product form
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         try {
@@ -47,13 +46,13 @@ class AdminProductController extends Controller
                 'category_id' => 'required',
                 'supplier_id' => 'required',
                 'description' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-                'stock' => 'required|numeric',
-                'price' => 'required|numeric',
+                'image' => 'required|image|file|max:1024',
+                'stock' => 'required',
+                'price' => 'required'
             ]);
 
-            if ($request->hasFile('image')) {
-                $imageName = uniqid().'.'.$request->image->extension();
+            if ($request->file('image')) {
+                $imageName = uniqid() . '.' . $request->image->extension();
                 $request->file('image')->move(public_path('images'), $imageName);
                 $data['image'] = 'images/' . $imageName;
             }
@@ -63,7 +62,8 @@ class AdminProductController extends Controller
             Alert::success('Success', 'Product Added');
 
             return back()->with('success', 'Product added successfully.');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            // Handle the exception, you can log it or show an error message
             return back()->with('error', 'Failed to add product. Please try again.');
         }
     }
@@ -73,7 +73,7 @@ class AdminProductController extends Controller
      */
     public function show(string $id)
     {
-        // Implement your logic for displaying a specific product
+        //
     }
 
     /**
@@ -81,12 +81,13 @@ class AdminProductController extends Controller
      */
     public function edit(string $id)
     {
-        // Implement your logic for editing a specific product
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, $id)
     {
         try {
@@ -95,12 +96,14 @@ class AdminProductController extends Controller
                 'category_id' => 'required',
                 'supplier_id' => 'required',
                 'description' => 'required',
-                'stock' => 'required|numeric',
-                'price' => 'required|numeric',
+                'image' => 'required|image|file|max:1024',
+                'stock' => 'required',
+                'price' => 'required'
             ]);
 
             $product = Product::findOrFail($id);
 
+            // Check if there is a new image file
             if ($request->hasFile('image')) {
                 // Remove old image file if it exists
                 if ($product->image) {
@@ -108,20 +111,20 @@ class AdminProductController extends Controller
                     if (file_exists($oldImagePath)) {
                         unlink($oldImagePath);
                     }
+                    // Upload and save the new image
+                    $imageName = uniqid() . '.' . $request->image->extension();
+                    $request->file('image')->move(public_path('images'), $imageName);
+                    $data['image'] = 'images/' . $imageName;
                 }
 
-                // Upload and save the new image
-                $imageName = uniqid().'.'.$request->image->extension();
-                $request->file('image')->move(public_path('images'), $imageName);
-                $data['image'] = 'images/' . $imageName;
+                $product->update($data);
+
+                Alert::success('Success', 'Product Updated');
+
+                return back()->with('success', 'Product updated successfully.');
             }
-
-            $product->update($data);
-
-            Alert::success('Success', 'Product Updated');
-
-            return back()->with('success', 'Product updated successfully.');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            // Handle the exception, you can log it or show an error message
             return back()->with('error', 'Failed to update product. Please try again.');
         }
     }
@@ -130,6 +133,7 @@ class AdminProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
+<<<<<<< HEAD
 {
     if ($product->image) {
         Storage::delete($product->image);
@@ -147,3 +151,18 @@ class AdminProductController extends Controller
     return redirect()->route('product.index');
 }
 }
+=======
+    {
+        if ($product->image) {
+            Storage::delete($product->image);
+        }
+
+        Product::destroy($product->id);
+
+        // Display success alert
+        Alert::success('Success', 'Product Deleted');
+
+        return redirect()->route('product.index');
+    }
+}
+>>>>>>> d442f62c90b86f15511fdd8e88e5004f02d8d509
