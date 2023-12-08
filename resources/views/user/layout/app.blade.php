@@ -5,12 +5,7 @@
     <meta charset="utf-8">
 
 
-<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1">
-=======
-  {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
->>>>>>> d442f62c90b86f15511fdd8e88e5004f02d8d509
 
 
     <!-- CSRF Token -->
