@@ -71,7 +71,7 @@
                     </div>
 
                     <!-- Button wrapper for proper alignment -->
-                    <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div class="d-flex align-items-center mt-4">
                         <button type="submit" class="btn btn-booking">Submit</button>
                         <a href="{{ route('user.index') }}" class="btn btn-cancel">Cancel</a>
                     </div>

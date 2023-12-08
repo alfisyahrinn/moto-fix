@@ -574,6 +574,7 @@ class ComposerStaticInitb10d94327d6897155ce4c9b857729890
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckPaymentStatusMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckPaymentStatusMiddleware.php',
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
+        'App\\Http\\Middleware\\CheckTransactionConditions' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckTransactionConditions.php',
         'App\\Http\\Middleware\\CustomPaymentMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CustomPaymentMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PaymentCompletedMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/PaymentCompletedMiddleware.php',
