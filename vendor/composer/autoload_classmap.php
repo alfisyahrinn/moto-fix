@@ -31,6 +31,7 @@ return array(
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckPaymentStatusMiddleware' => $baseDir . '/app/Http/Middleware/CheckPaymentStatusMiddleware.php',
     'App\\Http\\Middleware\\CheckRole' => $baseDir . '/app/Http/Middleware/CheckRole.php',
+    'App\\Http\\Middleware\\CheckTransactionConditions' => $baseDir . '/app/Http/Middleware/CheckTransactionConditions.php',
     'App\\Http\\Middleware\\CustomPaymentMiddleware' => $baseDir . '/app/Http/Middleware/CustomPaymentMiddleware.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\PaymentCompletedMiddleware' => $baseDir . '/app/Http/Middleware/PaymentCompletedMiddleware.php',
