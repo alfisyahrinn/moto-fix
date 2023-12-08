@@ -133,7 +133,6 @@ class AdminProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
-<<<<<<< HEAD
 {
     if ($product->image) {
         Storage::delete($product->image);
@@ -151,18 +150,3 @@ class AdminProductController extends Controller
     return redirect()->route('product.index');
 }
 }
-=======
-    {
-        if ($product->image) {
-            Storage::delete($product->image);
-        }
-
-        Product::destroy($product->id);
-
-        // Display success alert
-        Alert::success('Success', 'Product Deleted');
-
-        return redirect()->route('product.index');
-    }
-}
->>>>>>> d442f62c90b86f15511fdd8e88e5004f02d8d509

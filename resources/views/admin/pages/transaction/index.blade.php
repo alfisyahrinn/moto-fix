@@ -31,45 +31,54 @@
                         </thead>
                         <tbody>
                             @foreach ($datas as $data)
-                            <tr>
-                                <td>{{ $data->id }}</td>
-                                <td>{{ $data->User->name }}</td>
-                                <td>
-                                    @if ($data->Queue)
-                                        {{ $data->Queue->no_queue }}
-                                    @else
-                                        Queue Deleted
-                                    @endif
-                                </td>
-                                <td>{{ optional($data->Queue)->merk }}</td>
-                                <td>{{ optional($data->Queue)->number_plate }}</td>
-                                <td>{{ optional($data->Queue)->time }}</td>
-                                <td>
-                                    @if ($data->Queue && $data->Queue->transaction)
-                                        <div class="alert p-0 text-center {{ $data->Queue->transaction->payment_status === 'paid' ? 'alert-success' : 'alert-danger' }}"
-                                            role="alert">
-                                            {{ $data->Queue->transaction->payment_status === 'paid' ? 'Paid' : 'Unpaid' }}
-                                        </div>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td>Rp.{{ number_format($data->total_price, 0, ',', '.') }}</td>
-                                <td>
-                                    <a href="{{ route('transaction.edit', $data->id) }}" class="btn btn-success btn-circle">
-                                        <i class="fas fa-pen-square"></i>
-                                    </a>
-                                    <form action="{{ route('transaction.destroy', $data->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
+                                <tr>
+                                    <td>{{ $data->id }}</td>
+                                    <td>{{ $data->User->name }}</td>
+                                    <td>
+                                        @if ($data->Queue)
+                                            {{ $data->Queue->no_queue }}
+                                        @else
+                                            Queue Deleted
+                                        @endif
+                                    </td>
+                                    <td>{{ optional($data->Queue)->merk }}</td>
+                                    <td>{{ optional($data->Queue)->number_plate }}</td>
+                                    <td>{{ optional($data->Queue)->time }}</td>
+                                    <td>
+                                        @if ($data->Queue && $data->Queue->transaction)
+                                            <div class="alert p-0 text-center {{ $data->Queue->transaction->payment_status === 'paid' ? 'alert-success' : 'alert-danger' }}"
+                                                role="alert">
+                                                {{ $data->Queue->transaction->payment_status === 'paid' ? 'Paid' : 'Unpaid' }}
+                                            </div>
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>Rp.{{ number_format($data->total_price, 0, ',', '.') }}</td>
+                                    <td>
+                                        <a href="{{ route('transaction.edit', $data->id) }}"
+                                            class="btn btn-success btn-circle">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        @if ($data->payment_status !== 'paid')
+                                            <form action="{{ route('transaction.destroy', $data->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
 
-                                        <button type="submit" class="btn btn-danger btn-circle">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
+                                                <button type="submit" class="btn btn-danger btn-circle">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <!-- Display a message or icon indicating that delete is disabled -->
+                                            <button class="btn btn-danger btn-circle" disabled>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>

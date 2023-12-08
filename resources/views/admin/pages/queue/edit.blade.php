@@ -48,16 +48,25 @@
                                 <form action="{{ route('queue.update', $data->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
+
                                     <div class="mb-4">
                                         <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
-                                        <select class="form-select" name="status" aria-label="Default select example">
+                                        <select class="form-select" name="status" aria-label="Default select example"
+                                            @if ($data->payment_status === 'paid') disabled @endif>
                                             <option value="1" {{ $data->status ? 'selected' : '' }}>Success</option>
                                             <option value="0" {{ !$data->status ? 'selected' : '' }}>Pending</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100"
-                                        style="border-radius: 5px">Update</button>
+
+                                    @if ($data->payment_status !== 'paid')
+                                        <button type="submit" class="btn btn-primary w-100"
+                                            style="border-radius: 5px">Update</button>
+                                    @else
+                                        <!-- Display a message or icon indicating that the update is disabled -->
+                                        <button class="btn btn-primary w-100" disabled>Update</button>
+                                    @endif
                                 </form>
+
                             </div>
                         </div>
                     </div>
