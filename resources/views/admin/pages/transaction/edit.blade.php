@@ -1,61 +1,60 @@
 @extends('admin.layouts.app')
+
 @section('content')
     <link rel="stylesheet" href="{{ asset('assets/css/booking.css') }}">
     <section id="booking">
-
-        <div>
-            <div class="mt-2 px-4">
-                @csrf
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="card">
-                            <div class="card-body">
-                                <h1 class="h1-form-booking text-primary text-center">Booking Information</h1>
-                                <div class="mt-4">
-                                    <div class="mb-4">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input name="name" value="{{ $data->User->name }}"
-                                            placeholder="Yamaha, Honda ..." type="text"
-                                            class="form-control  text-dark w-75 mx-auto" disabled id="name">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="merk" class="form-label">Merk</label>
-                                        <input name="merk" value="{{ optional($data->Queue)->merk }}"
-                                            placeholder="Yamaha, Honda ..." type="text"
-                                            class="form-control  text-dark w-75 mx-auto" disabled id="merk">
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label for="number_plate" class="form-label">Number Plate</label>
-                                        <input name="number_plate" value="{{ optional($data->Queue)->number_plate }}"
-                                            placeholder="BL-351-GA" type="text"
-                                            class="form-control text-dark w-75 mx-auto" disabled id="number_plate">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="date" class="form-label">Date</label>
-                                        <input type="date" class="form-control text-dark w-75 mx-auto"
-                                            value="{{ optional($data->time)->format('Y-m-d') }}" name="date" disabled
-                                            id="date">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="problem" class="form-label">Problem</label>
-                                        <textarea disabled class="form-control text-dark w-75 mx-auto p-4" name="problem" id="problem" cols="30"
-                                            rows="10">{{ optional($data->Queue)->problem }}</textarea>
-                                    </div>
-
+        <div class="container mt-2">
+            @csrf
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="h1-form-booking text-primary text-center">Booking Information</h1>
+                            <div class="mt-4">
+                                <div class="mb-4 row ml-4 mr-4">
+                                    <label for="name" class="form-label col-md-3">Name</label>
+                                    <input name="name" value="{{ $data->User->name }}" placeholder="Yamaha, Honda ..."
+                                        type="text" class="form-control text-dark col-md-9" disabled id="name">
+                                </div>
+                                <div class="mb-4 row ml-4 mr-4">
+                                    <label for="merk" class="form-label col-md-3">Merk</label>
+                                    <input name="merk" value="{{ optional($data->Queue)->merk }}"
+                                        placeholder="Yamaha, Honda ..." type="text"
+                                        class="form-control text-dark col-md-9" disabled id="merk">
+                                </div>
+                                <div class="mb-4 row ml-4 mr-4">
+                                    <label for="number_plate" class="form-label col-md-3">Number Plate</label>
+                                    <input name="number_plate" value="{{ optional($data->Queue)->number_plate }}"
+                                        placeholder="BL-351-GA" type="text" class="form-control text-dark col-md-9"
+                                        disabled id="number_plate">
+                                </div>
+                                <div class="mb-4 row ml-4 mr-4">
+                                    <label for="date" class="form-label col-md-3">Date</label>
+                                     <input type="date" class="form-control col-md-3"
+                                            value="{{ \Carbon\Carbon::parse($data->time)->format('Y-m-d') }}" name="date"
+                                            disabled id="date">
+                                </div>
+                                <div class="mb-4 row ml-4 mr-4">
+                                    <label for="problem" class="form-label col-md-3">Problem</label>
+                                    <textarea disabled class="form-control text-dark col-md-9 p-4" name="problem" id="problem" cols="30"
+                                        rows="10">{{ optional($data->Queue)->problem }}</textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="col-12 mt-4">
+                    <h1 class="h1-form-booking text-primary text-center">Transaction</h1>
+                </div>
 
-                    <div class="col-5">
-                        <h1 class="h1-form-booking text-primary">Transaksi</h1>
-                        <div class="mt-4">
-                            <table class="table">
+                <div class="col-12 mt-4">
+                    <div class="col-12 mt-4">
+                        <div class="table-responsive">
+                            <table class="table table-striped ">
                                 <thead>
                                     <tr>
-                                        <th scope="col"> Name</th>
+                                        <th scope="col">Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Action</th>
@@ -82,177 +81,189 @@
                                                     N/A
                                                 @endif
                                             </td>
-
-                                            <!-- Kolom untuk mengupdate kuantitas -->
                                             <td>
                                                 <form
                                                     action="{{ route('admin.transactions.update_quantity', $detail->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
-                                                    <!-- Input quantity -->
                                                     <div class="">
                                                         <input type="number" name="quantity"
                                                             value="{{ $detail->quantity }}" min="1"
-                                                            class="form-control" style="width: 80px; text-align: center;">
+                                                            class="form-control" style="width: 85px; text-align: center;"
+                                                            @if ($paymentStatus === 'paid') disabled @endif>
+                                                        <input type="hidden" name="detail_type"
+                                                            value="{{ $detail->product_id ? 'product' : 'service' }}"
+                                                            @if ($paymentStatus === 'paid') disabled @endif>
+                                                        <br>
+                                                        <button type="submit" class="btn btn-secondary"
+                                                            @if ($paymentStatus === 'paid') disabled @endif>Update</button>
                                                     </div>
-                                                    <!-- Tombol Update -->
-                                                    <button type="submit" class="btn btn-dark mt-3"
-                                                        style="background: #FFFFFF; border-radius: 0px; color: #EE4D2D; border-color: #EE4D2D; border: 1px solid #EE4D2D;">
-                                                        Update
+                                                </form>
+                                            </td>
+
+
+
+                                            <td class="text-center">
+                                                <form id="deleteForm"
+                                                    action="{{ route('details.delete', ['id' => $detail->id]) }}"
+                                                    method="post" class="d-flex align-items-center">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="detail_type"
+                                                        value="{{ $detail->product ? 'product' : 'service' }}">
+                                                    <button type="button" onclick="confirmDelete('{{ $detail->id }}')"
+                                                        class="btn btn-danger"
+                                                        @if ($paymentStatus === 'paid') disabled @endif>
+                                                        Delete
                                                     </button>
                                                 </form>
                                             </td>
 
-                                            <td>
-                                                <form id="deleteForm"
-                                                    action="{{ route('details.delete', ['id' => $detail->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
 
-                                                    @if ($detail->product)
-                                                        <input type="hidden" name="detail_type" value="product">
-                                                    @elseif ($detail->service)
-                                                        <input type="hidden" name="detail_type" value="service">
-                                                    @endif
 
-                                                    <button type="button" onclick="confirmDelete()"
-                                                        class="btn btn-danger">Delete</button>
-                                                </form>
-                                            </td>
+
+
 
 
                                         </tr>
                                     @endforeach
-
-
                                 </tbody>
                             </table>
-
-                            <ul class="list-group">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <a href="#"
-                                            class="list-group-item px-3 py-4 d-flex flex-column align-items-center"
-                                            style="border: none" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="fas fa-plus-circle fa-2x m-auto" style="color: #005eff;"></i>
-                                            <span class="mt-2">Add Product</span>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <a href="#"
-                                            class="list-group-item px-3 py-4 d-flex flex-column align-items-center"
-                                            style="border: none" data-bs-toggle="modal" data-bs-target="#addServiceModal">
-                                            <i class="fas fa-plus-circle fa-2x m-auto" style="color: #005eff;"></i>
-                                            <span class="mt-2">Add Service</span>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <li class="list-group-item px-3 py-4 d-flex justify-content-between total bg-primary">
-                                    <div class="d-flex align-items-center">
-                                        <p class="my-auto text-white mb-0">Total</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <h5 class="text-white mb-0">
-                                            Rp.{{ number_format($data->total_price, 0, ',', '.') }}</h5>
-                                    </div>
-                                </li>
-
-                            </ul>
-
-
                         </div>
-
-
-                        <!-- Modal tambah barang -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product to Cart</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form action="{{ route('admin.transaction.addToCard', $data->id) }}" method="POST">
-                                        <div class="modal-body">
-                                            @csrf
-                                            <input type="text" name="transaction_id" value="{{ $data->id }}"
-                                                hidden>
-                                            <div class="mb-3">
-                                                <label for="product" class="form-label">Select Product</label>
-                                                <select class="form-select" name="product" aria-label="Select Product">
-                                                    @foreach ($products as $product)
-                                                        <option value="{{ $product->id }}" data-product-exists="false">
-                                                            {{ $product->name }} -
-                                                            Rp.{{ number_format($product->price, 0, ',', '.') }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" id="addToCart" class="btn btn-primary">Add to
-                                                Cart</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END Modal tambah barang -->
-
-
-
-
-                        <!-- Modal tambah servis -->
-                        <div class="modal fade" id="addServiceModal" tabindex="-1"
-                            aria-labelledby="addServiceModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="addServiceModalLabel">Add Service</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form action="{{ route('admin.transaction.addService', $data->id) }}" method="POST">
-                                        <div class="modal-body">
-                                            @csrf
-                                            <input type="text" name="transaction_id" value="{{ $data->id }}"
-                                                hidden>
-                                            <div class="mb-3">
-                                                <label for="service" class="form-label">Select Service</label>
-                                                <select class="form-select" name="service" aria-label="Select Service">
-                                                    @foreach ($services as $service)
-                                                        <option value="{{ $service->id }}">{{ $service->name }} - Rp.
-                                                            {{ number_format($service->price, 0, ',', '.') }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" id="addServiceToCart" class="btn btn-primary">Add
-                                                Service</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal tambah servis -->
-
                     </div>
+
+                    <ul class="list-group">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <a href="#" class="list-group-item px-3 py-4 d-flex flex-column align-items-center"
+                                    style="border: none"
+                                    @if ($paymentStatus === 'paid') onclick="showAlert('Payment has been completed. Cannot add product.');" @else data-bs-toggle="modal" data-bs-target="#exampleModal" @endif>
+                                    <i class="fas fa-plus-circle fa-2x m-auto" style="color: #005eff;"></i>
+                                    <span class="mt-2">Add Product</span>
+                                </a>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <a href="#" class="list-group-item px-3 py-4 d-flex flex-column align-items-center"
+                                    style="border: none"
+                                    @if ($paymentStatus === 'paid') onclick="showAlert('Payment has been completed. Cannot add service.');" @else data-bs-toggle="modal" data-bs-target="#addServiceModal" @endif>
+                                    <i class="fas fa-plus-circle fa-2x m-auto" style="color: #005eff;"></i>
+                                    <span class="mt-2">Add Service</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <li class="list-group-item px-3 py-4 d-flex justify-content-between total bg-primary">
+                            <div class="d-flex align-items-center">
+                                <p class="my-auto text-white mb-0">Total</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <h5 class="text-white mb-0">
+                                    Rp.{{ number_format($data->total_price, 0, ',', '.') }}</h5>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <script>
+                        function showAlert(message) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Oops...',
+                                text: message,
+                            });
+                        }
+                    </script>
+
+
+
+
+
                 </div>
             </div>
-            <ul id="selectedItemsList" class="list-group">
-                <!-- Daftar item yang dipilih akan ditampilkan di sini -->
-            </ul>
+        </div>
+
+
+        <!-- Modal tambah barang -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product to Cart</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('admin.transaction.addToCard', $data->id) }}" method="POST">
+                        <div class="modal-body">
+                            @csrf
+                            <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
+                            <div class="mb-3">
+                                <label for="product" class="form-label">Select Product</label>
+                                <select class="form-select" name="product" aria-label="Select Product">
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}" data-product-exists="false">
+                                            {{ $product->name }} -
+                                            Rp.{{ number_format($product->price, 0, ',', '.') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="addToCart" class="btn btn-primary">Add to
+                                Cart</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END Modal tambah barang -->
+
+
+
+
+        <!-- Modal tambah servis -->
+        <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addServiceModalLabel">Add Service</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('admin.transaction.addService', $data->id) }}" method="POST">
+                        <div class="modal-body">
+                            @csrf
+                            <input type="text" name="transaction_id" value="{{ $data->id }}" hidden>
+                            <div class="mb-3">
+                                <label for="service" class="form-label">Select Service</label>
+                                <select class="form-select" name="service" aria-label="Select Service">
+                                    @foreach ($services as $service)
+                                        <option value="{{ $service->id }}">{{ $service->name }} - Rp.
+                                            {{ number_format($service->price, 0, ',', '.') }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="addServiceToCart" class="btn btn-primary">Add
+                                Service</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal tambah servis -->
+
+        </div>
+        </div>
+        </div>
+        <ul id="selectedItemsList" class="list-group">
+            <!-- Daftar item yang dipilih akan ditampilkan di sini -->
+        </ul>
         </div>
         </div>
     </section>

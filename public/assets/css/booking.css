@@ -167,8 +167,33 @@
 }
 
 .btn-total {
-    
+
     border: none;
     background-color: var(--primary);
     color: #fff;
+}
+@media only screen and (max-width: 1180px) {
+    .row {
+        flex-direction: column-reverse; /* Stack columns on top of each other for smaller screens */
+    }
+
+    .col-md-6 {
+        width: 100%; /* Make columns take full width on smaller screens */
+    }
+
+    .h1-form-booking,
+    .h1-card-booking,
+    .h1-card-booking-active {
+        font-size: 20px; /* Adjust heading font size for smaller screens */
+    }
+
+    .input-booking,
+    textarea {
+        width: 100%; /* Make text input fields take full width on smaller screens */
+    }
+
+    .btn-booking,
+    .btn-cancel {
+        width: 100%; /* Make buttons take full width on smaller screens */
+    }
 }

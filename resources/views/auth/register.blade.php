@@ -3,7 +3,8 @@
 @section('content')
     {{-- Register-Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/register-style.css') }}">
-    <div class="d-flex justify-content-center mt-5">
+
+    <div class="signup-container">
         <div class="signup-content">
             <div class="signup-header">
                 <div class="signup-title">Sign Up</div>
@@ -14,8 +15,8 @@
                     @csrf
                     <div class="form-field">
                         <label for="name" class="field-label">Nama</label>
-                        <input type="text" name="name" id="name" placeholder="Write your name"
-                            class="input-field" value="{{ old('name') }}">
+                        <input type="text" name="name" id="name" placeholder="Write your name" class="input-field"
+                            value="{{ old('name') }}">
                         @error('name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror

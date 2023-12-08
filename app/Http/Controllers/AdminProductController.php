@@ -130,19 +130,20 @@ class AdminProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
-    {
-        try {
-            if ($product->image) {
-                Storage::delete($product->image);
-            }
-
-            $product->delete();
-
-            Alert::success('Success', 'Product Deleted');
-
-            return redirect()->route('product.index');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Failed to delete product. Please try again.');
-        }
+{
+    if ($product->image) {
+        Storage::delete($product->image);
     }
+
+    // Delete related records in detail_services table
+    $product->detailServices()->delete();
+
+    // Delete the Product record
+    $product->delete();
+
+    // Display success alert
+    Alert::success('Success', 'Product Deleted');
+
+    return redirect()->route('product.index');
+}
 }

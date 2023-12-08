@@ -145,64 +145,79 @@ public function addServiceToCart(Request $request)
 public function updateQuantity(Request $request, $id)
 {
     try {
-        // Temukan detail yang terkait dengan ID yang diberikan
+        // Find the detail associated with the ID
         $detail = DetailService::findOrFail($id);
 
-        // Validasi input quantity
+        // Validate input quantity
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
 
-        // Menghitung selisih quantity baru dengan quantity lama
+        // Calculate the quantity difference
         $quantityDifference = $request->input('quantity') - $detail->quantity;
 
-        // Mulai transaksi database
+        // Begin a database transaction
         DB::beginTransaction();
 
-        // Update kuantitas pada atribut detail
-        $detail->update(['quantity' => $request->input('quantity')]);
+        // If the detail is associated with a product, check and update the stock
+        if ($detail->product_id) {
+            // Get the product associated with the detail
+            $product = $detail->product;
 
-        // Kurangi stok produk sesuai selisih quantity
-        $product = $detail->product;
-        $newStock = $product->stock - $quantityDifference;
+            // Check if the new quantity is greater than the original quantity
+            if ($quantityDifference > 0) {
+                // Check if there is enough stock to fulfill the increase in quantity
+                if ($product->stock < $quantityDifference) {
+                    // Rollback the transaction
+                    DB::rollBack();
 
-        // Check if the new stock would be negative
-        if ($newStock < 0) {
-            // Rollback transaksi database
-            DB::rollBack();
+                    // Display an error message
+                    Alert::error('Error', 'Not enough stock to update quantity.');
 
-            // Menampilkan SweetAlert error jika stok kurang dari 0
-            Alert::error('Error', 'Stock cannot be less than 0.');
+                    // Redirect back
+                    return redirect()->back();
+                }
+            }
 
-            return redirect()->back();
+            // Update the stock in the product table
+            $newStock = $product->stock - $quantityDifference;
+            $product->update(['stock' => $newStock]);
         }
 
-        // Update stock in the product table
-        $product->update(['stock' => $newStock]);
+        // Update quantity in the detail
+        $detail->update(['quantity' => $request->input('quantity')]);
 
-        // Panggil fungsi updateTotalPrice untuk menghitung dan memperbarui total harga
+        // If the detail is associated with a service, update the total price
+        if ($detail->service_id) {
+            $service = $detail->service;
+            $transaction = $detail->transaction;
+            $transaction->increment('total_price', $service->price * $quantityDifference);
+            $transaction->save();
+        }
+
+        // Call the function to update the total price
         $this->updateTotalPrice($detail->transaction);
 
-        // Commit transaksi database
+        // Commit the transaction
         DB::commit();
 
-        // Menampilkan SweetAlert success
+        // Display a success message
         Alert::success('Success', 'Quantity updated successfully.');
 
-        // Redirect kembali atau ke halaman lain
+        // Redirect back or to another page
         return redirect()->back();
     } catch (\Exception $e) {
-        // Rollback transaksi database jika terjadi kesalahan
+        // Rollback the transaction if an error occurs
         DB::rollBack();
 
-        // Tangani pengecualian jika ada
-        // Menampilkan SweetAlert error jika terjadi kesalahan
+        // Handle exceptions if any
+        // Display an error message
         Alert::error('Error', 'Failed to update quantity.');
 
+        // Redirect back
         return redirect()->back();
     }
 }
-
 
 
 
@@ -242,6 +257,8 @@ public function updateQuantity(Request $request, $id)
 
         // Ambil total harga dari model transaksi
         $totalPrice = $transaction->total_price;
+        // Ambil status pembayaran dari model transaksi
+    $paymentStatus = $transaction->payment_status;
 
         return view('admin.pages.transaction.edit', [
             'title' => 'transaction',
@@ -250,6 +267,7 @@ public function updateQuantity(Request $request, $id)
             'services' => $services,
             'details' => $details,
             'totalPrice' => $totalPrice,
+            'paymentStatus' => $paymentStatus,
         ]);
     }
 
@@ -278,55 +296,59 @@ public function updateQuantity(Request $request, $id)
     }
 
     public function deleteDetail(Request $request, $id)
-    {
-        try {
-            // Find the detail associated with the ID
-            $detail = DetailService::findOrFail($id);
+{
+    try {
+        // Find the detail associated with the ID
+        $detail = DetailService::findOrFail($id);
 
-            // Get the transaction associated with the detail
-            $transaction = $detail->transaction;
+        // Get the transaction associated with the detail
+        $transaction = $detail->transaction;
 
-            // Get the quantity to be returned to the stock (if applicable)
-            $returnedQuantity = $detail->quantity;
+        // Get the quantity to be returned to the stock (if applicable)
+        $returnedQuantity = $detail->quantity;
 
-            // Mulai transaksi database
-            DB::beginTransaction();
+        // Mulai transaksi database
+        DB::beginTransaction();
 
-            // Delete the detail
-            $detail->delete();
+        // Delete the detail
+        $detail->delete();
 
-            // If the detail is associated with a product, update the stock
-            if ($detail->product_id) {
-                // Get the product associated with the detail
-                $product = $detail->product;
+        // If the detail is associated with a product, update the stock
+        if ($detail->product_id) {
+            // Get the product associated with the detail
+            $product = $detail->product;
 
-                // Return the quantity to the stock of the corresponding product
-                $product->update(['stock' => $product->stock + $returnedQuantity]);
-            }
-
-            // Call the function to update the total price
-            $this->updateTotalPrice($transaction);
-
-            // Commit transaksi database
-            DB::commit();
-
-            // Display a success message
-            Alert::success('Success', 'Detail deleted successfully.');
-
-            // Redirect back or to another page
-            return redirect()->back();
-        } catch (\Exception $e) {
-            // Rollback transaksi database jika terjadi kesalahan
-            DB::rollBack();
-
-            // Handle exceptions if any
-            // Display an error message
-            Alert::error('Error', 'Failed to delete detail.');
-
-            // Redirect back
-            return redirect()->back();
+            // Return the quantity to the stock of the corresponding product
+            $product->update(['stock' => $product->stock + $returnedQuantity]);
         }
+
+        // If the detail is associated with a service, update the service logic here
+
+        // Call the function to update the total price
+        $this->updateTotalPrice($transaction);
+
+        // Commit transaksi database
+        DB::commit();
+
+        // Display a success message
+        Alert::success('Success', 'Detail deleted successfully.');
+
+        // Redirect back or to another page
+        return redirect()->back();
+    } catch (\Exception $e) {
+        // Rollback transaksi database jika terjadi kesalahan
+        DB::rollBack();
+
+        // Handle exceptions if any
+        // Display an error message
+        Alert::error('Error', 'Failed to delete detail.');
+
+        // Redirect back
+        return redirect()->back();
     }
+}
+
+
 
     public function destroy($id)
     {

@@ -4,7 +4,7 @@
     {{-- Login-Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/login-style.css') }}">
 
-    <div class="d-flex justify-content-center mt-5">
+    <div class="login-container">
         <div class="login-content">
             <div class="login-header">
                 <div class="login-title">Sign In</div>
@@ -19,7 +19,6 @@
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
                             placeholder="Your email address" class="input-field">
 
-                        <!-- Customize the error message for the email field -->
                         @error('email')
                             <div class="text-danger">
                                 {{ $message }}
@@ -32,7 +31,6 @@
                         <input type="password" name="password" id="password" placeholder="Your password"
                             class="input-field">
 
-                        <!-- Customize the error message for the password field -->
                         @error('password')
                             <div class="text-danger">
                                 {{ $message }}
@@ -49,7 +47,7 @@
                             </label>
                         </div>
                     </div>
-                    <br>
+
                     <div class="login-buttons">
                         <div class="button-container">
                             <button type="submit" class="button-background">
@@ -57,7 +55,7 @@
                             </button>
                         </div>
                     </div>
-                    <br>
+<br>
                     <div class="login-buttons">
                         <div class="button-container">
                             <a class="button-background-alt" href="{{ route('register') }}">
@@ -65,10 +63,10 @@
                             </a>
                         </div>
                     </div>
-
-
+                </form>
             </div>
-            <div class="form-field">
+
+            <div class="form-field" style="text-align: left;">
                 @if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">
                         {{ __('Forgot Your Password?') }}

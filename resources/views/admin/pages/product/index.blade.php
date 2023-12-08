@@ -44,12 +44,13 @@
                                     <td>{{ $product->description }}</td>
 
 
-                                     <td class="text-center">
-            <img src="{{ asset($product->image) }}" class="rounded" style="width: 150px; height: 150px" alt="{{ $product->name }} Image">
-        </td>
+                                    <td class="text-center">
+                                        <img src="{{ asset($product->image) }}" class="rounded"
+                                            style="width: 150px; height: 150px" alt="{{ $product->name }} Image">
+                                    </td>
 
 
-                                  
+
 
 
                                     <td>{{ $product->stock }}</td>
@@ -71,15 +72,15 @@
                                         @include('admin.pages.product.delete')
 
                                         @include('admin.pages.product.edit')
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
                 </div>
+                </td>
+                </tr>
+                @endforeach
+                </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
     </div>
 

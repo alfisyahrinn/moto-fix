@@ -57,7 +57,7 @@
                     <div class="mb-3">
                         <label for="stock">Stock</label>
                         <input type="number" name="stock" id="stock" class="form-control"
-                            value="{{ old('stock', $product->stock) }}">
+                            value="{{ old('stock', $product->stock) }}" min="1">
                     </div>
                     <div class="mb-3">
                         <label for="price">Price</label>

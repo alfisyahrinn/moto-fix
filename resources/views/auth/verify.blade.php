@@ -3,9 +3,9 @@
 @section('content')
     {{-- Verify-Style --}}
     <link rel="stylesheet" href="{{ asset('assets/css/verify-style.css') }}">
-    <div class="d-flex justify-content-center mt-5">
-        <div class="verification-content text-center">
-            <div class="text-center">
+    <div class="verification-container">
+        <div class="verification-content">
+            <div class="verification-header">
                 <div class="verification-title">Verify Your Email Address</div>
                 <div class="verification-subtitle">Before proceeding, please check your email for a verification link.</div>
             </div>

@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.app')
 
 @section('content')
@@ -28,7 +29,7 @@
                             <th class="col-1">No</th>
                             <th>Name</th>
                             <th>Price</th>
-                            <th colspan="2" >Action</th>
+                            <th colspan="2">Action</th>
 
                         </tr>
                     </thead>
@@ -38,8 +39,8 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $data->name }}</td>
-                                <td>Rp{{ number_format($data->price, 0, ',', '.') }}</td>
-                                <td >
+                                <td> {{ $data->price }} </td>
+                                <td class=" d-flex justify-content">
 
                                     <!-- Button trigger modal for Edit -->
                                     <button type="button" class="btn btn-success btn-circle" data-toggle="modal"
@@ -50,16 +51,17 @@
 
 
                                     <!-- Button trigger modal for delete confirmation -->
+                                   <form  action="/admin/price/{{ $data->id }}" method="POST" type="button"  onsubmit="return confirm('are you sure ?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-circle"> <i class="fas fa-trash">
+                                        </i> </button>
 
-                                    <button type="button" class="btn btn-danger btn-circle" data-toggle="modal"
-                                    data-target="#deleteModal{{ $data->id }}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-
+                                     </form>
                                 </td>
                             </tr>
-                            @include('admin.pages.Price.delete')
-                            @include('admin.pages.Price.editprice')
+
+                            @include('admin.pages.price.editprice')
                         @endforeach
                     </tbody>
                 </table>
@@ -69,7 +71,7 @@
 
 </div>
 
-@include('admin.pages.Price.addprice')
+@include('admin.pages.price.addprice')
 
 
 </div>
